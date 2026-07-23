@@ -86,3 +86,13 @@ L['infographics']=[
 {'title':'儀表接法','sub':'安培計串聯·伏特計並聯','body':'''<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;font-size:16px;"><div style="background:rgba(159,200,216,.12);border:1px solid rgba(159,200,216,.3);border-radius:10px;padding:18px;"><b style="color:var(--blue)">安培計 (A) 測電流</b><br><span style="font-size:14px;">串聯在電路中，讓待測電流通過</span></div><div style="background:rgba(168,208,160,.12);border:1px solid rgba(168,208,160,.3);border-radius:10px;padding:18px;"><b style="color:var(--green)">伏特計 (V) 測電壓</b><br><span style="font-size:14px;">並聯在元件兩端，量兩端電位差</span></div><div style="font-size:13px;color:rgba(244,241,232,.75);text-align:center;">口訣：安培串、伏特並</div></div>'''},
 {'title':'電阻大小的因素','sub':'長度·粗細·材質','body':'''<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;font-size:15px;"><div style="background:rgba(232,160,160,.1);border:1px solid rgba(232,160,160,.3);border-radius:10px;padding:16px;">📏 導線越<b>長</b> → 電阻越<b style="color:#e8a0a0">大</b></div><div style="background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:10px;padding:16px;">⭕ 導線越<b>粗</b> → 電阻越<b style="color:#9fc8d8">小</b></div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:16px;">🔩 材質不同 → 電阻不同</div><div style="font-size:13px;color:rgba(244,241,232,.75);text-align:center;">國中不涉串並聯公式計算(移高中)</div></div>'''},
 ]
+
+# ---- 補足簡報至 20 頁以上（保留預告於最後）----
+_nx = L['slides'].pop() if (L['slides'] and '預告' in L['slides'][-1]['html']) else None
+_pool = [(sh,q,a,e) for sh in ('基礎卷','進階卷','挑戰卷') for (q,a,e) in L['quiz'].get(sh,[])[3:]]
+_i = 0
+while len(L['slides']) < 20 and _i < len(_pool):
+    _c = _pool[_i:_i+3]; _i += 3
+    _egs = ''.join(f'<div class="eg"><div class="q">[{sh[:2]}] {q}</div><p style="margin:0;color:#f0d878;">→ {a}</p></div>' for sh,q,a,e in _c)
+    L['slides'].append({'html': f'<div class="eyebrow">加強練習</div><h2>再練幾題</h2>{_egs}'})
+if _nx: L['slides'].append(_nx)

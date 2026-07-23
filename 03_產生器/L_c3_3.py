@@ -86,3 +86,13 @@ L['infographics']=[
 {'title':'中和後不一定中性','sub':'看酸鹼誰過量','body':'''<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;font-size:16px;"><div style="background:rgba(232,160,160,.12);border:1px solid rgba(232,160,160,.3);border-radius:10px;padding:16px;"><b style="color:var(--red);">酸過量</b>　→ 溶液仍偏酸 (pH&lt;7)</div><div style="background:rgba(168,208,160,.12);border:1px solid rgba(168,208,160,.3);border-radius:10px;padding:16px;"><b style="color:var(--green);">恰好中和</b>　→ 中性 (pH≈7)</div><div style="background:rgba(159,200,216,.12);border:1px solid rgba(159,200,216,.3);border-radius:10px;padding:16px;"><b style="color:var(--blue);">鹼過量</b>　→ 溶液仍偏鹼 (pH&gt;7)</div></div>'''},
 {'title':'中和的生活應用','sub':'酸鹼相消','body':'''<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;font-size:15px;"><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🩹 <b>胃藥</b>：鹼性藥中和過多胃酸</div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🌱 <b>石灰改良酸性土壤</b>：鹼中和酸</div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🐝 <b>蜂螫塗小蘇打</b>：鹼中和酸性毒液</div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🦷 <b>牙膏偏鹼</b>：中和口腔酸、保護牙齒</div></div>'''},
 ]
+
+# ---- 補足簡報至 20 頁以上（保留預告於最後）----
+_nx = L['slides'].pop() if (L['slides'] and '預告' in L['slides'][-1]['html']) else None
+_pool = [(sh,q,a,e) for sh in ('基礎卷','進階卷','挑戰卷') for (q,a,e) in L['quiz'].get(sh,[])[3:]]
+_i = 0
+while len(L['slides']) < 20 and _i < len(_pool):
+    _c = _pool[_i:_i+3]; _i += 3
+    _egs = ''.join(f'<div class="eg"><div class="q">[{sh[:2]}] {q}</div><p style="margin:0;color:#f0d878;">→ {a}</p></div>' for sh,q,a,e in _c)
+    L['slides'].append({'html': f'<div class="eyebrow">加強練習</div><h2>再練幾題</h2>{_egs}'})
+if _nx: L['slides'].append(_nx)

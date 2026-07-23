@@ -126,3 +126,13 @@ L = {
  </div>'''},
 ],
 }
+
+# ---- 補足簡報至 20 頁以上（保留預告於最後）----
+_nx = L['slides'].pop() if (L['slides'] and '預告' in L['slides'][-1]['html']) else None
+_pool = [(sh,q,a,e) for sh in ('基礎卷','進階卷','挑戰卷') for (q,a,e) in L['quiz'].get(sh,[])[3:]]
+_i = 0
+while len(L['slides']) < 20 and _i < len(_pool):
+    _c = _pool[_i:_i+3]; _i += 3
+    _egs = ''.join(f'<div class="eg"><div class="q">[{sh[:2]}] {q}</div><p style="margin:0;color:#f0d878;">→ {a}</p></div>' for sh,q,a,e in _c)
+    L['slides'].append({'html': f'<div class="eyebrow">加強練習</div><h2>再練幾題</h2>{_egs}'})
+if _nx: L['slides'].append(_nx)
