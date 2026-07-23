@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生物6-1 孟德爾的遺傳法則｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>生物6-1　孟德爾的遺傳法則</h1><div class="g">七年級·生物　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">孟德爾以豌豆實驗發現遺傳規律。基因成對存在,分顯性與隱性;顯性性狀會表現、隱性被遮蓋。生殖細胞形成時成對基因分開(分離律),各帶一個。用遺傳圖解(如Aa×Aa)可推算子代性狀比例。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">孟德爾與豌豆實驗</div><div class="b"><ul><li>遺傳學之父</li><li>用豌豆做雜交實驗</li><li>發現遺傳規律</li></ul></div></div><div class="acc"><div class="h">顯性與隱性</div><div class="b"><ul><li>基因成對存在</li><li>顯性性狀會表現</li><li>隱性被遮蓋</li></ul></div></div><div class="acc"><div class="h">分離律</div><div class="b"><ul><li>成對基因在生殖細胞分開</li><li>各帶一個基因</li><li>受精後重新配對</li></ul></div></div><div class="acc"><div class="h">遺傳圖解</div><div class="b"><ul><li>以字母表示基因(A/a)</li><li>推算子代組合</li><li>算性狀比例</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>捲舌與否：遺傳性狀</li><li>豌豆實驗：遺傳學基礎</li><li>親子相似：遺傳</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>隱性基因會消失</div><div class="bk"><span class="tag">正確 ✓</span>隱性基因仍存在,只是被遮蓋</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>顯性性狀比較好</div><div class="bk"><span class="tag">正確 ✓</span>顯隱性只是表現與否</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>基因單獨存在</div><div class="bk"><span class="tag">正確 ✓</span>基因成對存在</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>子代一定像顯性親代</div><div class="bk"><span class="tag">正確 ✓</span>需看基因組合</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "遺傳學之父是？", "a": "孟德爾", "e": "豌豆", "lv": "基礎卷"}, {"q": "孟德爾用什麼做實驗？", "a": "豌豆", "e": "雜交", "lv": "基礎卷"}, {"q": "會表現出來的性狀是？", "a": "顯性", "e": "表現", "lv": "基礎卷"}, {"q": "被遮蓋的性狀是？", "a": "隱性", "e": "遮蓋", "lv": "基礎卷"}, {"q": "基因成對還單獨存在？", "a": "成對", "e": "兩個", "lv": "基礎卷"}, {"q": "生殖細胞形成時基因會？", "a": "分開", "e": "分離律", "lv": "基礎卷"}, {"q": "顯性基因常用什麼表示？", "a": "大寫字母", "e": "A", "lv": "基礎卷"}, {"q": "隱性基因常用什麼表示？", "a": "小寫字母", "e": "a", "lv": "基礎卷"}, {"q": "控制生物性狀的遺傳因子稱？", "a": "基因", "e": "單位", "lv": "基礎卷"}, {"q": "一對基因分別來自？", "a": "父與母", "e": "雙親", "lv": "基礎卷"}, {"q": "Aa表現顯性還隱性？", "a": "顯性", "e": "有A", "lv": "進階卷"}, {"q": "aa表現顯性還隱性？", "a": "隱性", "e": "無顯性", "lv": "進階卷"}, {"q": "Aa×Aa子代顯隱性比約？", "a": "3:1", "e": "孟德爾比", "lv": "進階卷"}, {"q": "分離律指成對基因？", "a": "分開進生殖細胞", "e": "分離", "lv": "進階卷"}, {"q": "AA與Aa外表(性狀)？", "a": "都顯性", "e": "相同", "lv": "進階卷"}, {"q": "隱性性狀出現需基因型？", "a": "aa", "e": "兩隱性", "lv": "進階卷"}, {"q": "生殖細胞各帶幾個某基因？", "a": "一個", "e": "半數", "lv": "進階卷"}, {"q": "遺傳圖解可推算什麼？", "a": "子代性狀比例", "e": "比例", "lv": "進階卷"}, {"q": "純種顯性的基因型寫作？", "a": "AA", "e": "基因型", "lv": "進階卷"}, {"q": "Aa這種基因型稱為？", "a": "雜合(帶因)", "e": "雜合", "lv": "進階卷"}, {"q": "Aa×Aa子代基因型與比例？", "a": "AA:Aa:aa=1:2:1", "e": "推算", "lv": "挑戰卷"}, {"q": "為何隱性性狀可能隔代出現？", "a": "隱性基因被攜帶未表現後代aa才顯現", "e": "隔代", "lv": "挑戰卷"}, {"q": "用分離律解釋生殖細胞基因分配？", "a": "成對基因分開各生殖細胞帶一個", "e": "分離", "lv": "挑戰卷"}, {"q": "父母皆顯性卻生出隱性子代說明？", "a": "父母皆為Aa帶隱性基因", "e": "攜帶", "lv": "挑戰卷"}, {"q": "AA×aa子代基因型與性狀？", "a": "全Aa顯性", "e": "雜交", "lv": "挑戰卷"}, {"q": "顯性與隱性的正確理解？", "a": "指是否表現非好壞", "e": "觀念", "lv": "挑戰卷"}, {"q": "如何由子代比例反推親代基因型？", "a": "3:1推親代皆Aa", "e": "反推", "lv": "挑戰卷"}, {"q": "孟德爾實驗對遺傳學的意義？", "a": "建立遺傳基本規律", "e": "意義", "lv": "挑戰卷"}, {"q": "AA×Aa子代基因型與性狀？", "a": "AA與Aa皆表現顯性", "e": "雜交", "lv": "挑戰卷"}, {"q": "為何帶因者外表看不出攜帶隱性基因？", "a": "顯性遮蓋隱性", "e": "遮蓋", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

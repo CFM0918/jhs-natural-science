@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八上4-1 光的傳播與反射｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>八上4-1　光的傳播與反射</h1><div class="g">八年級上·理化　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">光在均勻介質中沿直線前進，可形成影子與日月食。光遇物體表面會反射，遵守反射定律：入射角=反射角，且入射線、反射線、法線同平面。平面鏡成正立、等大、左右相反的虛像；凹面鏡會聚、凸面鏡發散。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">光的直進</div><div class="b"><ul><li>均勻介質中沿直線行進</li><li>形成影子、針孔成像</li><li>日食月食是光直進結果</li></ul></div></div><div class="acc"><div class="h">反射定律</div><div class="b"><ul><li>入射角=反射角</li><li>量角以法線為準</li><li>入射線反射線法線共平面</li></ul></div></div><div class="acc"><div class="h">平面鏡成像</div><div class="b"><ul><li>正立、等大、左右相反</li><li>虛像、像距=物距</li><li>鏡後對稱位置</li></ul></div></div><div class="acc"><div class="h">面鏡</div><div class="b"><ul><li>凹面鏡會聚光線</li><li>凸面鏡發散光線</li><li>應用如車燈、後視鏡</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>後視鏡：凸面鏡視野廣</li><li>針孔相機：光直進成像</li><li>潛望鏡：兩平面鏡反射</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>入射角從鏡面量起</div><div class="bk"><span class="tag">正確 ✓</span>入射角是從法線量起</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>平面鏡的像是實像</div><div class="bk"><span class="tag">正確 ✓</span>平面鏡成的是虛像</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>平面鏡上下顛倒</div><div class="bk"><span class="tag">正確 ✓</span>平面鏡是左右相反不是上下</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>反射光沒有規律</div><div class="bk"><span class="tag">正確 ✓</span>反射遵守入射角=反射角</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "光在均勻介質中如何前進？", "a": "沿直線", "e": "直進", "lv": "基礎卷"}, {"q": "反射定律:入射角等於？", "a": "反射角", "e": "相等", "lv": "基礎卷"}, {"q": "量入射角以什麼為準？", "a": "法線", "e": "垂直面", "lv": "基礎卷"}, {"q": "平面鏡成的像是實像還虛像？", "a": "虛像", "e": "鏡後", "lv": "基礎卷"}, {"q": "平面鏡像的大小？", "a": "與物等大", "e": "1:1", "lv": "基礎卷"}, {"q": "平面鏡像左右如何？", "a": "左右相反", "e": "鏡像", "lv": "基礎卷"}, {"q": "會聚光線的面鏡是？", "a": "凹面鏡", "e": "聚光", "lv": "基礎卷"}, {"q": "影子形成是因為光？", "a": "直進", "e": "被擋", "lv": "基礎卷"}, {"q": "光遇鏡面返回的現象是？", "a": "反射", "e": "反射", "lv": "基礎卷"}, {"q": "平面鏡成像像距與物距？", "a": "相等", "e": "對稱", "lv": "基礎卷"}, {"q": "入射角30°，反射角？", "a": "30°", "e": "相等", "lv": "進階卷"}, {"q": "物距20cm，平面鏡像距？", "a": "20 cm", "e": "對稱", "lv": "進階卷"}, {"q": "入射光垂直鏡面，反射角？", "a": "0°", "e": "原路返回", "lv": "進階卷"}, {"q": "汽車後視鏡多用哪種面鏡？", "a": "凸面鏡", "e": "視野廣", "lv": "進階卷"}, {"q": "日食是什麼擋住太陽？", "a": "月球", "e": "光直進", "lv": "進階卷"}, {"q": "入射角40°，入射線與反射線夾角？", "a": "80°", "e": "40+40", "lv": "進階卷"}, {"q": "太陽灶聚熱用哪種面鏡？", "a": "凹面鏡", "e": "會聚", "lv": "進階卷"}, {"q": "針孔成像的像是？", "a": "倒立實像", "e": "光直進", "lv": "進階卷"}, {"q": "入射角50°反射角？", "a": "50°", "e": "相等", "lv": "進階卷"}, {"q": "凸面鏡使光線？", "a": "發散", "e": "發散", "lv": "進階卷"}, {"q": "為何平面鏡成虛像？", "a": "反射光反向延長交會、非實際會聚", "e": "虛像本質", "lv": "挑戰卷"}, {"q": "潛望鏡用幾面鏡如何擺？", "a": "兩平面鏡各45°", "e": "平行反射", "lv": "挑戰卷"}, {"q": "人退後1m，平面鏡中像退幾m？", "a": "1 m(像距等物距)", "e": "對稱移動", "lv": "挑戰卷"}, {"q": "凹面鏡物在焦點內成？", "a": "正立放大虛像", "e": "如化妝鏡", "lv": "挑戰卷"}, {"q": "月食是誰擋住誰？", "a": "地球擋住射向月球的陽光", "e": "直進", "lv": "挑戰卷"}, {"q": "入射角增大反射角如何？", "a": "同步增大", "e": "恆相等", "lv": "挑戰卷"}, {"q": "鏡面粗糙為何看不到清晰像？", "a": "漫反射方向雜亂", "e": "表面", "lv": "挑戰卷"}, {"q": "兩鏡夾90°物體成幾個像？", "a": "3個", "e": "多次反射", "lv": "挑戰卷"}, {"q": "潛望鏡能看到障礙後方靠什麼？", "a": "兩面鏡反射光路", "e": "反射", "lv": "挑戰卷"}, {"q": "平面鏡前物體靠近鏡面像如何？", "a": "跟著靠近,像距等物距", "e": "對稱", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

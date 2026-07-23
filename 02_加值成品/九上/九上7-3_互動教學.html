@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>九上7-3 太陽系與星空｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>九上7-3　太陽系與星空</h1><div class="g">九年級上　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">太陽系以太陽為中心,八大行星(水金地火木土天海)依序繞行,還有衛星、小行星、彗星等。太陽是恆星,自行發光。夜空中的星星多為遙遠恆星,人們將星星連成星座辨認方位與季節。課綱刪除恆星周日運動、矮行星、太陽每日運動軌跡等細節。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">太陽系組成</div><div class="b"><ul><li>太陽為中心</li><li>八大行星:水金地火木土天海</li><li>含衛星小行星彗星</li></ul></div></div><div class="acc"><div class="h">太陽是恆星</div><div class="b"><ul><li>自行發光發熱</li><li>太陽系能量來源</li><li>由熾熱氣體組成</li></ul></div></div><div class="acc"><div class="h">行星特性</div><div class="b"><ul><li>本身不發光靠反射</li><li>繞太陽公轉</li><li>類地行星與類木行星</li></ul></div></div><div class="acc"><div class="h">星座與星空</div><div class="b"><ul><li>遠處恆星連成星座</li><li>用來辨方位與季節</li><li>課綱不涉周日運動細節</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>觀星辨方位：北極星</li><li>流星：彗星碎屑</li><li>行星觀測：金星木星</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>行星會自己發光</div><div class="bk"><span class="tag">正確 ✓</span>行星反射太陽光,恆星才發光</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>星座的星星彼此靠近</div><div class="bk"><span class="tag">正確 ✓</span>只是視覺上相近,實際相距極遠</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>太陽是行星</div><div class="bk"><span class="tag">正確 ✓</span>太陽是恆星</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>冥王星是八大行星之一</div><div class="bk"><span class="tag">正確 ✓</span>冥王星已被歸為矮行星</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "太陽系的中心是？", "a": "太陽", "e": "恆星", "lv": "基礎卷"}, {"q": "八大行星由內而外第三顆是？", "a": "地球", "e": "人類家園", "lv": "基礎卷"}, {"q": "自行發光發熱的天體是？", "a": "恆星", "e": "如太陽", "lv": "基礎卷"}, {"q": "行星靠什麼而亮？", "a": "反射太陽光", "e": "反射", "lv": "基礎卷"}, {"q": "太陽是恆星還行星？", "a": "恆星", "e": "發光", "lv": "基礎卷"}, {"q": "把星星連成的圖案是？", "a": "星座", "e": "辨認", "lv": "基礎卷"}, {"q": "八大行星最大的是？", "a": "木星", "e": "類木", "lv": "基礎卷"}, {"q": "離太陽最近的行星是？", "a": "水星", "e": "最內", "lv": "基礎卷"}, {"q": "太陽屬於恆星還行星？", "a": "恆星", "e": "發光", "lv": "基礎卷"}, {"q": "地球是八大行星由內往外第幾顆？", "a": "第三", "e": "地球", "lv": "基礎卷"}, {"q": "八大行星順序？", "a": "水金地火木土天海", "e": "由內而外", "lv": "進階卷"}, {"q": "行星本身會發光嗎？", "a": "不會", "e": "反射", "lv": "進階卷"}, {"q": "太陽系的能量主要來自？", "a": "太陽", "e": "恆星", "lv": "進階卷"}, {"q": "彗星接近太陽會出現？", "a": "彗尾", "e": "揮發", "lv": "進階卷"}, {"q": "星座的星星實際上？", "a": "相距極遠", "e": "視覺相近", "lv": "進階卷"}, {"q": "類地行星包括？", "a": "水金地火", "e": "岩質", "lv": "進階卷"}, {"q": "冥王星現被歸類為？", "a": "矮行星", "e": "非八大", "lv": "進階卷"}, {"q": "夜空多數星星是？", "a": "遙遠恆星", "e": "發光", "lv": "進階卷"}, {"q": "太陽系八大行星繞著什麼運行？", "a": "太陽", "e": "繞日", "lv": "進階卷"}, {"q": "太陽系能量的主要來源是？", "a": "太陽", "e": "恆星", "lv": "進階卷"}, {"q": "為何行星不發光卻能被看見？", "a": "反射太陽光", "e": "反射", "lv": "挑戰卷"}, {"q": "如何區分天上的恆星與行星？", "a": "恆星自行發光位置相對固定,行星反光且相對背景移動", "e": "區分", "lv": "挑戰卷"}, {"q": "星座為何能用來辨方位季節？", "a": "特定星座在特定季節方位出現", "e": "應用", "lv": "挑戰卷"}, {"q": "太陽系除行星外還有哪些天體？", "a": "衛星小行星彗星矮行星", "e": "組成", "lv": "挑戰卷"}, {"q": "類地與類木行星主要差別？", "a": "類地岩質較小、類木氣態巨大", "e": "分類", "lv": "挑戰卷"}, {"q": "為何星座中的星實際相距遙遠？", "a": "只是視線方向相近深度不同", "e": "視覺", "lv": "挑戰卷"}, {"q": "太陽作為恆星對地球的重要性？", "a": "提供光熱維持生命與氣候", "e": "重要", "lv": "挑戰卷"}, {"q": "為何課綱刪除恆星周日運動細節？", "a": "較深移高中,國中認識星空為主", "e": "課綱", "lv": "挑戰卷"}, {"q": "如何分辨夜空中的恆星與行星？", "a": "恆星自行發光、行星反光且相對移動", "e": "區分", "lv": "挑戰卷"}, {"q": "太陽系除八大行星外還有哪些天體？", "a": "衛星小行星彗星等", "e": "組成", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

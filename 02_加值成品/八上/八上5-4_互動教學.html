@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八上5-4 熱與物質變化｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>八上5-4　熱與物質變化</h1><div class="g">八年級上·理化　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">物質受熱會熱脹冷縮(氣體&gt;液體&gt;固體),也會發生物態變化(熔化、汽化、凝固、凝結、昇華)。物態變化時吸收或放出潛熱,溫度暫時不變。學會由加熱曲線判讀物態變化過程。本節不涉及複雜計算。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">熱脹冷縮</div><div class="b"><ul><li>受熱膨脹、遇冷收縮</li><li>膨脹程度:氣體&gt;液體&gt;固體</li><li>鐵軌、橋樑留伸縮縫</li></ul></div></div><div class="acc"><div class="h">物態變化</div><div class="b"><ul><li>熔化(固→液)、汽化(液→氣)</li><li>凝固(液→固)、凝結(氣→液)</li><li>昇華/凝華(固氣互變)</li></ul></div></div><div class="acc"><div class="h">潛熱</div><div class="b"><ul><li>物態變化時吸放熱</li><li>溫度暫時不變</li><li>熔化汽化吸熱、凝固凝結放熱</li></ul></div></div><div class="acc"><div class="h">加熱曲線</div><div class="b"><ul><li>升溫段溫度上升</li><li>物態變化段溫度平</li><li> 平段對應熔點/沸點</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>鐵軌留縫：防熱脹變形</li><li>冰敷退燒：熔化吸熱</li><li>乾冰昇華：固直接變氣</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>物態變化時溫度持續上升</div><div class="bk"><span class="tag">正確 ✓</span>物態變化時溫度暫時不變</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>固體不會熱脹冷縮</div><div class="bk"><span class="tag">正確 ✓</span>固體也會,只是幅度小</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>汽化只在沸騰時發生</div><div class="bk"><span class="tag">正確 ✓</span>蒸發在任何溫度都可發生</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>潛熱使溫度升高</div><div class="bk"><span class="tag">正確 ✓</span>潛熱用於改變物態,溫度不變</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "物質受熱體積如何？", "a": "膨脹", "e": "熱脹", "lv": "基礎卷"}, {"q": "熱脹冷縮幅度最大的是？", "a": "氣體", "e": "分子自由", "lv": "基礎卷"}, {"q": "固→液的物態變化是？", "a": "熔化", "e": "吸熱", "lv": "基礎卷"}, {"q": "液→氣的物態變化是？", "a": "汽化", "e": "吸熱", "lv": "基礎卷"}, {"q": "氣→液的物態變化是？", "a": "凝結", "e": "放熱", "lv": "基礎卷"}, {"q": "物態變化時溫度如何？", "a": "暫時不變", "e": "潛熱", "lv": "基礎卷"}, {"q": "固體直接變氣體是？", "a": "昇華", "e": "如乾冰", "lv": "基礎卷"}, {"q": "鐵軌留縫是為了防？", "a": "熱脹變形", "e": "伸縮", "lv": "基礎卷"}, {"q": "水沸騰變成水蒸氣屬？", "a": "汽化", "e": "液→氣", "lv": "基礎卷"}, {"q": "鋼軌夏天膨脹是因為？", "a": "熱脹冷縮", "e": "熱脹", "lv": "基礎卷"}, {"q": "加熱曲線的水平段代表？", "a": "物態變化", "e": "溫度不變", "lv": "進階卷"}, {"q": "熔化過程吸熱或放熱？", "a": "吸熱", "e": "需能量", "lv": "進階卷"}, {"q": "凝固過程吸熱或放熱？", "a": "放熱", "e": "釋能量", "lv": "進階卷"}, {"q": "冰在0℃熔化溫度變嗎？", "a": "不變", "e": "潛熱", "lv": "進階卷"}, {"q": "蒸發能在低於沸點發生嗎？", "a": "能", "e": "任何溫度", "lv": "進階卷"}, {"q": "水沸騰時溫度維持在？", "a": "沸點(100℃)", "e": "平段", "lv": "進階卷"}, {"q": "氣→固直接變化是？", "a": "凝華", "e": "放熱", "lv": "進階卷"}, {"q": "溫度計利用液體的？", "a": "熱脹冷縮", "e": "測溫", "lv": "進階卷"}, {"q": "物態變化時吸放的熱稱？", "a": "潛熱", "e": "潛熱", "lv": "進階卷"}, {"q": "液→固的物態變化是？", "a": "凝固", "e": "放熱", "lv": "進階卷"}, {"q": "冰水混合物加熱到沸騰溫度如何變化？", "a": "升到0℃平(熔)→升溫→100℃平(沸)", "e": "兩平段", "lv": "挑戰卷"}, {"q": "為何流汗能散熱？", "a": "汗蒸發吸收潛熱帶走體熱", "e": "汽化吸熱", "lv": "挑戰卷"}, {"q": "固體受熱膨脹幅度為何小於氣體？", "a": "粒子束縛強活動空間小", "e": "結構", "lv": "挑戰卷"}, {"q": "橋樑伸縮縫夏天變窄因為？", "a": "受熱膨脹佔用縫隙", "e": "熱脹", "lv": "挑戰卷"}, {"q": "冰敷為何能退燒？", "a": "冰熔化吸收身體熱量", "e": "潛熱", "lv": "挑戰卷"}, {"q": "加熱曲線平段越長代表？", "a": "該物態變化吸放熱越多", "e": "潛熱量", "lv": "挑戰卷"}, {"q": "乾冰放空氣中冒白煙是？", "a": "昇華並使水氣凝結", "e": "複合", "lv": "挑戰卷"}, {"q": "溫度不變仍加熱,能量去哪？", "a": "用於改變物態(潛熱)", "e": "守恆", "lv": "挑戰卷"}, {"q": "為何濕衣晾通風處乾得快？", "a": "蒸發加快帶走水分", "e": "蒸發", "lv": "挑戰卷"}, {"q": "溫度計液柱能指示溫度的原理？", "a": "液體熱脹冷縮體積隨溫變", "e": "熱脹", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

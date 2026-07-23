@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生物4-2 內分泌與協調｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>生物4-2　內分泌與協調</h1><div class="g">七年級·生物　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">內分泌系統藉由腺體分泌激素(荷爾蒙),經血液運送到全身,調節生理活動。內分泌調節較慢但作用持久。常見腺體如腦下腺、甲狀腺、胰島、腎上腺等,各分泌不同激素。神經與內分泌共同協調身體運作。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">內分泌系統</div><div class="b"><ul><li>腺體分泌激素</li><li>經血液運送</li><li>調節生理活動</li></ul></div></div><div class="acc"><div class="h">激素的特性</div><div class="b"><ul><li>作用較慢但持久</li><li>微量即有效</li><li>經血液到達目標</li></ul></div></div><div class="acc"><div class="h">常見腺體</div><div class="b"><ul><li>腦下腺、甲狀腺</li><li>胰島(調血糖)</li><li>腎上腺(應急)</li></ul></div></div><div class="acc"><div class="h">神經與內分泌協調</div><div class="b"><ul><li>神經快速短暫</li><li>內分泌緩慢持久</li><li>共同協調身體</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>緊張心跳加速：腎上腺素</li><li>血糖調節：胰島素</li><li>生長發育：生長激素</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>激素靠神經傳送</div><div class="bk"><span class="tag">正確 ✓</span>激素由血液運送</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>內分泌作用很快</div><div class="bk"><span class="tag">正確 ✓</span>內分泌較慢但持久</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>激素要大量才有效</div><div class="bk"><span class="tag">正確 ✓</span>激素微量即有效</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>神經與內分泌無關</div><div class="bk"><span class="tag">正確 ✓</span>兩者共同協調</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "內分泌腺分泌的物質是？", "a": "激素", "e": "荷爾蒙", "lv": "基礎卷"}, {"q": "激素經什麼運送？", "a": "血液", "e": "運送", "lv": "基礎卷"}, {"q": "調節血糖的激素來自？", "a": "胰島", "e": "胰臟", "lv": "基礎卷"}, {"q": "緊張時分泌的激素來自？", "a": "腎上腺", "e": "應急", "lv": "基礎卷"}, {"q": "內分泌作用較神經？", "a": "慢但持久", "e": "緩慢", "lv": "基礎卷"}, {"q": "激素需要量多還少？", "a": "微量即有效", "e": "少量", "lv": "基礎卷"}, {"q": "與神經共同協調的是？", "a": "內分泌", "e": "兩系統", "lv": "基礎卷"}, {"q": "分泌生長激素的是？", "a": "腦下腺", "e": "生長", "lv": "基礎卷"}, {"q": "胰島素由哪個器官分泌？", "a": "胰臟(胰島)", "e": "胰臟", "lv": "基礎卷"}, {"q": "內分泌訊息傳遞比神經？", "a": "慢但持久", "e": "持久", "lv": "基礎卷"}, {"q": "激素為何能作用全身？", "a": "隨血液到達各處", "e": "血液", "lv": "進階卷"}, {"q": "胰島素的作用是？", "a": "降低血糖", "e": "調節", "lv": "進階卷"}, {"q": "腎上腺素使身體？", "a": "進入應急狀態", "e": "心跳加速", "lv": "進階卷"}, {"q": "甲狀腺激素影響？", "a": "代謝", "e": "代謝率", "lv": "進階卷"}, {"q": "神經與內分泌差別？", "a": "快短暫vs慢持久", "e": "對比", "lv": "進階卷"}, {"q": "內分泌調節的特點？", "a": "緩慢而持久", "e": "持久", "lv": "進階卷"}, {"q": "激素分泌失調可能導致？", "a": "疾病", "e": "失衡", "lv": "進階卷"}, {"q": "內分泌不需導管直接分泌到？", "a": "血液", "e": "無導管", "lv": "進階卷"}, {"q": "甲狀腺激素分泌不足可能影響？", "a": "代謝變慢", "e": "代謝", "lv": "進階卷"}, {"q": "激素作用完後通常會？", "a": "被分解代謝", "e": "代謝", "lv": "進階卷"}, {"q": "比較神經與內分泌協調的差異與互補？", "a": "神經快速短暫、內分泌緩慢持久,互補協調全身", "e": "互補", "lv": "挑戰卷"}, {"q": "說明血糖過高時胰島素如何調節？", "a": "胰島素促使血糖被利用儲存使血糖下降", "e": "調節", "lv": "挑戰卷"}, {"q": "為何激素微量即能產生明顯效果？", "a": "具高度作用性針對特定目標", "e": "效力", "lv": "挑戰卷"}, {"q": "緊張時腎上腺素的生理作用？", "a": "心跳呼吸加速供能應急", "e": "應急", "lv": "挑戰卷"}, {"q": "內分泌失調對健康的影響舉例？", "a": "如甲狀腺失調影響代謝", "e": "失調", "lv": "挑戰卷"}, {"q": "神經與內分泌如何共同維持協調？", "a": "神經即時反應內分泌長期調節", "e": "協調", "lv": "挑戰卷"}, {"q": "激素隨血液運送的優缺點？", "a": "可達全身但作用較慢", "e": "特性", "lv": "挑戰卷"}, {"q": "青春期發育與激素的關係？", "a": "性激素等促進生長與性徵發育", "e": "發育", "lv": "挑戰卷"}, {"q": "糖尿病與胰島素的關係？", "a": "胰島素不足或失效使血糖過高", "e": "血糖", "lv": "挑戰卷"}, {"q": "為何內分泌適合長期調節神經適合即時？", "a": "激素持久神經快速短暫", "e": "互補", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

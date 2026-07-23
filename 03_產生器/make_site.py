@@ -36,6 +36,7 @@ body{font-family:'Noto Sans TC',system-ui,-apple-system,sans-serif;background:#0
 a.btn{font-size:12px;text-decoration:none;padding:4px 10px;border-radius:6px;border:1px solid rgba(159,200,216,.35);color:#9fc8d8;white-space:nowrap}
 a.btn:hover{background:#9fc8d8;color:#1a2e1a}
 a.s{border-color:rgba(240,216,120,.5);color:#f0d878}a.s:hover{background:#f0d878;color:#1a2e1a}
+a.i{border-color:rgba(168,208,160,.6);color:#a8d0a0;font-weight:700}a.i:hover{background:#a8d0a0;color:#1a2e1a}
 a.q{border-color:rgba(232,160,160,.5);color:#e8a0a0}a.q:hover{background:#e8a0a0;color:#1a2e1a}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:24px}
 .foot a{color:#9fc8d8}
@@ -69,7 +70,8 @@ for bk, nm, desc in BOOKS:
             cur_ch = ch; body.append(f'<div class="ch-h">第 {ch} 章</div>')
         t = title_of(nm, full)
         hand = ' <span class="badge">精工版</span>' if f'{bk}{sec}' in HAND else ''
-        links = (f'<a class="btn s" href="{url(nm,full+"_授課簡報.html")}" target="_blank">📽 授課簡報</a>'
+        links = (f'<a class="btn i" href="{url(nm,full+"_互動教學.html")}" target="_blank">🎮 互動教學</a>'
+                 f'<a class="btn s" href="{url(nm,full+"_授課簡報.html")}" target="_blank">📽 授課簡報</a>'
                  f'<a class="btn" href="{url(nm,full+"_資訊圖表_16-9.html")}" target="_blank">🖼 資訊圖</a>'
                  f'<a class="btn q" href="{url(nm,full+"_三種難度測驗卷.xlsx")}">📝 測驗</a>'
                  f'<a class="btn" href="{url(nm,full+"_教材摘要與重點主題.md")}" target="_blank">📄 摘要</a>')

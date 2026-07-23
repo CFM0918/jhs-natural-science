@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>九上5-1 地球的水｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>九上5-1　地球的水</h1><div class="g">九年級上　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">地球上的水構成水圈,絕大部分是海水(鹹水),淡水僅約2.5%且多為冰川與地下水。水在海洋、大氣、陸地間不斷循環:蒸發、凝結、降水、逕流,由太陽能與重力驅動,維持地表水的動態平衡。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">水圈與水的分布</div><div class="b"><ul><li>地球水體總稱水圈</li><li>約97.5%是海水(鹹水)</li><li>淡水少且多為冰川地下水</li></ul></div></div><div class="acc"><div class="h">水循環的過程</div><div class="b"><ul><li>蒸發→凝結→降水→逕流</li><li>海陸空之間循環</li><li>總量大致不變</li></ul></div></div><div class="acc"><div class="h">水循環的動力</div><div class="b"><ul><li>太陽能提供蒸發能量</li><li>重力使水下流</li><li>形成循環</li></ul></div></div><div class="acc"><div class="h">水資源</div><div class="b"><ul><li>可用淡水有限</li><li>需珍惜與保育</li><li>水污染威脅水資源</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>下雨：水循環降水</li><li>水庫蓄水：管理水資源</li><li>海水曬鹽：海水利用</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>地球淡水很多</div><div class="bk"><span class="tag">正確 ✓</span>淡水僅約2.5%且多為冰</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>水循環會使水變少</div><div class="bk"><span class="tag">正確 ✓</span>總量大致守恆</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>地下水不算水資源</div><div class="bk"><span class="tag">正確 ✓</span>地下水是重要淡水資源</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>水循環不需能量</div><div class="bk"><span class="tag">正確 ✓</span>靠太陽能與重力驅動</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "地球水體的總稱是？", "a": "水圈", "e": "總稱", "lv": "基礎卷"}, {"q": "地球上最多的水是？", "a": "海水(鹹水)", "e": "約97.5%", "lv": "基礎卷"}, {"q": "淡水約佔多少？", "a": "約2.5%", "e": "很少", "lv": "基礎卷"}, {"q": "水由液態變氣態是？", "a": "蒸發", "e": "循環", "lv": "基礎卷"}, {"q": "水氣變回液態是？", "a": "凝結", "e": "成雲", "lv": "基礎卷"}, {"q": "雲中水落下是？", "a": "降水", "e": "雨雪", "lv": "基礎卷"}, {"q": "水循環主要動力來自？", "a": "太陽能", "e": "蒸發", "lv": "基礎卷"}, {"q": "使水往低處流的是？", "a": "重力", "e": "下流", "lv": "基礎卷"}, {"q": "地球上鹹水主要存在於？", "a": "海洋", "e": "海水", "lv": "基礎卷"}, {"q": "水從地表蒸發需要什麼能量？", "a": "太陽能", "e": "蒸發", "lv": "基礎卷"}, {"q": "水循環的順序？", "a": "蒸發凝結降水逕流", "e": "過程", "lv": "進階卷"}, {"q": "淡水多以什麼形式存在？", "a": "冰川與地下水", "e": "儲存", "lv": "進階卷"}, {"q": "地表水流回海洋稱？", "a": "逕流", "e": "河川", "lv": "進階卷"}, {"q": "水循環使水總量？", "a": "大致不變", "e": "守恆", "lv": "進階卷"}, {"q": "海水能直接飲用嗎？", "a": "不能", "e": "含鹽", "lv": "進階卷"}, {"q": "地下水屬淡水還鹹水？", "a": "淡水", "e": "資源", "lv": "進階卷"}, {"q": "太陽能在水循環的作用？", "a": "驅動蒸發", "e": "能量", "lv": "進階卷"}, {"q": "凝結形成什麼？", "a": "雲", "e": "水氣", "lv": "進階卷"}, {"q": "雲是水氣經什麼作用形成？", "a": "凝結", "e": "成雲", "lv": "進階卷"}, {"q": "地下水屬於淡水還鹹水？", "a": "淡水", "e": "資源", "lv": "進階卷"}, {"q": "為何淡水資源顯得珍貴？", "a": "淡水少且多凍結,可直接用的更少", "e": "稀有", "lv": "挑戰卷"}, {"q": "用水循環解釋為何水總量守恆？", "a": "各環節間轉移總量不變", "e": "守恆", "lv": "挑戰卷"}, {"q": "分析水循環中太陽能與重力各扮演角色？", "a": "太陽能蒸發、重力使水下流", "e": "動力", "lv": "挑戰卷"}, {"q": "水污染如何影響水資源？", "a": "使可用淡水減少危害生態", "e": "污染", "lv": "挑戰卷"}, {"q": "冰川融化對水資源與海平面影響？", "a": "短期增水長期減儲、海面上升", "e": "氣候", "lv": "挑戰卷"}, {"q": "都市化如何影響逕流？", "a": "不透水面增加逕流增快", "e": "人為", "lv": "挑戰卷"}, {"q": "為何海水佔比高卻不易利用？", "a": "含鹽需淡化成本高", "e": "限制", "lv": "挑戰卷"}, {"q": "如何從生活節約水資源？", "a": "重複利用、減少浪費", "e": "行動", "lv": "挑戰卷"}, {"q": "為何水循環使地球水總量大致不變？", "a": "各環節間轉移不生不滅", "e": "守恆", "lv": "挑戰卷"}, {"q": "冰川大量融化對海平面的影響？", "a": "上升", "e": "氣候", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八下3-1 電解質與導電性｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>八下3-1　電解質與導電性</h1><div class="g">八年級下·理化　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">溶於水後能導電的物質稱電解質(如食鹽、酸、鹼),因為在水中解離出可移動的離子;不能導電的稱非電解質(如糖、酒精)。透過觀察純水、食鹽水、糖水的導電性差異,理解導電靠的是自由移動的離子。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">電解質</div><div class="b"><ul><li>溶於水能導電</li><li>在水中解離出離子</li><li>如食鹽、酸、鹼</li></ul></div></div><div class="acc"><div class="h">非電解質</div><div class="b"><ul><li>溶於水不導電</li><li>不解離出離子</li><li>如糖、酒精</li></ul></div></div><div class="acc"><div class="h">導電性觀察</div><div class="b"><ul><li>純水幾乎不導電</li><li>食鹽水導電(電解質)</li><li>糖水不導電(非電解質)</li></ul></div></div><div class="acc"><div class="h">導電的原因</div><div class="b"><ul><li>靠自由移動的離子</li><li>離子越多導電越好</li><li>固態食鹽不導電(離子不能動)</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>運動飲料補電解質：含離子</li><li>潮濕觸電危險：含離子導電</li><li>電池電解液：導電</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>純水很會導電</div><div class="bk"><span class="tag">正確 ✓</span>純水幾乎不導電</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>糖水能導電</div><div class="bk"><span class="tag">正確 ✓</span>糖是非電解質,不導電</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>固態食鹽能導電</div><div class="bk"><span class="tag">正確 ✓</span>固態離子不能移動,不導電</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>所有溶液都導電</div><div class="bk"><span class="tag">正確 ✓</span>只有電解質溶液導電</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "溶於水能導電的物質是？", "a": "電解質", "e": "導電", "lv": "基礎卷"}, {"q": "溶於水不導電的是？", "a": "非電解質", "e": "不導電", "lv": "基礎卷"}, {"q": "食鹽是電解質嗎？", "a": "是", "e": "解離出離子", "lv": "基礎卷"}, {"q": "糖是電解質嗎？", "a": "不是", "e": "非電解質", "lv": "基礎卷"}, {"q": "純水的導電性如何？", "a": "幾乎不導電", "e": "極弱", "lv": "基礎卷"}, {"q": "電解質在水中解離出？", "a": "離子", "e": "帶電", "lv": "基礎卷"}, {"q": "導電靠的是可移動的？", "a": "離子", "e": "載電", "lv": "基礎卷"}, {"q": "酒精溶於水導電嗎？", "a": "不導電", "e": "非電解質", "lv": "基礎卷"}, {"q": "溶於水能導電的物質稱？", "a": "電解質", "e": "導電", "lv": "基礎卷"}, {"q": "食鹽水能導電是因為含？", "a": "離子", "e": "離子", "lv": "基礎卷"}, {"q": "食鹽水導電是因為有？", "a": "自由移動離子", "e": "Na⁺Cl⁻", "lv": "進階卷"}, {"q": "糖水不導電因為？", "a": "不解離出離子", "e": "分子", "lv": "進階卷"}, {"q": "固態食鹽為何不導電？", "a": "離子不能自由移動", "e": "固定", "lv": "進階卷"}, {"q": "酸鹼是電解質嗎？", "a": "是", "e": "可解離", "lv": "進階卷"}, {"q": "離子越多溶液導電性？", "a": "越好", "e": "載電多", "lv": "進階卷"}, {"q": "熔融食鹽能導電嗎？", "a": "能", "e": "離子可動", "lv": "進階卷"}, {"q": "海水比純水導電因為？", "a": "含鹽等電解質", "e": "離子多", "lv": "進階卷"}, {"q": "運動飲料補充的電解質指？", "a": "鈉鉀等離子", "e": "補充", "lv": "進階卷"}, {"q": "酸與鹼在水中是否為電解質？", "a": "是", "e": "解離", "lv": "進階卷"}, {"q": "固態離子化合物能導電嗎？", "a": "不能", "e": "離子不能動", "lv": "進階卷"}, {"q": "為何固態食鹽不導電、溶液卻導電？", "a": "固態離子被固定;溶解後可自由移動", "e": "狀態", "lv": "挑戰卷"}, {"q": "設計實驗比較三杯液體導電性如何做？", "a": "接電路測燈泡亮度或電流", "e": "實驗", "lv": "挑戰卷"}, {"q": "稀鹽酸與濃鹽酸誰導電強？", "a": "濃(離子多)", "e": "濃度", "lv": "挑戰卷"}, {"q": "為何潮濕環境觸電更危險？", "a": "水含離子易導電", "e": "風險", "lv": "挑戰卷"}, {"q": "純水加一點鹽導電性如何變？", "a": "變好", "e": "增離子", "lv": "挑戰卷"}, {"q": "判斷未知白色固體是否電解質怎麼做？", "a": "溶水測導電", "e": "檢測", "lv": "挑戰卷"}, {"q": "熔融氯化鈉導電說明導電需？", "a": "可自由移動的離子", "e": "條件", "lv": "挑戰卷"}, {"q": "蒸餾水與自來水誰較導電？", "a": "自來水(含礦物離子)", "e": "雜質", "lv": "挑戰卷"}, {"q": "如何用燈泡電路測液體是否電解質？", "a": "接電路看燈是否亮", "e": "檢測", "lv": "挑戰卷"}, {"q": "為何海水比蒸餾水容易導電？", "a": "海水含較多離子", "e": "離子多", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

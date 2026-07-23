@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八上6-1 原子與原子模型｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>八上6-1　原子與原子模型</h1><div class="g">八年級上·理化　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">透過科學史認識原子模型的演進:道耳頓提出原子說(實心球)、湯姆森發現電子(葡萄乾布丁)、拉塞福以金箔實驗提出原子核(核在中心)、查兌克發現中子。原子由帶正電的原子核(質子+中子)與核外帶負電的電子組成,原子序=質子數。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">原子模型的科學史</div><div class="b"><ul><li>道耳頓:原子說,實心球</li><li>湯姆森:發現電子</li><li>拉塞福:金箔實驗發現原子核</li><li>查兌克:發現中子</li></ul></div></div><div class="acc"><div class="h">原子的構造</div><div class="b"><ul><li>原子核:質子(+)+中子(不帶電)</li><li>核外:電子(−)</li><li>原子整體不帶電</li></ul></div></div><div class="acc"><div class="h">原子序與質量數</div><div class="b"><ul><li>原子序=質子數</li><li>質量數=質子+中子數</li><li>質子數決定元素種類</li></ul></div></div><div class="acc"><div class="h">原子的大小</div><div class="b"><ul><li>原子極小</li><li>原子核更小但集中質量</li><li>電子繞核運動</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>科學史啟示：模型隨證據修正</li><li>核能：來自原子核</li><li>元素辨識：靠質子數</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>原子不可再分</div><div class="bk"><span class="tag">正確 ✓</span>原子由質子中子電子組成</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>原子核帶負電</div><div class="bk"><span class="tag">正確 ✓</span>原子核帶正電(質子)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>中子帶正電</div><div class="bk"><span class="tag">正確 ✓</span>中子不帶電</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>電子質量和質子一樣</div><div class="bk"><span class="tag">正確 ✓</span>電子質量遠小於質子</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "提出原子說(實心球)的科學家？", "a": "道耳頓", "e": "原子說", "lv": "基礎卷"}, {"q": "發現電子的科學家？", "a": "湯姆森", "e": "布丁模型", "lv": "基礎卷"}, {"q": "金箔實驗發現原子核的是？", "a": "拉塞福", "e": "核在中心", "lv": "基礎卷"}, {"q": "發現中子的科學家？", "a": "查兌克", "e": "中子", "lv": "基礎卷"}, {"q": "原子核由什麼組成？", "a": "質子與中子", "e": "核心", "lv": "基礎卷"}, {"q": "帶負電的粒子是？", "a": "電子", "e": "核外", "lv": "基礎卷"}, {"q": "原子序等於什麼數？", "a": "質子數", "e": "定元素", "lv": "基礎卷"}, {"q": "原子整體帶電嗎？", "a": "不帶電", "e": "中性", "lv": "基礎卷"}, {"q": "原子的三種基本粒子是？", "a": "質子中子電子", "e": "三種", "lv": "基礎卷"}, {"q": "帶正電的粒子是？", "a": "質子", "e": "正電", "lv": "基礎卷"}, {"q": "質子數6的元素是？", "a": "碳", "e": "原子序6", "lv": "進階卷"}, {"q": "質子8中子8,質量數？", "a": "16", "e": "8+8", "lv": "進階卷"}, {"q": "原子核帶什麼電？", "a": "正電", "e": "質子", "lv": "進階卷"}, {"q": "中子帶什麼電？", "a": "不帶電", "e": "中性", "lv": "進階卷"}, {"q": "決定元素種類的是？", "a": "質子數", "e": "原子序", "lv": "進階卷"}, {"q": "拉塞福實驗少數粒子反彈說明？", "a": "原子核小而集中", "e": "核存在", "lv": "進階卷"}, {"q": "質量數=質子數+？", "a": "中子數", "e": "總和", "lv": "進階卷"}, {"q": "電子質量比質子？", "a": "小很多", "e": "約1/1836", "lv": "進階卷"}, {"q": "質子數8的元素是？", "a": "氧", "e": "原子序8", "lv": "進階卷"}, {"q": "原子序3質量數7的中子數？", "a": "4", "e": "7−3", "lv": "進階卷"}, {"q": "原子模型為何一再修正？", "a": "隨新實驗證據調整,科學暫時性", "e": "科學本質", "lv": "挑戰卷"}, {"q": "金箔實驗大多粒子直穿說明？", "a": "原子內部大部分是空的", "e": "空曠", "lv": "挑戰卷"}, {"q": "原子中性是因為？", "a": "質子數=電子數,正負相消", "e": "電荷平衡", "lv": "挑戰卷"}, {"q": "同元素不同中子數稱？", "a": "同位素", "e": "質子同", "lv": "挑戰卷"}, {"q": "湯姆森模型為何被推翻？", "a": "無法解釋金箔實驗反彈", "e": "證據", "lv": "挑戰卷"}, {"q": "質子11電子11的原子帶電？", "a": "不帶電", "e": "平衡", "lv": "挑戰卷"}, {"q": "原子質量主要集中在？", "a": "原子核", "e": "質子中子", "lv": "挑戰卷"}, {"q": "若失去一電子原子帶何電？", "a": "正電", "e": "陽離子", "lv": "挑戰卷"}, {"q": "拉塞福金箔實驗的重要結論？", "a": "原子核小而集中帶正電", "e": "核", "lv": "挑戰卷"}, {"q": "中性原子質子數與電子數關係？", "a": "相等", "e": "平衡", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

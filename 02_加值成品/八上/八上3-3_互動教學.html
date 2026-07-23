@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八上3-3 聲音的三要素｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>八上3-3　聲音的三要素</h1><div class="g">八年級上·理化　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">聲音有三要素：響度取決於振幅(振幅大聲音響)、音調取決於頻率(頻率高音調高)、音色取決於波形(不同樂器波形不同)。弦樂器弦越緊越短越細音調越高、管樂器空氣柱越短音調越高、鼓面越小越緊音調越高——這些改變都反映在波形上。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">響度</div><div class="b"><ul><li>由振幅決定</li><li>振幅大→響度大(較大聲)</li><li>單位分貝dB</li></ul></div></div><div class="acc"><div class="h">音調</div><div class="b"><ul><li>由頻率決定</li><li>頻率高→音調高</li><li>人耳可聽20~20000Hz</li></ul></div></div><div class="acc"><div class="h">音色</div><div class="b"><ul><li>由波形決定</li><li>不同樂器波形不同</li><li>可分辨聲音來源</li></ul></div></div><div class="acc"><div class="h">影響音調的因素</div><div class="b"><ul><li>弦:越緊、越短、越細→音調越高</li><li>空氣柱:越短→音調越高</li><li>鼓:越小、越緊→音調越高</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>調吉他：轉緊弦提高音調</li><li>辨認人聲：靠音色分辨</li><li>噪音分貝：以dB衡量響度</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>聲音越大音調越高</div><div class="bk"><span class="tag">正確 ✓</span>響度與音調無關，響度看振幅、音調看頻率</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>音色由頻率決定</div><div class="bk"><span class="tag">正確 ✓</span>音色由波形決定</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>弦越長音調越高</div><div class="bk"><span class="tag">正確 ✓</span>弦越短音調才越高</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>分貝是音調單位</div><div class="bk"><span class="tag">正確 ✓</span>分貝是響度單位</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "聲音的三要素是？", "a": "響度、音調、音色", "e": "三項", "lv": "基礎卷"}, {"q": "響度由什麼決定？", "a": "振幅", "e": "振幅大聲大", "lv": "基礎卷"}, {"q": "音調由什麼決定？", "a": "頻率", "e": "頻率高音高", "lv": "基礎卷"}, {"q": "音色由什麼決定？", "a": "波形", "e": "分辨來源", "lv": "基礎卷"}, {"q": "響度的單位是？", "a": "分貝(dB)", "e": "衡量大小", "lv": "基礎卷"}, {"q": "人耳可聽頻率範圍？", "a": "20~20000 Hz", "e": "可聽域", "lv": "基礎卷"}, {"q": "弦越緊音調越？", "a": "高", "e": "張力大", "lv": "基礎卷"}, {"q": "空氣柱越短音調越？", "a": "高", "e": "管樂", "lv": "基礎卷"}, {"q": "聲音的強弱(大小)是三要素中的？", "a": "響度", "e": "響度", "lv": "基礎卷"}, {"q": "聲音的高低是三要素中的？", "a": "音調", "e": "音調", "lv": "基礎卷"}, {"q": "振幅加大聲音如何變？", "a": "變響", "e": "響度增", "lv": "進階卷"}, {"q": "頻率提高聲音如何變？", "a": "音調變高", "e": "較尖", "lv": "進階卷"}, {"q": "兩樂器彈同音仍可分辨因為？", "a": "音色不同", "e": "波形", "lv": "進階卷"}, {"q": "弦變短音調如何？", "a": "變高", "e": "較短振快", "lv": "進階卷"}, {"q": "鼓面繃緊音調如何？", "a": "變高", "e": "張力大", "lv": "進階卷"}, {"q": "低於20Hz的聲音稱？", "a": "次聲波", "e": "聽不到", "lv": "進階卷"}, {"q": "高於20000Hz的聲音稱？", "a": "超聲波", "e": "聽不到", "lv": "進階卷"}, {"q": "波形圖振幅大表示？", "a": "響度大", "e": "較大聲", "lv": "進階卷"}, {"q": "敲大鼓與小鼓音調誰高？", "a": "小鼓", "e": "越小越高", "lv": "進階卷"}, {"q": "空氣柱越長音調？", "a": "越低", "e": "管長", "lv": "進階卷"}, {"q": "如何讓吉他弦音調變高？", "a": "弦調緊/按短/換細弦", "e": "三法", "lv": "挑戰卷"}, {"q": "響度與音調可獨立改變嗎？", "a": "可以", "e": "分別由振幅頻率控制", "lv": "挑戰卷"}, {"q": "兩波形頻率相同振幅不同差在？", "a": "響度", "e": "音調同", "lv": "挑戰卷"}, {"q": "敲擊裝不同水量的玻璃瓶音調如何？", "a": "水越少音調越高", "e": "水與瓶一起振動水少振動較快", "lv": "挑戰卷"}, {"q": "女高音比男低音音調高因為？", "a": "聲帶振動頻率較高", "e": "頻率", "lv": "挑戰卷"}, {"q": "同一根弦如何同時變響又變高？", "a": "用力撥(響)並按短弦(高)", "e": "雙控", "lv": "挑戰卷"}, {"q": "超聲波為何用於檢測？", "a": "頻率高、指向性佳", "e": "應用", "lv": "挑戰卷"}, {"q": "波形越複雜代表？", "a": "音色越豐富", "e": "泛音多", "lv": "挑戰卷"}, {"q": "用相同力吹長短不同吸管音調如何？", "a": "短的音調較高", "e": "空氣柱", "lv": "挑戰卷"}, {"q": "人聲能辨認是誰主要靠三要素中的？", "a": "音色", "e": "波形", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

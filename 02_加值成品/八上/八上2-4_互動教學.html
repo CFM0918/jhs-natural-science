@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八上2-4 水溶液與濃度｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>八上2-4　水溶液與濃度</h1><div class="g">八年級上·理化　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">溶液由溶質溶於溶劑組成，水溶液以水為溶劑。濃度表示溶質多寡，常用重量百分濃度=溶質質量÷溶液質量×100%；極稀溶液用ppm(百萬分之一)表示。本節不涉及溶液混合與稀釋計算，飽和溶液概念移至高中。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">溶液的組成</div><div class="b"><ul><li>溶質:被溶解者</li><li>溶劑:溶解他物者(水最常見)</li><li>溶液=溶質+溶劑</li></ul></div></div><div class="acc"><div class="h">重量百分濃度</div><div class="b"><ul><li>濃度=溶質質量÷溶液質量×100%</li><li>溶液質量=溶質+溶劑</li><li>單位為 %</li></ul></div></div><div class="acc"><div class="h">ppm 濃度</div><div class="b"><ul><li>百萬分之一 (parts per million)</li><li>用於極稀溶液(如水質)</li><li>1ppm≈1mg溶質/1kg溶液</li></ul></div></div><div class="acc"><div class="h">課綱範圍提醒</div><div class="b"><ul><li>不涉溶液混合與稀釋計算</li><li>不談飽和與溶解度曲線(移高中)</li><li>重點在濃度概念與基本計算</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>食鹽水濃度：標示鹽的百分比</li><li>自來水氯含量：以ppm表示</li><li>點滴生理食鹽水：約0.9%濃度</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>濃度用溶質÷溶劑</div><div class="bk"><span class="tag">正確 ✓</span>應為溶質÷溶液(含溶質)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>溶液質量只算溶劑</div><div class="bk"><span class="tag">正確 ✓</span>溶液質量=溶質+溶劑</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>ppm是重量單位</div><div class="bk"><span class="tag">正確 ✓</span>ppm是比例(百萬分之一)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>加水後溶質變少</div><div class="bk"><span class="tag">正確 ✓</span>溶質不變，只是濃度變小</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "被溶解的物質稱為？", "a": "溶質", "e": "如鹽", "lv": "基礎卷"}, {"q": "溶解他物的物質稱為？", "a": "溶劑", "e": "常為水", "lv": "基礎卷"}, {"q": "溶液由什麼組成？", "a": "溶質+溶劑", "e": "兩者", "lv": "基礎卷"}, {"q": "重量百分濃度公式？", "a": "溶質÷溶液×100%", "e": "含溶質", "lv": "基礎卷"}, {"q": "ppm代表什麼？", "a": "百萬分之一", "e": "極稀", "lv": "基礎卷"}, {"q": "食鹽水中溶質是？", "a": "鹽", "e": "溶劑是水", "lv": "基礎卷"}, {"q": "溶液質量如何算？", "a": "溶質+溶劑", "e": "總和", "lv": "基礎卷"}, {"q": "生理食鹽水濃度約？", "a": "0.9%", "e": "醫療用", "lv": "基礎卷"}, {"q": "溶質溶於溶劑形成？", "a": "溶液", "e": "溶液", "lv": "基礎卷"}, {"q": "濃度表示溶液中溶質的？", "a": "多寡", "e": "濃度", "lv": "基礎卷"}, {"q": "20g鹽溶於80g水，濃度？", "a": "20%", "e": "20/100", "lv": "進階卷"}, {"q": "10g糖溶於90g水，濃度？", "a": "10%", "e": "10/100", "lv": "進階卷"}, {"q": "100g溶液含5g溶質，濃度？", "a": "5%", "e": "5/100", "lv": "進階卷"}, {"q": "要配200g的10%鹽水需鹽？", "a": "20 g", "e": "200×0.1", "lv": "進階卷"}, {"q": "50g水含0.05g溶質約幾ppm？", "a": "1000 ppm", "e": "0.05/50×10⁶", "lv": "進階卷"}, {"q": "加水稀釋後溶質質量？", "a": "不變", "e": "只濃度降", "lv": "進階卷"}, {"q": "30g鹽溶於120g水濃度？", "a": "20%", "e": "30/150", "lv": "進階卷"}, {"q": "濃度25%的150g溶液含溶質？", "a": "37.5 g", "e": "150×0.25", "lv": "進階卷"}, {"q": "40g鹽溶於160g水濃度？", "a": "20%", "e": "40/200", "lv": "進階卷"}, {"q": "配100g的5%糖水需糖？", "a": "5 g", "e": "100×0.05", "lv": "進階卷"}, {"q": "為何濃度用溶液而非溶劑當分母？", "a": "溶液才是總量、比例才正確", "e": "定義", "lv": "挑戰卷"}, {"q": "溶質相同、加水後濃度如何變？", "a": "變小", "e": "分母變大", "lv": "挑戰卷"}, {"q": "水中某污染物2mg/1kg水約幾ppm？", "a": "2 ppm", "e": "mg/kg", "lv": "挑戰卷"}, {"q": "40g溶液蒸發掉10g水，剩溶液濃度變？", "a": "變大", "e": "溶質不變總量少", "lv": "挑戰卷"}, {"q": "兩杯同濃度溶液倒一起濃度？", "a": "不變", "e": "同濃度", "lv": "挑戰卷"}, {"q": "15%的溶液200g與純水混不需算，觀念上濃度？", "a": "變小", "e": "稀釋", "lv": "挑戰卷"}, {"q": "要使10%鹽水變20%可如何？", "a": "蒸發部分水或加鹽", "e": "提高溶質比", "lv": "挑戰卷"}, {"q": "ppm比%小多少倍？", "a": "1%=10000ppm", "e": "換算", "lv": "挑戰卷"}, {"q": "100g的10%鹽水加水到200g濃度變？", "a": "5%", "e": "稀釋一半", "lv": "挑戰卷"}, {"q": "海水約3.5%代表100g海水含鹽？", "a": "3.5 g", "e": "百分濃度", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生物3-2 人體的循環系統｜互動教學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
+.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+.tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
+.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
+.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
+.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
+.acc.open>.b{max-height:600px;padding:0 18px 14px}
+.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
+.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:120px;perspective:900px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}
+.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
+.flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
+.flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+.lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
+.lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
+.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.card .q{font-size:19px;margin:10px 0}
+.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
+.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
+.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.score{text-align:center;font-size:14px;color:#9fc8d8}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
+.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+</style></head><body>
+<div class="top"><h1>生物3-2　人體的循環系統</h1><div class="g">七年級·生物　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="wrap">
+<section id="concept" class="on"><div class="lead">人體循環系統由心臟、血管與血液組成。心臟是幫浦推動血液循環;血管分動脈(送血離心)、靜脈(送血回心)、微血管(物質交換)。血液含血漿、紅血球(運氧)、白血球(防禦)、血小板(凝血)。血液循環分體循環與肺循環。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">循環系統組成</div><div class="b"><ul><li>心臟:幫浦推血</li><li>血管:運輸通道</li><li>血液:運送物質</li></ul></div></div><div class="acc"><div class="h">三種血管</div><div class="b"><ul><li>動脈:送血離心</li><li>靜脈:送血回心</li><li>微血管:物質交換</li></ul></div></div><div class="acc"><div class="h">血液的成分</div><div class="b"><ul><li>血漿:運送物質</li><li>紅血球:運氧</li><li>白血球防禦、血小板凝血</li></ul></div></div><div class="acc"><div class="h">兩種循環</div><div class="b"><ul><li>體循環:心→全身→心</li><li>肺循環:心→肺→心</li><li>肺循環使血液獲氧</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>量脈搏：動脈</li><li>捐血：血液成分</li><li>心跳：心臟幫浦</li></ul></div></div></section>
+<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>動脈都運送含氧血</div><div class="bk"><span class="tag">正確 ✓</span>肺動脈運送缺氧血</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>紅血球負責防禦</div><div class="bk"><span class="tag">正確 ✓</span>白血球負責防禦</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>微血管只是細血管</div><div class="bk"><span class="tag">正確 ✓</span>微血管是物質交換場所</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>心臟只推動一種循環</div><div class="bk"><span class="tag">正確 ✓</span>有體循環與肺循環</div></div></div></div></section>
+<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
+<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
+<div id="gamebox"></div></section>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
+</div>
+<script>window.__QUIZ__=[{"q": "推動血液循環的器官是？", "a": "心臟", "e": "幫浦", "lv": "基礎卷"}, {"q": "送血離開心臟的血管是？", "a": "動脈", "e": "離心", "lv": "基礎卷"}, {"q": "送血回心臟的血管是？", "a": "靜脈", "e": "回心", "lv": "基礎卷"}, {"q": "進行物質交換的血管是？", "a": "微血管", "e": "交換", "lv": "基礎卷"}, {"q": "血液中運送氧的是？", "a": "紅血球", "e": "運氧", "lv": "基礎卷"}, {"q": "血液中負責防禦的是？", "a": "白血球", "e": "防禦", "lv": "基礎卷"}, {"q": "血液中幫助凝血的是？", "a": "血小板", "e": "凝血", "lv": "基礎卷"}, {"q": "心到全身再回心的循環是？", "a": "體循環", "e": "全身", "lv": "基礎卷"}, {"q": "血液中運送養分與廢物的液體成分是？", "a": "血漿", "e": "液體", "lv": "基礎卷"}, {"q": "心臟規律收縮舒張形成？", "a": "心跳", "e": "幫浦", "lv": "基礎卷"}, {"q": "紅血球運氧靠什麼？", "a": "血紅素", "e": "攜氧", "lv": "進階卷"}, {"q": "肺循環使血液？", "a": "獲得氧", "e": "放CO₂取O₂", "lv": "進階卷"}, {"q": "微血管壁薄的意義？", "a": "利物質交換", "e": "交換", "lv": "進階卷"}, {"q": "血漿主要運送？", "a": "養分廢物等物質", "e": "液體", "lv": "進階卷"}, {"q": "動脈管壁較厚因為？", "a": "承受較大壓力", "e": "壓力", "lv": "進階卷"}, {"q": "心→肺→心的循環是？", "a": "肺循環", "e": "肺", "lv": "進階卷"}, {"q": "白血球數量增加常代表？", "a": "身體在對抗感染", "e": "免疫", "lv": "進階卷"}, {"q": "靜脈常有防止血液倒流的？", "a": "瓣膜", "e": "防倒流", "lv": "進階卷"}, {"q": "動脈血壓較高所以管壁？", "a": "較厚有彈性", "e": "承壓", "lv": "進階卷"}, {"q": "血液循環中氣體交換發生在？", "a": "微血管", "e": "交換", "lv": "進階卷"}, {"q": "說明體循環與肺循環的路徑與功能？", "a": "體循環送含氧血到全身、肺循環到肺換氣", "e": "循環", "lv": "挑戰卷"}, {"q": "三種血管的構造如何配合其功能？", "a": "動脈厚耐壓、靜脈有瓣防倒流、微血管薄利交換", "e": "配合", "lv": "挑戰卷"}, {"q": "血液四種成分如何分工？", "a": "血漿運送紅血球運氧白血球防禦血小板凝血", "e": "分工", "lv": "挑戰卷"}, {"q": "為何肺動脈運送的是缺氧血？", "a": "其送血往肺換氣故為缺氧血", "e": "特例", "lv": "挑戰卷"}, {"q": "微血管在物質交換的關鍵角色？", "a": "管壁薄且遍布組織利氧養分廢物交換", "e": "關鍵", "lv": "挑戰卷"}, {"q": "心臟為何被稱為幫浦？", "a": "規律收縮推動血液循環全身", "e": "幫浦", "lv": "挑戰卷"}, {"q": "捐血後身體如何補回血球？", "a": "骨髓造血補充", "e": "再生", "lv": "挑戰卷"}, {"q": "循環系統與呼吸消化如何協同？", "a": "運送吸收的養分與交換的氣體到全身", "e": "協同", "lv": "挑戰卷"}, {"q": "為何運動時心跳會加快？", "a": "加速運送氧與養分至肌肉", "e": "需求", "lv": "挑戰卷"}, {"q": "貧血與紅血球或血紅素不足的關係？", "a": "攜氧能力下降", "e": "攜氧", "lv": "挑戰卷"}];</script>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+});
+document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
+// 闖關自測
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
+function render(){const box=document.getElementById('gamebox');
+  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  const q=pool[idx];
+  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
+   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];
+  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
+   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;render();}
+window.start=start;window.showAns=showAns;window.mark=mark;
+start('基礎卷');
+</script>
+</body></html>
