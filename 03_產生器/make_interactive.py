@@ -17,6 +17,22 @@ BOOK = {'a':'生物','b':'八上','c':'八下','d':'九上','e':'九下'}
 GRADE = {'a':'七年級·生物','b':'八年級上·理化','c':'八年級下·理化','d':'九年級上·理化＋地科','e':'九年級下·理化＋地科'}
 def esc(x): return html.escape(str(x))
 
+# 每節對應的 canvas 模擬類型（依 L['code']）；未列者用互動配對 match
+SIMMAP = {
+ '八上3-1':'wave','八上3-2':'wave','八上3-3':'wave','八上3-4':'wave',
+ '八上1-4':'density','八下6-4':'density',
+ '八下3-2':'ph','八下3-3':'ph',
+ '八下4-1':'rate','八下4-2':'rate',
+ '九上1-1':'motion','九上1-2':'motion','九上1-3':'motion',
+ '九上2-2':'fma',
+ '九上4-2':'ohm','九上4-3':'ohm','九下1-2':'ohm',
+ '九下2-1':'magnet','九下2-2':'magnet','九下2-3':'magnet','九下2-4':'magnet',
+ '生物6-1':'punnett','生物6-2':'punnett',
+}
+SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和模擬','rate':'反應速率碰撞模擬',
+ 'motion':'運動 v-t 模擬','fma':'F=ma 模擬','ohm':'歐姆定律電路模擬','magnet':'電磁鐵模擬',
+ 'punnett':'遺傳棋盤模擬','match':'概念互動配對'}
+
 HUB_CSS = """
 :root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
 *{box-sizing:border-box}
@@ -123,21 +139,30 @@ def build(L, runcode):
     slides=''.join(f'<div class="slide-inner" style="display:none">{s["html"]}</div>' for s in L['slides'])
     infos=''.join(f'<div class="info"><div class="ititle">{esc(c["title"])}</div><div class="isub">{esc(c["sub"])}</div>{c["body"]}</div>' for c in L.get('infographics',[]))
     flips=''.join(f'<div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>{esc(m[0])}</div><div class="bk"><span class="tag">正確 ✓</span>{esc(m[1])}</div></div></div>' for m in L.get('misconceptions',[]))
+    simtype=SIMMAP.get(L['code'],'match')
+    # match 用主題名↔核心重點 當配對題（不足補生活連結）
+    pairs=[[t['name'], t['points'][0]] for t in L['themes']]
+    pairs+=[[x[0], x[1]] for x in L.get('life',[])]
+    simparams=json.dumps(pairs[:6], ensure_ascii=False) if simtype=='match' else 'null'
     doc=f'''<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(L["code"])} {esc(L["title"])}｜互動教學</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
 <style>{HUB_CSS}</style></head><body>
 <div class="top"><h1>{esc(L["code"])}　{esc(L["title"])}</h1><div class="g">{esc(GRADE[bk])}　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="simpane">🔬 互動模擬</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
 <div class="pane on" id="goals"><div class="leadbox">{esc(L["summary"])}</div><div class="goals">{goals}</div></div>
 <div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox">{slides}</div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
 <div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div>{infos}</div>
 <div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid">{flips}</div></div>
+<div class="pane" id="simpane"><div class="hint">🔬 {SIMNAME.get(simtype,"互動模擬")}　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"></div></div>
 <div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
-<script>{JS}</script></body></html>'''
+<script>{JS}</script>
+<script src="../sims.js"></script>
+<script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
+</body></html>'''
     return doc
 
 def main():
