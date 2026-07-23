@@ -126,6 +126,87 @@ S.rate=function(host){let temp=3,conc=15;const g=cv(host,420,220);const c=ctrl(h
   ro.innerHTML='溫度↑、濃度↑ → 有效碰撞↑ → 反應速率↑　　目前碰撞數≈ <b style="color:'+C.y+'">'+hits+'</b>';
   requestAnimationFrame(loop);})();};
 
+// 凸透鏡成像：物距滑桿
+S.lens=function(host){let u=200;const f=80;const g=cv(host,520,240);const c=ctrl(host);
+ slider(c,'物距 u(cm)',30,320,u,10,v=>u=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,520,240);const cx=300;
+  g.strokeStyle='rgba(244,241,232,.3)';g.beginPath();g.moveTo(0,140);g.lineTo(520,140);g.stroke();
+  g.strokeStyle=C.b;g.lineWidth=2;g.beginPath();g.ellipse(cx,140,10,72,0,0,7);g.stroke();
+  g.fillStyle=C.y;[cx-f,cx+f,cx-2*f,cx+2*f].forEach(x=>g.fillRect(x-1,137,2,7));
+  const ox=cx-u*0.7,oh=46;g.strokeStyle=C.g;g.lineWidth=3;g.beginPath();g.moveTo(ox,140);g.lineTo(ox,140-oh);g.stroke();g.beginPath();g.moveTo(ox-4,140-oh+8);g.lineTo(ox,140-oh);g.lineTo(ox+4,140-oh+8);g.stroke();
+  const v=1/(1/f-1/u);const m=-v/u;const ih=oh*m;const ix=cx+v*0.7;
+  g.strokeStyle=C.r;g.beginPath();g.moveTo(ix,140);g.lineTo(ix,140-ih);g.stroke();g.beginPath();g.moveTo(ix-4,140-ih+(ih>0?8:-8));g.lineTo(ix,140-ih);g.lineTo(ix+4,140-ih+(ih>0?8:-8));g.stroke();
+  let d;if(u>2*f)d='倒立縮小實像（照相機）';else if(u>f+2)d='倒立放大實像（投影機）';else if(u<f-2)d='正立放大虛像（放大鏡）';else d='成像於無限遠';
+  ro.innerHTML='物距 '+u+'cm → <b style="color:'+C.y+'">'+d+'</b>　（綠=物體，紅=成像，黃=焦點）';
+  requestAnimationFrame(loop);})();};
+
+// 月相盈虧
+S.moon=function(host){let ang=0;const g=cv(host,440,300);const c=ctrl(host);
+ slider(c,'月球公轉位置(°)',0,360,ang,15,v=>ang=v);const ro=readout(host);
+ const names=[[0,'滿月'],[45,'虧凸月'],[90,'下弦月'],[135,'殘月'],[180,'新月'],[225,'眉月'],[270,'上弦月'],[315,'盈凸月']];
+ (function loop(){g.clearRect(0,0,440,300);const ex=180,ey=160,R=100;
+  g.fillStyle=C.y;g.beginPath();g.arc(26,160,16,0,7);g.fill();g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('太陽',10,146);
+  g.strokeStyle='rgba(244,241,232,.2)';g.beginPath();g.arc(ex,ey,R,0,7);g.stroke();
+  g.fillStyle=C.b;g.beginPath();g.arc(ex,ey,14,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('地球',ex-13,ey+28);
+  const a=ang*Math.PI/180,mx=ex+R*Math.cos(a),my=ey+R*Math.sin(a);
+  g.fillStyle='#666';g.beginPath();g.arc(mx,my,10,0,7);g.fill();
+  const k=(1+Math.cos(a))/2;const dx=380,dy=90;
+  g.fillStyle='#333';g.beginPath();g.arc(dx,dy,34,0,7);g.fill();
+  g.save();g.beginPath();g.arc(dx,dy,34,0,7);g.clip();g.fillStyle=C.chalk;g.fillRect(dx-34,dy-34,68*k,68);g.restore();
+  g.fillStyle=C.b;g.font='12px sans-serif';g.fillText('地球看到的月相',dx-52,dy+52);
+  let best=names[0],bd=999;for(const p of names){let dd=180-Math.abs(((ang-p[0]+540)%360)-180);if(dd<bd){bd=dd;best=p;}}
+  ro.innerHTML='月相：<b style="color:'+C.y+'">'+best[1]+'</b>　（由日-地-月相對位置決定，非地球影子）';
+  requestAnimationFrame(loop);})();};
+
+// 季節成因
+S.season=function(host){let pos=180;const g=cv(host,460,300);const c=ctrl(host);
+ slider(c,'地球公轉位置(°)',0,360,pos,30,v=>pos=v);const ro=readout(host);
+ const seas=[[0,'冬至·北半球冬季（晝短）'],[90,'春分·晝夜等長'],[180,'夏至·北半球夏季（晝長）'],[270,'秋分·晝夜等長']];
+ (function loop(){g.clearRect(0,0,460,300);const cx=230,cy=150,R=120;
+  g.fillStyle=C.y;g.beginPath();g.arc(cx,cy,20,0,7);g.fill();g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('太陽',cx-14,cy+42);
+  g.strokeStyle='rgba(244,241,232,.2)';g.beginPath();g.ellipse(cx,cy,R,R*0.62,0,0,7);g.stroke();
+  const a=pos*Math.PI/180,ex=cx+R*Math.cos(a),ey=cy+R*0.62*Math.sin(a);
+  g.fillStyle=C.b;g.beginPath();g.arc(ex,ey,15,0,7);g.fill();
+  g.strokeStyle=C.r;g.lineWidth=2;g.beginPath();g.moveTo(ex-7,ey+16);g.lineTo(ex+7,ey-16);g.stroke();
+  let best=seas[0],bd=999;for(const p of seas){let dd=180-Math.abs(((pos-p[0]+540)%360)-180);if(dd<bd){bd=dd;best=p;}}
+  ro.innerHTML='<b style="color:'+C.y+'">'+best[1]+'</b>　（紅線=地軸，傾斜方向固定；公轉使太陽直射點南北移動→四季）';
+  requestAnimationFrame(loop);})();};
+
+// 光合作用速率
+S.photosyn=function(host){let light=5;const g=cv(host,420,240);const c=ctrl(host);
+ slider(c,'光照強度',0,10,light,1,v=>light=v);const ro=readout(host);let bubbles=[],acc=0;
+ (function loop(){g.clearRect(0,0,420,240);const rate=Math.min(light,7);
+  g.fillStyle=C.y;g.beginPath();g.arc(40,40,16,0,7);g.fill();
+  g.strokeStyle=C.g;g.lineWidth=5;g.beginPath();g.moveTo(210,240);g.lineTo(210,130);g.stroke();
+  for(let lf=0;lf<3;lf++){g.beginPath();g.ellipse(210+(lf%2?18:-18),150+lf*22,16,7,lf%2?0.5:-0.5,0,7);g.stroke();}
+  acc+=rate*0.06;if(acc>1&&rate>0){acc=0;bubbles.push({x:210+(Math.random()*24-12),y:130});}
+  bubbles=bubbles.filter(b=>b.y>-10);g.fillStyle=C.b;bubbles.forEach(b=>{b.y-=1+rate*0.25;g.beginPath();g.arc(b.x,b.y,3,0,7);g.fill();});
+  ro.innerHTML='光照 '+light+' → 光合速率 <b style="color:'+C.y+'">'+(rate>=7?'已達飽和':'隨光增強')+'</b>　（藍泡=釋出的氧氣，越快代表速率越高）';
+  requestAnimationFrame(loop);})();};
+
+// 電路通路/斷路
+S.circuit=function(host){let on=true;const g=cv(host,440,220);const c=ctrl(host);
+ const btn=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:6px 16px;font-weight:700">開關 開/關</button>');c.appendChild(btn);btn.onclick=()=>on=!on;
+ const ro=readout(host);let ph=0;
+ (function loop(){g.clearRect(0,0,440,220);g.strokeStyle=C.chalk;g.lineWidth=2;
+  g.beginPath();g.moveTo(70,50);g.lineTo(70,170);g.lineTo(370,170);g.lineTo(370,50);g.lineTo(250,50);g.stroke();
+  g.beginPath();g.moveTo(70,50);g.lineTo(190,50);g.stroke();
+  g.strokeStyle=on?C.g:C.r;g.lineWidth=4;g.beginPath();g.moveTo(190,50);g.lineTo(on?250:238,on?50:26);g.stroke();
+  g.fillStyle=C.y;g.fillRect(62,95,16,30);g.fillStyle=C.chalk;g.font='11px sans-serif';g.fillText('電池',44,112);
+  g.beginPath();g.arc(220,170,17,0,7);g.fillStyle=on?'rgba(240,216,120,.9)':'rgba(120,120,120,.35)';g.fill();g.strokeStyle=C.chalk;g.lineWidth=1;g.stroke();g.fillStyle=C.chalk;g.fillText('燈泡',206,205);
+  if(on){ph+=0.05;const pts=[[70,170],[370,170],[370,50],[250,50]];g.fillStyle=C.b;for(let k=0;k<10;k++){const t=(ph+k/10)%1;const seg=Math.floor(t*3),ft=t*3-seg;const p0=pts[seg],p1=pts[seg+1]||pts[3];g.beginPath();g.arc(p0[0]+(p1[0]-p0[0])*ft,p0[1]+(p1[1]-p0[1])*ft,3,0,7);g.fill();}}
+  ro.innerHTML=on?'<b style="color:'+C.g+'">通路</b>：開關接通，電流流動，燈泡發亮 💡':'<b style="color:'+C.r+'">斷路</b>：開關斷開，電流無法流動，燈不亮';
+  requestAnimationFrame(loop);})();};
+
+// 溶液濃度
+S.concentration=function(host){let solute=20,water=80;const g=cv(host,320,240);const c=ctrl(host);
+ slider(c,'溶質(g)',0,60,solute,5,v=>solute=v);slider(c,'水(g)',20,200,water,10,v=>water=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,320,240);const pct=solute/(solute+water)*100;const al=Math.min(0.85,pct/45+0.05);
+  g.fillStyle='rgba(240,216,120,'+al.toFixed(2)+')';g.fillRect(110,60,100,160);g.strokeStyle=C.chalk;g.lineWidth=2;g.strokeRect(110,60,100,160);
+  g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('溶液',150,52);
+  ro.innerHTML='重量百分濃度 = 溶質÷溶液×100% = '+solute+'÷'+(solute+water)+'×100% = <b style="color:'+C.y+'">'+pct.toFixed(1)+'%</b>　（顏色越深越濃）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;

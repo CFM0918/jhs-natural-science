@@ -25,13 +25,18 @@ SIMMAP = {
  '八下4-1':'rate','八下4-2':'rate',
  '九上1-1':'motion','九上1-2':'motion','九上1-3':'motion',
  '九上2-2':'fma',
- '九上4-2':'ohm','九上4-3':'ohm','九下1-2':'ohm',
+ '九上4-3':'ohm','九下1-2':'ohm',
+ '九上4-2':'circuit','九下1-1':'circuit',
  '九下2-1':'magnet','九下2-2':'magnet','九下2-3':'magnet','九下2-4':'magnet',
  '生物6-1':'punnett','生物6-2':'punnett',
+ '八上4-2':'lens','八上4-4':'lens',
+ '九上7-2':'moon','九上7-1':'season',
+ '生物2-2':'photosyn','八上2-4':'concentration',
 }
 SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和模擬','rate':'反應速率碰撞模擬',
  'motion':'運動 v-t 模擬','fma':'F=ma 模擬','ohm':'歐姆定律電路模擬','magnet':'電磁鐵模擬',
- 'punnett':'遺傳棋盤模擬','match':'概念互動配對'}
+ 'punnett':'遺傳棋盤模擬','lens':'凸透鏡成像模擬','moon':'月相盈虧模擬','season':'季節成因模擬',
+ 'photosyn':'光合作用速率模擬','circuit':'電路通路模擬','concentration':'溶液濃度模擬','match':'概念互動配對'}
 
 HUB_CSS = """
 :root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
