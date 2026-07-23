@@ -1,0 +1,16 @@
+# 成品 PDF（可用 03_產生器/topdf.py 重產，不納入版控以維持輕量）
+*.pdf
+
+# Python 快取
+__pycache__/
+*.pyc
+
+# 驗證/暫存輸出
+_verify_report.txt
+_*.txt
+*.tmp.html
+_hand_*.py
+
+# 系統
+.DS_Store
+Thumbs.db

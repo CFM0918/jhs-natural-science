@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>生物6-1 孟德爾的遺傳法則｜授課簡報</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@700&display=swap');
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d160d;font-family:'Noto Sans TC',sans-serif;color:var(--chalk);}
+.deck{max-width:1000px;margin:0 auto;padding:20px;}
+.slide{background:var(--board);border-radius:12px;margin-bottom:24px;padding:44px 48px;min-height:520px;position:relative;box-shadow:0 6px 24px rgba(0,0,0,0.5);border:1px solid rgba(240,216,120,0.15);display:flex;flex-direction:column;}
+.slide::after{content:attr(data-page);position:absolute;bottom:16px;right:24px;font-size:12px;color:rgba(244,241,232,0.35);}
+.slide::before{content:'';position:absolute;inset:0;border-radius:12px;background:repeating-linear-gradient(0deg,transparent,transparent 32px,rgba(255,255,255,0.015) 32px,rgba(255,255,255,0.015) 33px);pointer-events:none;}
+.eyebrow{color:var(--yellow);font-size:13px;letter-spacing:3px;margin-bottom:12px;}
+.slide h1{font-family:'Noto Serif TC',serif;font-size:40px;line-height:1.3;margin-bottom:8px;}
+.slide h2{font-family:'Noto Serif TC',serif;font-size:30px;color:var(--yellow);margin-bottom:24px;border-bottom:2px solid rgba(240,216,120,0.3);padding-bottom:10px;}
+.slide p{font-size:19px;line-height:1.9;margin-bottom:14px;}
+.big-center{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
+.big-center .lead{font-size:22px;color:var(--blue);letter-spacing:2px;}
+ul{list-style:none;margin:8px 0;}
+li{font-size:19px;line-height:2;padding-left:28px;position:relative;}
+li::before{content:'▹';position:absolute;left:4px;color:var(--yellow);}
+.hl{color:var(--yellow);font-weight:700;}.hl-b{color:var(--blue);font-weight:700;}.hl-r{color:var(--red);font-weight:700;}
+.box{background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:8px;padding:18px 22px;margin:14px 0;font-size:18px;line-height:1.9;}
+.box.y{background:rgba(240,216,120,0.1);border-color:rgba(240,216,120,0.3);}
+.box.r{background:rgba(232,160,160,0.1);border-color:rgba(232,160,160,0.3);}
+.box-b{background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:8px;padding:18px 22px;margin:14px 0;font-size:18px;line-height:1.9;}
+.eg{background:rgba(0,0,0,0.2);border-radius:8px;padding:16px 20px;margin:12px 0;font-size:18px;}
+.eg .q{color:var(--blue);margin-bottom:8px;}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:17px;}
+.tbl th,.tbl td{border:1px solid rgba(244,241,232,0.2);padding:10px 14px;text-align:center;}
+.tbl th{background:rgba(240,216,120,0.15);color:var(--yellow);}
+.print-hint{text-align:center;color:rgba(244,241,232,0.4);font-size:13px;padding:10px 0 24px;}
+@media print{body{background:#fff;}.deck{max-width:none;padding:0;}.slide{page-break-after:always;margin:0;border-radius:0;box-shadow:none;min-height:98vh;}.print-hint{display:none;}}</style></head><body><div class="deck"><div class="print-hint">📽 共 16 張投影片　·　按 Ctrl+P 可列印或轉存 PDF</div>
+<div class="slide" data-page="1 / 16"><div class="big-center"><div class="eyebrow">國一 · 生物 · 第六章 遺傳</div><h1>6-1　孟德爾的遺傳法則</h1><p class="lead">性狀如何一代代傳下去</p></div></div>
+<div class="slide" data-page="2 / 16"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">顯性</span>與<span class="hl-r">隱性</span>性狀</li><li>基因<span class="hl-b">成對</span>存在與<span class="hl-b">分離律</span></li><li>用<span class="hl">遺傳圖解</span>推算子代比例</li></ul><div class="box y">孟德爾用豌豆實驗，找出遺傳背後的數學規律。</div></div>
+<div class="slide" data-page="3 / 16"><div class="eyebrow">科學史</div><h2>遺傳學之父：孟德爾</h2><ul><li>以<span class="hl">豌豆</span>做大量雜交實驗</li><li>豌豆性狀分明、易栽種、可自花授粉</li><li>從數據中歸納出遺傳規律</li></ul><div class="box y">在不知道DNA的年代，他靠統計就發現了基因的行為。</div></div>
+<div class="slide" data-page="4 / 16"><div class="eyebrow">核心 ①</div><h2>顯性與隱性</h2><div class="box"><span class="hl">顯性</span>：會表現出來的性狀</div><div class="box r"><span class="hl-r">隱性</span>：被遮蓋、不表現的性狀</div><ul><li>顯性用<span class="hl">大寫 A</span>、隱性用<span class="hl-r">小寫 a</span></li></ul><div class="box y">顯性≠比較好，只是「會不會表現出來」的差別。</div></div>
+<div class="slide" data-page="5 / 16"><div class="eyebrow">核心 ②</div><h2>基因成對、來自父母</h2><div class="big-center"><svg viewBox="0 0 320 150" width="70%"><text x="30" y="30" font-size="15" fill="#9fc8d8">父</text><text x="250" y="30" font-size="15" fill="#e8a0a0">母</text><circle cx="45" cy="60" r="16" fill="rgba(159,200,216,.3)" stroke="#9fc8d8"/><text x="39" y="65" font-size="15" fill="#f4f1e8">A</text><circle cx="80" cy="60" r="16" fill="rgba(159,200,216,.3)" stroke="#9fc8d8"/><text x="75" y="65" font-size="15" fill="#f4f1e8">a</text><circle cx="240" cy="60" r="16" fill="rgba(232,160,160,.3)" stroke="#e8a0a0"/><text x="234" y="65" font-size="15" fill="#f4f1e8">A</text><circle cx="275" cy="60" r="16" fill="rgba(232,160,160,.3)" stroke="#e8a0a0"/><text x="270" y="65" font-size="15" fill="#f4f1e8">a</text><text x="120" y="120" font-size="14" fill="#f0d878">生殖細胞各帶「一個」基因</text></svg></div><div class="box y">體細胞基因成對(如Aa)，生殖細胞只帶其中一個。</div></div>
+<div class="slide" data-page="6 / 16"><div class="eyebrow">核心 ③</div><h2>分離律</h2><div class="box"><span class="hl">成對的基因</span>在形成生殖細胞時<span class="hl-b">分開</span>，各進入一個精子或卵</div><ul><li>Aa 個體 → 一半生殖細胞帶 A、一半帶 a</li><li>受精時再重新配對</li></ul></div>
+<div class="slide" data-page="7 / 16"><div class="eyebrow">基因型 vs 表現型</h2><h2>三種基因型</h2><table class="tbl"><tr><th>基因型</th><th>表現型</th><th>稱呼</th></tr><tr><td>AA</td><td>顯性</td><td>純種顯性</td></tr><tr><td>Aa</td><td>顯性</td><td>雜合(帶因)</td></tr><tr><td>aa</td><td>隱性</td><td>純種隱性</td></tr></table><div class="box y">AA 與 Aa 外表都是顯性，但 Aa 偷偷帶著隱性基因。</div></div>
+<div class="slide" data-page="8 / 16"><div class="eyebrow">例題 ★☆☆</h2><h2>先熱身</h2><div class="eg"><div class="q">(1) aa 表現顯性還是隱性？ (2) Aa 表現？</div></div><div class="box y"><p style="margin:0;">(1) aa → <span class="hl-r">隱性</span>(沒有顯性基因)</p><p style="margin:0;">(2) Aa → <span class="hl">顯性</span>(有一個A就顯性)</p></div></div>
+<div class="slide" data-page="9 / 16"><div class="eyebrow">核心 ④</h2><h2>遺傳圖解：Aa × Aa</h2><div class="big-center"><svg viewBox="0 0 220 200" width="52%"><text x="90" y="20" font-size="14" fill="#f0d878">父 Aa</text><text x="-115" y="16" font-size="14" fill="#f0d878" transform="rotate(-90)">母 Aa</text><line x1="60" y1="30" x2="60" y2="190" stroke="#f4f1e8" stroke-width="1"/><line x1="140" y1="30" x2="140" y2="190" stroke="#f4f1e8" stroke-width="1"/><line x1="20" y1="70" x2="200" y2="70" stroke="#f4f1e8" stroke-width="1"/><line x1="20" y1="130" x2="200" y2="130" stroke="#f4f1e8" stroke-width="1"/><text x="90" y="55" font-size="15" fill="#9fc8d8">A</text><text x="170" y="55" font-size="15" fill="#9fc8d8">a</text><text x="35" y="105" font-size="15" fill="#e8a0a0">A</text><text x="35" y="165" font-size="15" fill="#e8a0a0">a</text><text x="82" y="105" font-size="16" fill="#f4f1e8">AA</text><text x="162" y="105" font-size="16" fill="#f0d878">Aa</text><text x="82" y="165" font-size="16" fill="#f0d878">Aa</text><text x="162" y="165" font-size="16" fill="#e8a0a0">aa</text></svg></div><div class="box">基因型 AA : Aa : aa = <span class="hl">1 : 2 : 1</span></div></div>
+<div class="slide" data-page="10 / 16"><div class="eyebrow">解讀圖解</h2><h2>子代比例</h2><ul><li>基因型 AA : Aa : aa = <span class="hl">1 : 2 : 1</span></li><li>表現型 顯性 : 隱性 = <span class="hl-b">3 : 1</span>(AA、Aa、Aa 都顯性)</li></ul><div class="box y">「3:1」是孟德爾最著名的比例。</div></div>
+<div class="slide" data-page="11 / 16"><div class="eyebrow">例題 ★★☆</h2><h2>試試看</h2><div class="eg"><div class="q">純種顯性 AA × 純種隱性 aa，子代基因型與表現型？</div></div><div class="box y"><p style="margin:0;">子代全部 <span class="hl">Aa</span></p><p style="margin:6px 0 0;">表現型：全部<span class="hl">顯性</span></p></div></div>
+<div class="slide" data-page="12 / 16"><div class="eyebrow">易錯釐清</h2><h2>帶因者的祕密</h2><div class="box r">父母外表都是顯性，卻生出隱性(aa)的孩子？</div><ul><li>因為父母其實都是 <span class="hl">Aa</span>(帶因者)</li><li>各給一個 a → 子代 aa 表現隱性</li></ul><div class="box y">隱性性狀可能「隔代」出現，就是這個原因。</div></div>
+<div class="slide" data-page="13 / 16"><div class="eyebrow">例題 ★★★</h2><h2>反推親代</h2><div class="eg"><div class="q">某對親代子代出現顯性:隱性≈3:1，親代基因型最可能是？</div></div><div class="box y">3:1 是 <span class="hl">Aa × Aa</span> 的特徵比例 → 父母都是雜合帶因者。</div></div>
+<div class="slide" data-page="14 / 16"><div class="eyebrow">素養 · 生活</h2><h2>遺傳就在你身邊</h2><ul><li><span class="hl-b">捲舌</span>與否、有無<span class="hl-b">酒窩</span>、耳垂貼不貼</li><li>親子相似，正是基因一代代傳遞</li></ul><div class="box y">觀察家人的性狀，就是一場迷你遺傳學實驗。</div></div>
+<div class="slide" data-page="15 / 16"><div class="eyebrow">本節總結</h2><h2>三句話記住</h2><div class="box"><span class="hl">顯隱性：</span>顯性遮蓋隱性，A大a小</div><div class="box-b"><span class="hl-b">分離律：</span>成對基因分開進生殖細胞</div><div class="box r"><span class="hl-r">比例：</span>Aa×Aa → 基因型1:2:1、表現型3:1</div></div>
+<div class="slide" data-page="16 / 16"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>6-2　性別決定與人類遺傳</h1><p class="lead">XX 與 XY 的祕密</p></div></div>
+</div></body></html>
