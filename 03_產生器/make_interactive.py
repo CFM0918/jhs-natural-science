@@ -165,7 +165,7 @@ def build(L, runcode):
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
-<script src="../sims.js"></script>
+<script src="../sims.js?v=2"></script>
 <script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
 </body></html>'''
     return doc
