@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>九上6-3 地層、化石與地質年代｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
-<div class="top"><h1>九上6-3　地層、化石與地質年代</h1><div class="g">九年級上　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="top"><h1>九上6-3　地層、化石與地質年代</h1><div class="g">九年級上·理化＋地科　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">地層是沉積物一層層堆積形成的岩層,依疊置原理,未受擾動時越下層越老。化石是古生物的遺骸或遺跡,能指示當時環境與年代(指準化石)。科學家藉地層與化石重建地質年代與地球歷史。課綱刪除臺灣各種地形成因。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">地層與疊置原理</div><div class="b"><ul><li>沉積物層層堆積成地層</li><li>未擾動時越下越老</li><li>層理記錄時間順序</li></ul></div></div><div class="acc"><div class="h">化石</div><div class="b"><ul><li>古生物遺骸或遺跡</li><li>多保存於沉積岩</li><li>指示環境與年代</li></ul></div></div><div class="acc"><div class="h">指準化石</div><div class="b"><ul><li>分布廣、存在時間短</li><li>可用來對比地層年代</li><li>幫助定年</li></ul></div></div><div class="acc"><div class="h">地質年代</div><div class="b"><ul><li>依地層化石劃分</li><li>重建地球歷史</li><li>了解生物演變</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>恐龍化石：了解古生物</li><li>地層剖面：推地質史</li><li>煤礦：古植物沉積</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>地層越上面越老</div><div class="bk"><span class="tag">正確 ✓</span>未擾動時越下越老</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>化石只是石頭</div><div class="bk"><span class="tag">正確 ✓</span>化石是古生物遺骸或遺跡</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>所有生物都能成化石</div><div class="bk"><span class="tag">正確 ✓</span>需特定條件才易形成化石</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>地層順序不會被打亂</div><div class="bk"><span class="tag">正確 ✓</span>地殼變動可能使地層傾斜倒轉</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">地層是沉積物一層層堆積形成的岩層,依疊置原理,未受擾動時越下層越老。化石是古生物的遺骸或遺跡,能指示當時環境與年代(指準化石)。科學家藉地層與化石重建地質年代與地球歷史。課綱刪除臺灣各種地形成因。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>地層與疊置原理</b><span>沉積物層層堆積成地層、未擾動時越下越老</span></div><div class="goal"><div class="ic">🔬</div><b>化石</b><span>古生物遺骸或遺跡、多保存於沉積岩</span></div><div class="goal"><div class="ic">⚗️</div><b>指準化石</b><span>分布廣、存在時間短、可用來對比地層年代</span></div><div class="goal"><div class="ic">🌱</div><b>地質年代</b><span>依地層化石劃分、重建地球歷史</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國三上學期 · 自然 · 九上6</div><h1>九上6-3　地層、化石與地質年代</h1><p class="lead">閱讀地球歷史</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">地層與疊置原理</span></li><li><span class="hl">化石</span></li><li><span class="hl">指準化石</span></li><li><span class="hl">地質年代</span></li></ul><div class="box y">地層是沉積物一層層堆積形成的岩層,依疊置原理,未受擾動時越下層越老。化石是古生物的遺骸或遺跡,能指示當時環境與年代(指準…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>地層與疊置原理</h2><div class="box"><span class="hl">沉積物層層堆積成地層</span></div><ul><li>未擾動時越下越老</li><li>層理記錄時間順序</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>化石</h2><div class="box"><span class="hl-b">古生物遺骸或遺跡</span></div><ul><li>多保存於沉積岩</li><li>指示環境與年代</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>指準化石</h2><div class="box"><span class="hl">分布廣、存在時間短</span></div><ul><li>可用來對比地層年代</li><li>幫助定年</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>地質年代</h2><div class="box"><span class="hl-r">依地層化石劃分</span></div><ul><li>重建地球歷史</li><li>了解生物演變</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>地層越上面越老</td><td>未擾動時越下越老</td></tr><tr><td>化石只是石頭</td><td>化石是古生物遺骸或遺跡</td></tr><tr><td>所有生物都能成化石</td><td>需特定條件才易形成化石</td></tr><tr><td>地層順序不會被打亂</td><td>地殼變動可能使地層傾斜倒轉</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">如何用疊置原理判斷地層先後？</div><p style="color:#f0d878;margin:0;">→ 未擾動時下層先沉積較老　<span style="color:#9fc8d8;font-size:15px;">(原理)</span></p></div><div class="eg"><div class="q">為何指準化石要分布廣且存在時間短？</div><p style="color:#f0d878;margin:0;">→ 廣可跨區對比、短代表特定年代　<span style="color:#9fc8d8;font-size:15px;">(定年)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">恐龍化石</span>：了解古生物</li><li><span class="hl-b">地層剖面</span>：推地質史</li><li><span class="hl-b">煤礦</span>：古植物沉積</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記地層化石。</div><div class="box-b"><span class="hl-b">B 精熟</span>：判斷年代。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合分析。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">地層與疊置原理</span>：沉積物層層堆積成地層</div><div class="box"><span class="hl">化石</span>：古生物遺骸或遺跡</div><div class="box"><span class="hl">指準化石</span>：分布廣、存在時間短</div><div class="box"><span class="hl">地質年代</span>：依地層化石劃分</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>7-1　地球的運動</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">地層、化石與地質年代｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">地層與疊置原理</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">沉積物層層堆積成地層　未擾動時越下越老</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">化石</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">古生物遺骸或遺跡　多保存於沉積岩</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">指準化石</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">分布廣、存在時間短　可用來對比地層年代</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">地質年代</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">依地層化石劃分　重建地球歷史</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">地層越上面越老</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">未擾動時越下越老</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">化石只是石頭</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">化石是古生物遺骸或遺跡</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">所有生物都能成化石</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">需特定條件才易形成化石</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">地層順序不會被打亂</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">地殼變動可能使地層傾斜倒轉</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記地層化石。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">判斷年代。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">恐龍化石</b>　<span style="font-size:15px;">了解古生物</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">地層剖面</b>　<span style="font-size:15px;">推地質史</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">煤礦</b>　<span style="font-size:15px;">古植物沉積</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>地層越上面越老</div><div class="bk"><span class="tag">正確 ✓</span>未擾動時越下越老</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>化石只是石頭</div><div class="bk"><span class="tag">正確 ✓</span>化石是古生物遺骸或遺跡</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>所有生物都能成化石</div><div class="bk"><span class="tag">正確 ✓</span>需特定條件才易形成化石</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>地層順序不會被打亂</div><div class="bk"><span class="tag">正確 ✓</span>地殼變動可能使地層傾斜倒轉</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "沉積物層層堆積形成？", "a": "地層", "e": "岩層", "lv": "基礎卷"}, {"q": "未受擾動地層越下層越？", "a": "老", "e": "疊置", "lv": "基礎卷"}, {"q": "古生物遺骸或遺跡是？", "a": "化石", "e": "保存", "lv": "基礎卷"}, {"q": "化石多保存在哪類岩石？", "a": "沉積岩", "e": "層理", "lv": "基礎卷"}, {"q": "可用來對比地層年代的化石是？", "a": "指準化石", "e": "定年", "lv": "基礎卷"}, {"q": "地層記錄了什麼順序？", "a": "時間", "e": "歷史", "lv": "基礎卷"}, {"q": "科學家用地層化石重建？", "a": "地質年代", "e": "歷史", "lv": "基礎卷"}, {"q": "越上層的地層通常越？", "a": "新", "e": "疊置", "lv": "基礎卷"}, {"q": "地層中通常越下層形成時間越？", "a": "早(老)", "e": "疊置", "lv": "基礎卷"}, {"q": "化石多保存在哪一類岩石？", "a": "沉積岩", "e": "沉積", "lv": "基礎卷"}, {"q": "疊置原理指未擾動時？", "a": "下老上新", "e": "順序", "lv": "進階卷"}, {"q": "好的指準化石特徵？", "a": "分布廣存在時間短", "e": "定年佳", "lv": "進階卷"}, {"q": "化石能指示當時的？", "a": "環境與年代", "e": "線索", "lv": "進階卷"}, {"q": "煤是什麼古生物沉積形成？", "a": "古植物", "e": "沉積", "lv": "進階卷"}, {"q": "地層若傾斜倒轉可能因？", "a": "地殼變動", "e": "擾動", "lv": "進階卷"}, {"q": "化石形成需要什麼條件？", "a": "快速掩埋等特定條件", "e": "稀有", "lv": "進階卷"}, {"q": "地層剖面能幫助了解？", "a": "地質歷史", "e": "紀錄", "lv": "進階卷"}, {"q": "海生化石出現在山上說明？", "a": "曾是海洋後抬升", "e": "變動", "lv": "進階卷"}, {"q": "對比不同地區地層年代的化石稱？", "a": "指準化石", "e": "定年", "lv": "進階卷"}, {"q": "地層一層層堆疊的排列稱？", "a": "層理", "e": "層理", "lv": "進階卷"}, {"q": "如何用疊置原理判斷地層先後？", "a": "未擾動時下層先沉積較老", "e": "原理", "lv": "挑戰卷"}, {"q": "為何指準化石要分布廣且存在時間短？", "a": "廣可跨區對比、短代表特定年代", "e": "定年", "lv": "挑戰卷"}, {"q": "高山發現海洋生物化石代表什麼？", "a": "該地曾為海洋後經抬升", "e": "地殼變動", "lv": "挑戰卷"}, {"q": "分析化石如何重建古環境？", "a": "由生物種類推當時氣候環境", "e": "推論", "lv": "挑戰卷"}, {"q": "地層倒轉時疊置原理還適用嗎？", "a": "需先判斷是否擾動再解讀", "e": "限制", "lv": "挑戰卷"}, {"q": "煤層的存在說明古代該地？", "a": "有繁茂植物與沉積環境", "e": "古環境", "lv": "挑戰卷"}, {"q": "化石與地層如何共同建立地質年代？", "a": "以化石對比、地層順序排年代", "e": "綜合", "lv": "挑戰卷"}, {"q": "為何多數生物難以形成化石？", "a": "遺骸多被分解需特殊掩埋保存", "e": "稀有", "lv": "挑戰卷"}, {"q": "高山發現貝殼化石可推論該地？", "a": "曾在海洋後抬升", "e": "地殼變動", "lv": "挑戰卷"}, {"q": "為何多數生物不易形成化石？", "a": "遺骸多被分解需特殊掩埋", "e": "稀有", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

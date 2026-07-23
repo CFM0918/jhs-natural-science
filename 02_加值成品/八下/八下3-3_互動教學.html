@@ -1,87 +1,105 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>八下3-3 中和與鹽｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
 <div class="top"><h1>八下3-3　中和與鹽</h1><div class="g">八年級下·理化　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">酸與鹼反應生成鹽和水,稱中和反應(H⁺+OH⁻→H₂O)。中和是放熱反應。鹽是酸鹼中和的產物,如食鹽NaCl。pH值表示酸鹼程度(pH&lt;7酸性、=7中性、&gt;7鹼性),本節認識pH意義,不涉及pH計算(移高中),也不涉莫耳濃度稀釋計算。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">中和反應</div><div class="b"><ul><li>酸+鹼→鹽+水</li><li>H⁺+OH⁻→H₂O</li><li>放熱反應</li></ul></div></div><div class="acc"><div class="h">鹽</div><div class="b"><ul><li>中和反應的產物</li><li>如NaCl、Na₂SO₄</li><li>多為離子化合物</li></ul></div></div><div class="acc"><div class="h">pH值</div><div class="b"><ul><li>表示酸鹼程度</li><li>pH&lt;7酸、=7中、&gt;7鹼</li><li>課綱不涉pH計算</li></ul></div></div><div class="acc"><div class="h">生活應用</div><div class="b"><ul><li>胃藥中和胃酸</li><li>石灰中和酸性土壤</li><li>牙膏中和口腔酸</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>胃藥：中和過多胃酸</li><li>土壤改良：石灰中和酸</li><li>蜂螫塗鹼：中和酸性</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>中和後一定是中性</div><div class="bk"><span class="tag">正確 ✓</span>視酸鹼強弱與量,不一定恰中性</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>鹽只有食鹽</div><div class="bk"><span class="tag">正確 ✓</span>鹽是一類化合物,種類很多</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>pH越大越酸</div><div class="bk"><span class="tag">正確 ✓</span>pH越大越鹼</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>中和是吸熱反應</div><div class="bk"><span class="tag">正確 ✓</span>中和是放熱反應</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">酸與鹼反應生成鹽和水,稱中和反應(H⁺+OH⁻→H₂O)。中和是放熱反應。鹽是酸鹼中和的產物,如食鹽NaCl。pH值表示酸鹼程度(pH&lt;7酸性、=7中性、&gt;7鹼性),本節認識pH意義,不涉及pH計算(移高中),也不涉莫耳濃度稀釋計算。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>中和反應</b><span>酸+鹼→鹽+水、H⁺+OH⁻→H₂O</span></div><div class="goal"><div class="ic">🔬</div><b>鹽</b><span>中和反應的產物、如NaCl、Na₂SO₄</span></div><div class="goal"><div class="ic">⚗️</div><b>pH值</b><span>表示酸鹼程度、pH&lt;7酸、=7中、&gt;7鹼</span></div><div class="goal"><div class="ic">🌱</div><b>生活應用</b><span>胃藥中和胃酸、石灰中和酸性土壤</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國二下 · 理化 · 第三章 酸鹼鹽</div><h1>3-3　中和與鹽</h1><p class="lead">酸鹼相遇，生成鹽和水</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">中和反應</span>與其產物</li><li><span class="hl-b">pH 值</span>判讀酸鹼強弱</li><li>中和在<span class="hl">生活</span>的應用</li></ul><div class="box y">酸加鹼會互相抵消，這就是中和。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>中和反應</h2><div class="box"><span class="hl">酸 + 鹼 → 鹽 + 水</span></div><ul><li>例：鹽酸 + 氫氧化鈉 → 氯化鈉 + 水</li><li>是一種<span class="hl-r">放熱</span>反應</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">微觀本質</div><h2>其實是 H⁺ 與 OH⁻ 結合</h2><div class="big-center"><svg viewBox="0 0 320 90" width="80%"><circle cx="45" cy="45" r="20" fill="rgba(232,160,160,.3)" stroke="#e8a0a0"/><text x="30" y="50" font-size="15" fill="#f4f1e8">H⁺</text><text x="80" y="50" font-size="22" fill="#f0d878">+</text><circle cx="130" cy="45" r="22" fill="rgba(159,200,216,.3)" stroke="#9fc8d8"/><text x="112" y="50" font-size="14" fill="#f4f1e8">OH⁻</text><text x="170" y="50" font-size="20" fill="#f0d878">→</text><circle cx="230" cy="45" r="24" fill="rgba(168,208,160,.3)" stroke="#a8d0a0"/><text x="210" y="50" font-size="14" fill="#f4f1e8">H₂O</text></svg></div><div class="box y">酸的 H⁺ 和鹼的 OH⁻ 結合成水，酸鹼性消失。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>什麼是鹽</h2><ul><li>中和反應中，酸的酸根與鹼的金屬離子結合成<span class="hl">鹽</span></li><li>如 NaCl(食鹽)、Na₂SO₄</li><li>鹽多為<span class="hl-b">離子化合物</span></li></ul><div class="box y">「鹽」是一類化合物，不只食鹽一種。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</h2><h2>pH 值：酸鹼的刻度</h2><div class="big-center"><svg viewBox="0 0 360 70" width="92%"><defs><linearGradient id="ph" x1="0" x2="1"><stop offset="0" stop-color="#e8000b"/><stop offset="0.5" stop-color="#7ac74f"/><stop offset="1" stop-color="#2a4bd0"/></linearGradient></defs><rect x="10" y="20" width="340" height="24" rx="4" fill="url(#ph)"/><text x="12" y="60" font-size="12" fill="#f4f1e8">0</text><text x="168" y="60" font-size="12" fill="#f4f1e8">7</text><text x="335" y="60" font-size="12" fill="#f4f1e8">14</text><text x="60" y="15" font-size="12" fill="#e8a0a0">酸性</text><text x="160" y="15" font-size="12" fill="#a8d0a0">中性</text><text x="285" y="15" font-size="12" fill="#9fc8d8">鹼性</text></svg></div><ul><li>pH < 7 <span class="hl-r">酸性</span>；= 7 中性；> 7 <span class="hl-b">鹼性</span></li><li>數字離 7 越遠，酸/鹼性越強</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★☆☆</h2><h2>先熱身</h2><div class="eg"><div class="q">pH=3、pH=6、pH=10 哪個酸性最強？</div></div><div class="box y">pH 越小越酸 → <span class="hl-r">pH=3</span> 酸性最強；pH=10 為鹼性。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">實驗觀察</h2><h2>中和的溫度變化</h2><ul><li>酸與鹼混合後，溫度<span class="hl-r">上升</span></li><li>證明中和是<span class="hl-r">放熱反應</span></li><li>可用指示劑觀察酸鹼性消長</li></ul><div class="box y">H⁺ 與 OH⁻ 結合成水時釋出能量。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★☆</h2><h2>試試看</h2><div class="eg"><div class="q">鹽酸與氫氧化鈉恰好完全中和，產物是？溶液 pH 約？</div></div><div class="box y"><p style="margin:0;">產物：<span class="hl">氯化鈉 NaCl + 水</span></p><p style="margin:6px 0 0;">恰好中和 → pH ≈ <span class="hl">7</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">觀念釐清</h2><h2>中和後一定是中性嗎？</h2><div class="box r">不一定！</div><ul><li>酸過量 → 溶液仍<span class="hl-r">偏酸</span></li><li>鹼過量 → 溶液仍<span class="hl-b">偏鹼</span></li><li>恰好中和才會中性(pH≈7)</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活 ①</h2><h2>胃藥中和胃酸</h2><ul><li>胃酸過多引起不適</li><li>吃<span class="hl-b">鹼性</span>胃藥中和過多 H⁺</li></ul><div class="box y">中和不是只在實驗室，也在你的胃裡發生。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活 ②</h2><h2>更多中和應用</h2><table class="tbl"><tr><th>情境</th><th>原理</th></tr><tr><td>酸性土壤撒石灰</td><td>鹼中和酸</td></tr><tr><td>蜂螫(酸)塗小蘇打</td><td>鹼中和酸</td></tr><tr><td>牙膏偏鹼</td><td>中和口腔酸</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</h2><h2>綜合判斷</h2><div class="eg"><div class="q">在鹼性溶液中持續加入鹽酸，pH 會如何變化？</div></div><div class="box y">pH 由大(鹼)逐漸<span class="hl-r">下降</span>，過中性(7)後若酸過量則 < 7 呈酸性。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">課綱提醒</h2><h2>國中範圍</h2><div class="box">認識 pH 的<span class="hl">意義</span>與酸鹼判斷</div><div class="box r">不涉及 pH 的<span class="hl-r">計算</span>（移高中）</div><div class="box-b">不涉莫耳濃度、稀釋計算（移高中）</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</h2><h2>三句話記住</h2><div class="box"><span class="hl">中和：</span>酸+鹼→鹽+水，H⁺+OH⁻→H₂O，放熱</div><div class="box-b"><span class="hl-b">pH：</span><7酸、=7中、>7鹼，離7越遠越強</div><div class="box r"><span class="hl-r">應用：</span>胃藥、石灰改良土壤、牙膏</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>4-1　反應速率</h1><p class="lead">反應有多快</p></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">中和反應</div><div class="isub">酸+鹼→鹽+水</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;"><div style="text-align:center;font-size:22px;color:var(--yellow);font-weight:700;">酸 + 鹼 → 鹽 + 水</div><div style="display:flex;align-items:center;justify-content:center;gap:14px;font-size:18px;"><span style="background:rgba(232,160,160,.2);border-radius:50%;padding:16px 18px;">H⁺</span><span style="color:var(--yellow);">+</span><span style="background:rgba(159,200,216,.2);border-radius:50%;padding:16px 14px;">OH⁻</span><span style="color:var(--yellow);">→</span><span style="background:rgba(168,208,160,.2);border-radius:50%;padding:16px 14px;">H₂O</span></div><div style="text-align:center;font-size:15px;color:rgba(244,241,232,.85);">酸的 H⁺ 與鹼的 OH⁻ 結合成水，放出熱量(放熱反應)</div></div></div><div class="info"><div class="ititle">pH 酸鹼刻度</div><div class="isub">0～14</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;"><svg viewBox="0 0 400 80" width="100%"><defs><linearGradient id="p2" x1="0" x2="1"><stop offset="0" stop-color="#e8000b"/><stop offset="0.5" stop-color="#7ac74f"/><stop offset="1" stop-color="#2a4bd0"/></linearGradient></defs><rect x="10" y="24" width="380" height="30" rx="5" fill="url(#p2)"/><text x="12" y="72" font-size="14" fill="#f4f1e8">0</text><text x="192" y="72" font-size="14" fill="#f4f1e8">7</text><text x="376" y="72" font-size="14" fill="#f4f1e8">14</text><text x="70" y="18" font-size="14" fill="#e8a0a0">酸性</text><text x="185" y="18" font-size="14" fill="#a8d0a0">中性</text><text x="320" y="18" font-size="14" fill="#9fc8d8">鹼性</text></svg><div style="font-size:15px;color:rgba(244,241,232,.85);text-align:center;">pH&lt;7 酸性、=7 中性、&gt;7 鹼性；數字離 7 越遠酸鹼性越強</div></div></div><div class="info"><div class="ititle">中和後不一定中性</div><div class="isub">看酸鹼誰過量</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;font-size:16px;"><div style="background:rgba(232,160,160,.12);border:1px solid rgba(232,160,160,.3);border-radius:10px;padding:16px;"><b style="color:var(--red);">酸過量</b>　→ 溶液仍偏酸 (pH&lt;7)</div><div style="background:rgba(168,208,160,.12);border:1px solid rgba(168,208,160,.3);border-radius:10px;padding:16px;"><b style="color:var(--green);">恰好中和</b>　→ 中性 (pH≈7)</div><div style="background:rgba(159,200,216,.12);border:1px solid rgba(159,200,216,.3);border-radius:10px;padding:16px;"><b style="color:var(--blue);">鹼過量</b>　→ 溶液仍偏鹼 (pH&gt;7)</div></div></div><div class="info"><div class="ititle">中和的生活應用</div><div class="isub">酸鹼相消</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;font-size:15px;"><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🩹 <b>胃藥</b>：鹼性藥中和過多胃酸</div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🌱 <b>石灰改良酸性土壤</b>：鹼中和酸</div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🐝 <b>蜂螫塗小蘇打</b>：鹼中和酸性毒液</div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:14px;">🦷 <b>牙膏偏鹼</b>：中和口腔酸、保護牙齒</div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>中和後一定是中性</div><div class="bk"><span class="tag">正確 ✓</span>視酸鹼強弱與量,不一定恰中性</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>鹽只有食鹽</div><div class="bk"><span class="tag">正確 ✓</span>鹽是一類化合物,種類很多</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>pH越大越酸</div><div class="bk"><span class="tag">正確 ✓</span>pH越大越鹼</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>中和是吸熱反應</div><div class="bk"><span class="tag">正確 ✓</span>中和是放熱反應</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "酸與鹼反應生成？", "a": "鹽和水", "e": "中和", "lv": "基礎卷"}, {"q": "中和反應的離子式核心是？", "a": "H⁺+OH⁻→H₂O", "e": "結合", "lv": "基礎卷"}, {"q": "中和是放熱還吸熱？", "a": "放熱", "e": "升溫", "lv": "基礎卷"}, {"q": "pH小於7是？", "a": "酸性", "e": "偏酸", "lv": "基礎卷"}, {"q": "pH等於7是？", "a": "中性", "e": "純水", "lv": "基礎卷"}, {"q": "pH大於7是？", "a": "鹼性", "e": "偏鹼", "lv": "基礎卷"}, {"q": "食鹽是一種？", "a": "鹽", "e": "NaCl", "lv": "基礎卷"}, {"q": "胃藥的作用是中和？", "a": "胃酸", "e": "過多酸", "lv": "基礎卷"}, {"q": "酸鹼中和的產物是鹽和？", "a": "水", "e": "中和", "lv": "基礎卷"}, {"q": "中和的核心是H⁺與什麼結合？", "a": "OH⁻", "e": "結合", "lv": "基礎卷"}, {"q": "鹽酸與氫氧化鈉中和生成？", "a": "氯化鈉和水", "e": "NaCl+H₂O", "lv": "進階卷"}, {"q": "中和反應溫度如何變？", "a": "上升", "e": "放熱", "lv": "進階卷"}, {"q": "pH=3和pH=5誰較酸？", "a": "pH=3", "e": "數字小", "lv": "進階卷"}, {"q": "酸性土壤可用什麼改良？", "a": "石灰(鹼性)", "e": "中和", "lv": "進階卷"}, {"q": "中和後溶液一定中性嗎？", "a": "不一定", "e": "視量與強弱", "lv": "進階卷"}, {"q": "鹽多屬哪類化合物？", "a": "離子化合物", "e": "導電", "lv": "進階卷"}, {"q": "牙膏偏鹼是為了？", "a": "中和口腔酸", "e": "護齒", "lv": "進階卷"}, {"q": "pH=7的液體是？", "a": "中性", "e": "如純水", "lv": "進階卷"}, {"q": "pH=1與pH=6誰酸性強？", "a": "pH=1", "e": "數字小", "lv": "進階卷"}, {"q": "中和過程放熱使溫度？", "a": "上升", "e": "放熱", "lv": "進階卷"}, {"q": "胃酸過多吃鹼性胃藥原理？", "a": "鹼中和過多H⁺減緩不適", "e": "中和", "lv": "挑戰卷"}, {"q": "中和反應為何放熱？", "a": "H⁺與OH⁻結合成水釋出能量", "e": "機制", "lv": "挑戰卷"}, {"q": "等量強酸強鹼中和後pH約？", "a": "7(中性)", "e": "恰中和", "lv": "挑戰卷"}, {"q": "過量酸與少量鹼中和後呈？", "a": "酸性", "e": "酸剩餘", "lv": "挑戰卷"}, {"q": "為何蜂螫(酸性)可塗小蘇打？", "a": "鹼性中和酸", "e": "緩解", "lv": "挑戰卷"}, {"q": "如何用指示劑觀察中和終點？", "a": "顏色改變時", "e": "終點", "lv": "挑戰卷"}, {"q": "鹽類命名由酸鹼決定,鹽酸+NaOH得？", "a": "氯化鈉", "e": "命名", "lv": "挑戰卷"}, {"q": "為何國中不算pH值？", "a": "移高中,國中重意義", "e": "課綱", "lv": "挑戰卷"}, {"q": "滴定中如何知道恰好中和？", "a": "指示劑變色終點", "e": "終點", "lv": "挑戰卷"}, {"q": "酸性土壤加石灰改良的原理？", "a": "鹼中和酸", "e": "中和", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

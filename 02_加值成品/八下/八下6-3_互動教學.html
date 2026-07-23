@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>八下6-3 壓力｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
 <div class="top"><h1>八下6-3　壓力</h1><div class="g">八年級下·理化　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">壓力是單位面積上所受的垂直力,P=F/A,單位帕斯卡(Pa,即N/m²)。相同的力,受力面積越小壓力越大(如刀刃、圖釘尖端);面積越大壓力越小(如雪鞋、寬履帶)。認識壓力概念與生活應用。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">壓力的定義</div><div class="b"><ul><li>單位面積的垂直力</li><li>P=F/A</li><li>單位帕斯卡Pa(N/m²)</li></ul></div></div><div class="acc"><div class="h">力與面積的關係</div><div class="b"><ul><li>力相同,面積小壓力大</li><li>面積大壓力小</li><li>設計依需求</li></ul></div></div><div class="acc"><div class="h">增大壓力</div><div class="b"><ul><li>減小受力面積</li><li>如刀刃、圖釘、釘子</li><li>集中力量</li></ul></div></div><div class="acc"><div class="h">減小壓力</div><div class="b"><ul><li>增大受力面積</li><li>如雪鞋、寬輪胎、書包寬帶</li><li>分散力量</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>菜刀磨利：減面積增壓力</li><li>雪鞋防陷：增面積減壓力</li><li>圖釘：尖端壓力大</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>壓力就是力</div><div class="bk"><span class="tag">正確 ✓</span>壓力是力除以面積</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>力大壓力一定大</div><div class="bk"><span class="tag">正確 ✓</span>還要看受力面積</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>面積越大壓力越大</div><div class="bk"><span class="tag">正確 ✓</span>面積越大壓力越小</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>壓力單位是牛頓</div><div class="bk"><span class="tag">正確 ✓</span>壓力單位是帕斯卡Pa</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">壓力是單位面積上所受的垂直力,P=F/A,單位帕斯卡(Pa,即N/m²)。相同的力,受力面積越小壓力越大(如刀刃、圖釘尖端);面積越大壓力越小(如雪鞋、寬履帶)。認識壓力概念與生活應用。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>壓力的定義</b><span>單位面積的垂直力、P=F/A</span></div><div class="goal"><div class="ic">🔬</div><b>力與面積的關係</b><span>力相同,面積小壓力大、面積大壓力小</span></div><div class="goal"><div class="ic">⚗️</div><b>增大壓力</b><span>減小受力面積、如刀刃、圖釘、釘子</span></div><div class="goal"><div class="ic">🌱</div><b>減小壓力</b><span>增大受力面積、如雪鞋、寬輪胎、書包寬帶</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國二下學期 · 自然 · 八下6</div><h1>八下6-3　壓力</h1><p class="lead">力的分布</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">壓力的定義</span></li><li><span class="hl">力與面積的關係</span></li><li><span class="hl">增大壓力</span></li><li><span class="hl">減小壓力</span></li></ul><div class="box y">壓力是單位面積上所受的垂直力,P=F/A,單位帕斯卡(Pa,即N/m²)。相同的力,受力面積越小壓力越大(如刀刃、圖釘尖…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>壓力的定義</h2><div class="box"><span class="hl">單位面積的垂直力</span></div><ul><li>P=F/A</li><li>單位帕斯卡Pa(N/m²)</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>力與面積的關係</h2><div class="box"><span class="hl-b">力相同,面積小壓力大</span></div><ul><li>面積大壓力小</li><li>設計依需求</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>增大壓力</h2><div class="box"><span class="hl">減小受力面積</span></div><ul><li>如刀刃、圖釘、釘子</li><li>集中力量</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>減小壓力</h2><div class="box"><span class="hl-r">增大受力面積</span></div><ul><li>如雪鞋、寬輪胎、書包寬帶</li><li>分散力量</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>壓力就是力</td><td>壓力是力除以面積</td></tr><tr><td>力大壓力一定大</td><td>還要看受力面積</td></tr><tr><td>面積越大壓力越大</td><td>面積越大壓力越小</td></tr><tr><td>壓力單位是牛頓</td><td>壓力單位是帕斯卡Pa</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">同樣體重,高跟鞋比平底鞋對地壓力?為何</div><p style="color:#f0d878;margin:0;">→ 大,受力面積小　<span style="color:#9fc8d8;font-size:15px;">(面積)</span></p></div><div class="eg"><div class="q">用P=F/A解釋為何雪地用雪橇不易陷？</div><p style="color:#f0d878;margin:0;">→ 增大面積減小壓力　<span style="color:#9fc8d8;font-size:15px;">(應用)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">菜刀磨利</span>：減面積增壓力</li><li><span class="hl-b">雪鞋防陷</span>：增面積減壓力</li><li><span class="hl-b">圖釘</span>：尖端壓力大</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記壓力公式。</div><div class="box-b"><span class="hl-b">B 精熟</span>：計算壓力。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合分析。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">壓力的定義</span>：單位面積的垂直力</div><div class="box"><span class="hl">力與面積的關係</span>：力相同,面積小壓力大</div><div class="box"><span class="hl">增大壓力</span>：減小受力面積</div><div class="box"><span class="hl">減小壓力</span>：增大受力面積</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>6-4　液體壓力與浮力</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">壓力｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">壓力的定義</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">單位面積的垂直力　P=F/A</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">力與面積的關係</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">力相同,面積小壓力大　面積大壓力小</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">增大壓力</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">減小受力面積　如刀刃、圖釘、釘子</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">減小壓力</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">增大受力面積　如雪鞋、寬輪胎、書包寬帶</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">壓力就是力</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">壓力是力除以面積</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">力大壓力一定大</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">還要看受力面積</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">面積越大壓力越大</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">面積越大壓力越小</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">壓力單位是牛頓</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">壓力單位是帕斯卡Pa</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記壓力公式。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">計算壓力。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">菜刀磨利</b>　<span style="font-size:15px;">減面積增壓力</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">雪鞋防陷</b>　<span style="font-size:15px;">增面積減壓力</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">圖釘</b>　<span style="font-size:15px;">尖端壓力大</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>壓力就是力</div><div class="bk"><span class="tag">正確 ✓</span>壓力是力除以面積</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>力大壓力一定大</div><div class="bk"><span class="tag">正確 ✓</span>還要看受力面積</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>面積越大壓力越大</div><div class="bk"><span class="tag">正確 ✓</span>面積越大壓力越小</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>壓力單位是牛頓</div><div class="bk"><span class="tag">正確 ✓</span>壓力單位是帕斯卡Pa</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "壓力的公式是？", "a": "P=F/A", "e": "力除面積", "lv": "基礎卷"}, {"q": "壓力的單位是？", "a": "帕斯卡Pa", "e": "N/m²", "lv": "基礎卷"}, {"q": "力相同面積越小壓力？", "a": "越大", "e": "集中", "lv": "基礎卷"}, {"q": "力相同面積越大壓力？", "a": "越小", "e": "分散", "lv": "基礎卷"}, {"q": "刀刃磨利是為了？", "a": "增大壓力", "e": "減面積", "lv": "基礎卷"}, {"q": "雪鞋面積大是為了？", "a": "減小壓力", "e": "防陷", "lv": "基礎卷"}, {"q": "圖釘尖端壓力大因為？", "a": "面積小", "e": "集中", "lv": "基礎卷"}, {"q": "壓力是單位面積的？", "a": "垂直力", "e": "受力", "lv": "基礎卷"}, {"q": "壓力等於力除以？", "a": "受力面積", "e": "公式", "lv": "基礎卷"}, {"q": "壓力的SI單位是？", "a": "帕斯卡Pa", "e": "單位", "lv": "基礎卷"}, {"q": "力20N作用面積4m²,壓力？", "a": "5 Pa", "e": "20/4", "lv": "進階卷"}, {"q": "壓力10Pa作用面積2m²,力？", "a": "20 N", "e": "P×A", "lv": "進階卷"}, {"q": "同一人站立與躺下地面壓力誰大？", "a": "站立", "e": "面積小", "lv": "進階卷"}, {"q": "寬輪胎車輛對地壓力？", "a": "較小", "e": "面積大", "lv": "進階卷"}, {"q": "力40N面積8m²壓力？", "a": "5 Pa", "e": "40/8", "lv": "進階卷"}, {"q": "書包用寬背帶為了？", "a": "減小壓力", "e": "分散", "lv": "進階卷"}, {"q": "釘子做尖是為了？", "a": "增大壓力易釘入", "e": "減面積", "lv": "進階卷"}, {"q": "壓力2Pa面積3m²的力？", "a": "6 N", "e": "P×A", "lv": "進階卷"}, {"q": "力30N面積5m²壓力？", "a": "6 Pa", "e": "30/5", "lv": "進階卷"}, {"q": "壓力8Pa面積3m²的力？", "a": "24 N", "e": "P×A", "lv": "進階卷"}, {"q": "同樣體重,高跟鞋比平底鞋對地壓力?為何", "a": "大,受力面積小", "e": "面積", "lv": "挑戰卷"}, {"q": "用P=F/A解釋為何雪地用雪橇不易陷？", "a": "增大面積減小壓力", "e": "應用", "lv": "挑戰卷"}, {"q": "力60N壓在0.2m²,壓力多少Pa？", "a": "300 Pa", "e": "60/0.2", "lv": "挑戰卷"}, {"q": "切菜前磨刀原理是？", "a": "減小刃面積增大壓力易切", "e": "減面積", "lv": "挑戰卷"}, {"q": "駱駝腳掌寬大在沙漠的作用？", "a": "增大面積減壓力防陷", "e": "適應", "lv": "挑戰卷"}, {"q": "要對地施加更大壓力應如何？", "a": "增大力或減小接觸面積", "e": "策略", "lv": "挑戰卷"}, {"q": "壓力250Pa面積0.4m²的總力？", "a": "100 N", "e": "P×A", "lv": "挑戰卷"}, {"q": "推土機用寬履帶原因用壓力解釋？", "a": "減小對地壓力避免陷入", "e": "設計", "lv": "挑戰卷"}, {"q": "為何釘子做成尖的較易釘入？", "a": "面積小壓力大", "e": "減面積", "lv": "挑戰卷"}, {"q": "大象腳掌寬大對地面壓力的影響？", "a": "分散重量降低壓力", "e": "面積", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

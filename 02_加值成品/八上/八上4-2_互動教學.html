@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>八上4-2 光的折射與透鏡｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
 <div class="top"><h1>八上4-2　光的折射與透鏡</h1><div class="g">八年級上·理化　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">光由一介質斜射入另一介質時傳播方向改變，稱折射。光由疏介質(空氣)進密介質(水、玻璃)偏向法線。凸透鏡會聚光線可成放大或縮小的實像與放大虛像；凹透鏡發散光線成正立縮小虛像。放大鏡是凸透鏡的應用。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">折射現象</div><div class="b"><ul><li>光斜射過介質界面方向改變</li><li>空氣→水偏向法線</li><li>水中筷子看似折斷</li></ul></div></div><div class="acc"><div class="h">折射的規律</div><div class="b"><ul><li>入疏到密偏向法線</li><li>入密到疏偏離法線</li><li>垂直入射不偏折</li></ul></div></div><div class="acc"><div class="h">凸透鏡</div><div class="b"><ul><li>中間厚、會聚光線</li><li>可成實像或放大虛像</li><li>放大鏡、遠視眼鏡</li></ul></div></div><div class="acc"><div class="h">凹透鏡</div><div class="b"><ul><li>中間薄、發散光線</li><li>成正立縮小虛像</li><li>近視眼鏡</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>放大鏡：凸透鏡成放大虛像</li><li>近視眼鏡：凹透鏡矯正</li><li>水中看物變淺：折射造成</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>折射是光被反彈</div><div class="bk"><span class="tag">正確 ✓</span>折射是光穿過界面方向改變</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>凸透鏡只能放大</div><div class="bk"><span class="tag">正確 ✓</span>凸透鏡也可成縮小實像</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>光垂直入射會折射</div><div class="bk"><span class="tag">正確 ✓</span>垂直入射不偏折</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>凹透鏡能成實像</div><div class="bk"><span class="tag">正確 ✓</span>凹透鏡只成正立縮小虛像</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">光由一介質斜射入另一介質時傳播方向改變，稱折射。光由疏介質(空氣)進密介質(水、玻璃)偏向法線。凸透鏡會聚光線可成放大或縮小的實像與放大虛像；凹透鏡發散光線成正立縮小虛像。放大鏡是凸透鏡的應用。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>折射現象</b><span>光斜射過介質界面方向改變、空氣→水偏向法線</span></div><div class="goal"><div class="ic">🔬</div><b>折射的規律</b><span>入疏到密偏向法線、入密到疏偏離法線</span></div><div class="goal"><div class="ic">⚗️</div><b>凸透鏡</b><span>中間厚、會聚光線、可成實像或放大虛像</span></div><div class="goal"><div class="ic">🌱</div><b>凹透鏡</b><span>中間薄、發散光線、成正立縮小虛像</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國二上學期 · 自然 · 八上4</div><h1>八上4-2　光的折射與透鏡</h1><p class="lead">光的轉彎</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">折射現象</span></li><li><span class="hl">折射的規律</span></li><li><span class="hl">凸透鏡</span></li><li><span class="hl">凹透鏡</span></li></ul><div class="box y">光由一介質斜射入另一介質時傳播方向改變，稱折射。光由疏介質(空氣)進密介質(水、玻璃)偏向法線。凸透鏡會聚光線可成放大或…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>折射現象</h2><div class="box"><span class="hl">光斜射過介質界面方向改變</span></div><ul><li>空氣→水偏向法線</li><li>水中筷子看似折斷</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>折射的規律</h2><div class="box"><span class="hl-b">入疏到密偏向法線</span></div><ul><li>入密到疏偏離法線</li><li>垂直入射不偏折</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>凸透鏡</h2><div class="box"><span class="hl">中間厚、會聚光線</span></div><ul><li>可成實像或放大虛像</li><li>放大鏡、遠視眼鏡</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>凹透鏡</h2><div class="box"><span class="hl-r">中間薄、發散光線</span></div><ul><li>成正立縮小虛像</li><li>近視眼鏡</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>折射是光被反彈</td><td>折射是光穿過界面方向改變</td></tr><tr><td>凸透鏡只能放大</td><td>凸透鏡也可成縮小實像</td></tr><tr><td>光垂直入射會折射</td><td>垂直入射不偏折</td></tr><tr><td>凹透鏡能成實像</td><td>凹透鏡只成正立縮小虛像</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">為何插入水中的筷子看似彎折？</div><p style="color:#f0d878;margin:0;">→ 水中光折射使像位置偏移　<span style="color:#9fc8d8;font-size:15px;">(折射成像)</span></p></div><div class="eg"><div class="q">凸透鏡成實像時像的正倒？</div><p style="color:#f0d878;margin:0;">→ 倒立　<span style="color:#9fc8d8;font-size:15px;">(實像特性)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">放大鏡</span>：凸透鏡成放大虛像</li><li><span class="hl-b">近視眼鏡</span>：凹透鏡矯正</li><li><span class="hl-b">水中看物變淺</span>：折射造成</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記折射與透鏡類型。</div><div class="box-b"><span class="hl-b">B 精熟</span>：判斷偏折與成像。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合分析。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">折射現象</span>：光斜射過介質界面方向改變</div><div class="box"><span class="hl">折射的規律</span>：入疏到密偏向法線</div><div class="box"><span class="hl">凸透鏡</span>：中間厚、會聚光線</div><div class="box"><span class="hl">凹透鏡</span>：中間薄、發散光線</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>4-3　光與顏色</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">光的折射與透鏡｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">折射現象</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">光斜射過介質界面方向改變　空氣→水偏向法線</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">折射的規律</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">入疏到密偏向法線　入密到疏偏離法線</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">凸透鏡</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">中間厚、會聚光線　可成實像或放大虛像</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">凹透鏡</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">中間薄、發散光線　成正立縮小虛像</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">折射是光被反彈</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">折射是光穿過界面方向改變</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">凸透鏡只能放大</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">凸透鏡也可成縮小實像</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">光垂直入射會折射</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">垂直入射不偏折</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">凹透鏡能成實像</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">凹透鏡只成正立縮小虛像</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記折射與透鏡類型。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">判斷偏折與成像。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">放大鏡</b>　<span style="font-size:15px;">凸透鏡成放大虛像</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">近視眼鏡</b>　<span style="font-size:15px;">凹透鏡矯正</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">水中看物變淺</b>　<span style="font-size:15px;">折射造成</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>折射是光被反彈</div><div class="bk"><span class="tag">正確 ✓</span>折射是光穿過界面方向改變</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>凸透鏡只能放大</div><div class="bk"><span class="tag">正確 ✓</span>凸透鏡也可成縮小實像</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>光垂直入射會折射</div><div class="bk"><span class="tag">正確 ✓</span>垂直入射不偏折</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>凹透鏡能成實像</div><div class="bk"><span class="tag">正確 ✓</span>凹透鏡只成正立縮小虛像</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "光過介質界面方向改變稱？", "a": "折射", "e": "方向變", "lv": "基礎卷"}, {"q": "光由空氣進水偏向或偏離法線？", "a": "偏向法線", "e": "進密介質", "lv": "基礎卷"}, {"q": "中間厚會聚光的透鏡是？", "a": "凸透鏡", "e": "會聚", "lv": "基礎卷"}, {"q": "中間薄發散光的透鏡是？", "a": "凹透鏡", "e": "發散", "lv": "基礎卷"}, {"q": "放大鏡是哪種透鏡？", "a": "凸透鏡", "e": "放大虛像", "lv": "基礎卷"}, {"q": "近視眼鏡用哪種透鏡？", "a": "凹透鏡", "e": "發散", "lv": "基礎卷"}, {"q": "光垂直入射界面會偏折嗎？", "a": "不會", "e": "沿原方向", "lv": "基礎卷"}, {"q": "水中筷子看似折斷因為？", "a": "折射", "e": "界面", "lv": "基礎卷"}, {"q": "光進入另一介質速度改變會？", "a": "折射", "e": "折射", "lv": "基礎卷"}, {"q": "凸透鏡中央比邊緣？", "a": "厚", "e": "會聚", "lv": "基礎卷"}, {"q": "光由水進空氣偏向或偏離法線？", "a": "偏離法線", "e": "進疏介質", "lv": "進階卷"}, {"q": "凸透鏡物在兩倍焦距外成？", "a": "倒立縮小實像", "e": "照相機", "lv": "進階卷"}, {"q": "凸透鏡物在焦距內成？", "a": "正立放大虛像", "e": "放大鏡", "lv": "進階卷"}, {"q": "凹透鏡成什麼像？", "a": "正立縮小虛像", "e": "恆虛", "lv": "進階卷"}, {"q": "遠視眼鏡用哪種透鏡？", "a": "凸透鏡", "e": "會聚補足", "lv": "進階卷"}, {"q": "光斜射入玻璃，速度如何變？", "a": "變慢", "e": "密介質", "lv": "進階卷"}, {"q": "凸透鏡物在焦點上成？", "a": "不成像(平行射出)", "e": "特殊", "lv": "進階卷"}, {"q": "池水看起來比實際淺因為？", "a": "折射", "e": "視深變淺", "lv": "進階卷"}, {"q": "凸透鏡物在一倍與兩倍焦距間成？", "a": "倒立放大實像", "e": "投影", "lv": "進階卷"}, {"q": "光垂直射入界面是否折射？", "a": "不折射", "e": "沿原方向", "lv": "進階卷"}, {"q": "為何插入水中的筷子看似彎折？", "a": "水中光折射使像位置偏移", "e": "折射成像", "lv": "挑戰卷"}, {"q": "凸透鏡成實像時像的正倒？", "a": "倒立", "e": "實像特性", "lv": "挑戰卷"}, {"q": "近視眼球太長，像成在視網膜前，用？", "a": "凹透鏡發散使像後移", "e": "矯正原理", "lv": "挑戰卷"}, {"q": "凸透鏡物由遠移近像如何變？", "a": "由小變大、超焦點內轉虛像", "e": "成像規律", "lv": "挑戰卷"}, {"q": "光速在真空與水中何者快？", "a": "真空", "e": "密介質變慢", "lv": "挑戰卷"}, {"q": "全反射發生在光由密到疏且角度？", "a": "大於臨界角", "e": "全反射", "lv": "挑戰卷"}, {"q": "照相機用凸透鏡成何像？", "a": "倒立縮小實像", "e": "底片", "lv": "挑戰卷"}, {"q": "凹透鏡能當放大鏡嗎？", "a": "不能", "e": "只成縮小像", "lv": "挑戰卷"}, {"q": "放大鏡看報紙字變大是何成像？", "a": "正立放大虛像", "e": "焦距內", "lv": "挑戰卷"}, {"q": "海市蜃樓與光的什麼現象有關？", "a": "折射", "e": "折射", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

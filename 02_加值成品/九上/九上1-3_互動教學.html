@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>九上1-3 加速度｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
-<div class="top"><h1>九上1-3　加速度</h1><div class="g">九年級上　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="top"><h1>九上1-3　加速度</h1><div class="g">九年級上·理化＋地科　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">加速度是單位時間內速度的變化,反映速度改變的快慢,是向量。速度增加為正加速、減少為減速。等加速度運動中速度均勻改變。本節以圖形與概念理解為主,不涉及運動方程式的計算與公式推導(移高中)。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">加速度的意義</div><div class="b"><ul><li>單位時間速度的變化</li><li>反映速度改變快慢</li><li>是向量</li></ul></div></div><div class="acc"><div class="h">加速與減速</div><div class="b"><ul><li>速度增加→加速</li><li>速度減少→減速</li><li>方向與速度變化相同</li></ul></div></div><div class="acc"><div class="h">等加速度運動</div><div class="b"><ul><li>速度均勻改變</li><li>如自由落體(概念)</li><li>速度-時間圖為斜直線</li></ul></div></div><div class="acc"><div class="h">圖形理解</div><div class="b"><ul><li>速度-時間圖斜率=加速度</li><li>水平線表等速</li><li>課綱不涉方程式計算</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>起步加速：速度漸增</li><li>煞車減速：負加速度</li><li>自由落體：等加速</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>加速度就是速度</div><div class="bk"><span class="tag">正確 ✓</span>加速度是速度的變化率</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>速度大加速度就大</div><div class="bk"><span class="tag">正確 ✓</span>兩者無必然關係</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>減速沒有加速度</div><div class="bk"><span class="tag">正確 ✓</span>減速也有加速度(負)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>等速運動有加速度</div><div class="bk"><span class="tag">正確 ✓</span>等速時加速度為零</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">加速度是單位時間內速度的變化,反映速度改變的快慢,是向量。速度增加為正加速、減少為減速。等加速度運動中速度均勻改變。本節以圖形與概念理解為主,不涉及運動方程式的計算與公式推導(移高中)。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>加速度的意義</b><span>單位時間速度的變化、反映速度改變快慢</span></div><div class="goal"><div class="ic">🔬</div><b>加速與減速</b><span>速度增加→加速、速度減少→減速</span></div><div class="goal"><div class="ic">⚗️</div><b>等加速度運動</b><span>速度均勻改變、如自由落體(概念)</span></div><div class="goal"><div class="ic">🌱</div><b>圖形理解</b><span>速度-時間圖斜率=加速度、水平線表等速</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國三上學期 · 自然 · 九上1</div><h1>九上1-3　加速度</h1><p class="lead">速度的變化</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">加速度的意義</span></li><li><span class="hl">加速與減速</span></li><li><span class="hl">等加速度運動</span></li><li><span class="hl">圖形理解</span></li></ul><div class="box y">加速度是單位時間內速度的變化,反映速度改變的快慢,是向量。速度增加為正加速、減少為減速。等加速度運動中速度均勻改變。本節…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>加速度的意義</h2><div class="box"><span class="hl">單位時間速度的變化</span></div><ul><li>反映速度改變快慢</li><li>是向量</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>加速與減速</h2><div class="box"><span class="hl-b">速度增加→加速</span></div><ul><li>速度減少→減速</li><li>方向與速度變化相同</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>等加速度運動</h2><div class="box"><span class="hl">速度均勻改變</span></div><ul><li>如自由落體(概念)</li><li>速度-時間圖為斜直線</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>圖形理解</h2><div class="box"><span class="hl-r">速度-時間圖斜率=加速度</span></div><ul><li>水平線表等速</li><li>課綱不涉方程式計算</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>加速度就是速度</td><td>加速度是速度的變化率</td></tr><tr><td>速度大加速度就大</td><td>兩者無必然關係</td></tr><tr><td>減速沒有加速度</td><td>減速也有加速度(負)</td></tr><tr><td>等速運動有加速度</td><td>等速時加速度為零</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">速度4秒內由10m/s減到2m/s,加速度？</div><p style="color:#f0d878;margin:0;">→ −2 m/s²　<span style="color:#9fc8d8;font-size:15px;">((2−10)/4)</span></p></div><div class="eg"><div class="q">為何說減速也有加速度？</div><p style="color:#f0d878;margin:0;">→ 速度在改變即有加速度(負值)　<span style="color:#9fc8d8;font-size:15px;">(向量)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">起步加速</span>：速度漸增</li><li><span class="hl-b">煞車減速</span>：負加速度</li><li><span class="hl-b">自由落體</span>：等加速</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記加速度意義。</div><div class="box-b"><span class="hl-b">B 精熟</span>：判讀圖形。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合分析。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">加速度的意義</span>：單位時間速度的變化</div><div class="box"><span class="hl">加速與減速</span>：速度增加→加速</div><div class="box"><span class="hl">等加速度運動</span>：速度均勻改變</div><div class="box"><span class="hl">圖形理解</span>：速度-時間圖斜率=加速度</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>2-1　牛頓第一運動定律</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">加速度｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">加速度的意義</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">單位時間速度的變化　反映速度改變快慢</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">加速與減速</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">速度增加→加速　速度減少→減速</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">等加速度運動</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">速度均勻改變　如自由落體(概念)</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">圖形理解</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">速度-時間圖斜率=加速度　水平線表等速</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">加速度就是速度</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">加速度是速度的變化率</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">速度大加速度就大</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">兩者無必然關係</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">減速沒有加速度</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">減速也有加速度(負)</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">等速運動有加速度</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">等速時加速度為零</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記加速度意義。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">判讀圖形。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">起步加速</b>　<span style="font-size:15px;">速度漸增</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">煞車減速</b>　<span style="font-size:15px;">負加速度</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">自由落體</b>　<span style="font-size:15px;">等加速</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>加速度就是速度</div><div class="bk"><span class="tag">正確 ✓</span>加速度是速度的變化率</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>速度大加速度就大</div><div class="bk"><span class="tag">正確 ✓</span>兩者無必然關係</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>減速沒有加速度</div><div class="bk"><span class="tag">正確 ✓</span>減速也有加速度(負)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>等速運動有加速度</div><div class="bk"><span class="tag">正確 ✓</span>等速時加速度為零</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "單位時間速度的變化是？", "a": "加速度", "e": "變化率", "lv": "基礎卷"}, {"q": "速度增加是加速還減速？", "a": "加速", "e": "增快", "lv": "基礎卷"}, {"q": "速度減少是加速還減速？", "a": "減速", "e": "變慢", "lv": "基礎卷"}, {"q": "加速度是純量還向量？", "a": "向量", "e": "有方向", "lv": "基礎卷"}, {"q": "等速運動加速度是？", "a": "零", "e": "速度不變", "lv": "基礎卷"}, {"q": "速度均勻改變的運動是？", "a": "等加速度運動", "e": "均勻", "lv": "基礎卷"}, {"q": "速度-時間圖斜率代表？", "a": "加速度", "e": "斜率", "lv": "基礎卷"}, {"q": "自由落體是哪種運動？", "a": "等加速度", "e": "重力", "lv": "基礎卷"}, {"q": "加速度的單位是？", "a": "m/s²", "e": "單位", "lv": "基礎卷"}, {"q": "速度變快時加速度方向與運動方向？", "a": "相同", "e": "加速", "lv": "基礎卷"}, {"q": "v-t圖水平線表示？", "a": "等速(加速度0)", "e": "平", "lv": "進階卷"}, {"q": "v-t圖向上斜線表示？", "a": "加速", "e": "速度增", "lv": "進階卷"}, {"q": "v-t圖向下斜線表示？", "a": "減速", "e": "速度減", "lv": "進階卷"}, {"q": "速度3秒由0增到6m/s,加速度？", "a": "2 m/s²", "e": "6/3", "lv": "進階卷"}, {"q": "煞車時加速度方向與速度？", "a": "相反", "e": "負", "lv": "進階卷"}, {"q": "加速度為零代表？", "a": "等速或靜止", "e": "不變", "lv": "進階卷"}, {"q": "速度不變但方向變有加速度嗎？", "a": "有", "e": "向量變", "lv": "進階卷"}, {"q": "等加速度v-t圖是？", "a": "斜直線", "e": "均勻", "lv": "進階卷"}, {"q": "速度2秒由0到10m/s加速度？", "a": "5 m/s²", "e": "10/2", "lv": "進階卷"}, {"q": "汽車煞車變慢時加速度為？", "a": "負(與運動反向)", "e": "減速", "lv": "進階卷"}, {"q": "速度4秒內由10m/s減到2m/s,加速度？", "a": "−2 m/s²", "e": "(2−10)/4", "lv": "挑戰卷"}, {"q": "為何說減速也有加速度？", "a": "速度在改變即有加速度(負值)", "e": "向量", "lv": "挑戰卷"}, {"q": "v-t圖斜率越大代表？", "a": "加速度越大速度變化越快", "e": "斜率", "lv": "挑戰卷"}, {"q": "等速圓周運動速率不變為何有加速度？", "a": "速度方向不斷改變", "e": "向量", "lv": "挑戰卷"}, {"q": "由v-t圖如何看出物體何時最快？", "a": "速度值最高處", "e": "讀圖", "lv": "挑戰卷"}, {"q": "自由落體速度如何隨時間？", "a": "均勻增加(等加速)", "e": "重力", "lv": "挑戰卷"}, {"q": "加速度2m/s²意義是？", "a": "每秒速度增加2m/s", "e": "定義", "lv": "挑戰卷"}, {"q": "速度為零時加速度一定為零嗎？", "a": "不一定(如拋最高點)", "e": "瞬間", "lv": "挑戰卷"}, {"q": "速度5秒由20減到0m/s加速度？", "a": "−4 m/s²", "e": "(0−20)/5", "lv": "挑戰卷"}, {"q": "自由落體加速度大約為多少？", "a": "約9.8 m/s²", "e": "重力加速度", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

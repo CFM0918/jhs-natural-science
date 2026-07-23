@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>生物6-2 性別決定與人類遺傳｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
 <div class="top"><h1>生物6-2　性別決定與人類遺傳</h1><div class="g">七年級·生物　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">人類有23對染色體,其中一對為性染色體:女性為XX、男性為XY。子女性別由父親提供X或Y決定。有些性狀或疾病與遺傳有關,如色盲、血友病等與性染色體相關(性聯遺傳)。認識性別決定與人類遺傳現象。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">人類染色體</div><div class="b"><ul><li>共23對(46條)</li><li>含22對體染色體</li><li>1對性染色體</li></ul></div></div><div class="acc"><div class="h">性別決定</div><div class="b"><ul><li>女性XX、男性XY</li><li>子女性別由父親決定</li><li>父提供X為女、Y為男</li></ul></div></div><div class="acc"><div class="h">遺傳性狀</div><div class="b"><ul><li>許多性狀由基因決定</li><li>如捲舌、血型</li><li>受父母遺傳影響</li></ul></div></div><div class="acc"><div class="h">性聯遺傳</div><div class="b"><ul><li>與性染色體相關的遺傳</li><li>如色盲、血友病</li><li>男性較易表現</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>生男生女：父親決定</li><li>色盲檢測：性聯遺傳</li><li>血型遺傳：基因</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>性別由母親決定</div><div class="bk"><span class="tag">正確 ✓</span>由父親提供X或Y決定</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>人類染色體23條</div><div class="bk"><span class="tag">正確 ✓</span>是23對(46條)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>女性有Y染色體</div><div class="bk"><span class="tag">正確 ✓</span>女性為XX,無Y</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>色盲男女機率相同</div><div class="bk"><span class="tag">正確 ✓</span>色盲男性較常見(性聯)</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">人類有23對染色體,其中一對為性染色體:女性為XX、男性為XY。子女性別由父親提供X或Y決定。有些性狀或疾病與遺傳有關,如色盲、血友病等與性染色體相關(性聯遺傳)。認識性別決定與人類遺傳現象。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>人類染色體</b><span>共23對(46條)、含22對體染色體</span></div><div class="goal"><div class="ic">🔬</div><b>性別決定</b><span>女性XX、男性XY、子女性別由父親決定</span></div><div class="goal"><div class="ic">⚗️</div><b>遺傳性狀</b><span>許多性狀由基因決定、如捲舌、血型</span></div><div class="goal"><div class="ic">🌱</div><b>性聯遺傳</b><span>與性染色體相關的遺傳、如色盲、血友病</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國一(七年級) · 自然 · 生物6</div><h1>生物6-2　性別決定與人類遺傳</h1><p class="lead">性別與遺傳</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">人類染色體</span></li><li><span class="hl">性別決定</span></li><li><span class="hl">遺傳性狀</span></li><li><span class="hl">性聯遺傳</span></li></ul><div class="box y">人類有23對染色體,其中一對為性染色體:女性為XX、男性為XY。子女性別由父親提供X或Y決定。有些性狀或疾病與遺傳有關,…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>人類染色體</h2><div class="box"><span class="hl">共23對(46條)</span></div><ul><li>含22對體染色體</li><li>1對性染色體</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>性別決定</h2><div class="box"><span class="hl-b">女性XX、男性XY</span></div><ul><li>子女性別由父親決定</li><li>父提供X為女、Y為男</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>遺傳性狀</h2><div class="box"><span class="hl">許多性狀由基因決定</span></div><ul><li>如捲舌、血型</li><li>受父母遺傳影響</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>性聯遺傳</h2><div class="box"><span class="hl-r">與性染色體相關的遺傳</span></div><ul><li>如色盲、血友病</li><li>男性較易表現</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>性別由母親決定</td><td>由父親提供X或Y決定</td></tr><tr><td>人類染色體23條</td><td>是23對(46條)</td></tr><tr><td>女性有Y染色體</td><td>女性為XX,無Y</td></tr><tr><td>色盲男女機率相同</td><td>色盲男性較常見(性聯)</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">說明子女性別如何由父親決定？</div><p style="color:#f0d878;margin:0;">→ 母提供X父提供X或Y,Y為男X為女　<span style="color:#9fc8d8;font-size:15px;">(決定)</span></p></div><div class="eg"><div class="q">為何色盲血友病男性較常見？</div><p style="color:#f0d878;margin:0;">→ 性聯隱性只需一個X上隱性即表現　<span style="color:#9fc8d8;font-size:15px;">(性聯)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">生男生女</span>：父親決定</li><li><span class="hl-b">色盲檢測</span>：性聯遺傳</li><li><span class="hl-b">血型遺傳</span>：基因</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記性別決定。</div><div class="box-b"><span class="hl-b">B 精熟</span>：判斷遺傳。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合分析。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">人類染色體</span>：共23對(46條)</div><div class="box"><span class="hl">性別決定</span>：女性XX、男性XY</div><div class="box"><span class="hl">遺傳性狀</span>：許多性狀由基因決定</div><div class="box"><span class="hl">性聯遺傳</span>：與性染色體相關的遺傳</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>6-3　基因、突變與生物技術</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">性別決定與人類遺傳｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">人類染色體</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">共23對(46條)　含22對體染色體</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">性別決定</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">女性XX、男性XY　子女性別由父親決定</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">遺傳性狀</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">許多性狀由基因決定　如捲舌、血型</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">性聯遺傳</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">與性染色體相關的遺傳　如色盲、血友病</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">性別由母親決定</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">由父親提供X或Y決定</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">人類染色體23條</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">是23對(46條)</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">女性有Y染色體</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">女性為XX,無Y</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">色盲男女機率相同</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">色盲男性較常見(性聯)</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記性別決定。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">判斷遺傳。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">生男生女</b>　<span style="font-size:15px;">父親決定</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">色盲檢測</b>　<span style="font-size:15px;">性聯遺傳</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">血型遺傳</b>　<span style="font-size:15px;">基因</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>性別由母親決定</div><div class="bk"><span class="tag">正確 ✓</span>由父親提供X或Y決定</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>人類染色體23條</div><div class="bk"><span class="tag">正確 ✓</span>是23對(46條)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>女性有Y染色體</div><div class="bk"><span class="tag">正確 ✓</span>女性為XX,無Y</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>色盲男女機率相同</div><div class="bk"><span class="tag">正確 ✓</span>色盲男性較常見(性聯)</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "人類有幾對染色體？", "a": "23對", "e": "46條", "lv": "基礎卷"}, {"q": "女性的性染色體是？", "a": "XX", "e": "女", "lv": "基礎卷"}, {"q": "男性的性染色體是？", "a": "XY", "e": "男", "lv": "基礎卷"}, {"q": "子女性別由誰決定？", "a": "父親", "e": "X或Y", "lv": "基礎卷"}, {"q": "父親提供X生的是？", "a": "女兒", "e": "X", "lv": "基礎卷"}, {"q": "父親提供Y生的是？", "a": "兒子", "e": "Y", "lv": "基礎卷"}, {"q": "與性染色體相關的遺傳稱？", "a": "性聯遺傳", "e": "性聯", "lv": "基礎卷"}, {"q": "色盲較常見於？", "a": "男性", "e": "性聯", "lv": "基礎卷"}, {"q": "決定人類性別的是哪對染色體？", "a": "性染色體", "e": "第23對", "lv": "基礎卷"}, {"q": "女性的兩條性染色體都是？", "a": "X", "e": "XX", "lv": "基礎卷"}, {"q": "人類體染色體有幾對？", "a": "22對", "e": "非性染色體", "lv": "進階卷"}, {"q": "性別決定由哪對染色體？", "a": "性染色體", "e": "第23對", "lv": "進階卷"}, {"q": "母親提供的性染色體一定是？", "a": "X", "e": "XX", "lv": "進階卷"}, {"q": "為何生男生女機率約各半？", "a": "父親X、Y各半", "e": "機率", "lv": "進階卷"}, {"q": "性聯遺傳男性較易表現因為？", "a": "只有一個X", "e": "單X", "lv": "進階卷"}, {"q": "血友病屬哪類遺傳？", "a": "性聯遺傳", "e": "X相關", "lv": "進階卷"}, {"q": "人類染色體共幾條？", "a": "46條", "e": "23對", "lv": "進階卷"}, {"q": "XY是男還女？", "a": "男性", "e": "XY", "lv": "進階卷"}, {"q": "男性的性染色體組成為？", "a": "一X一Y", "e": "XY", "lv": "進階卷"}, {"q": "性聯遺傳的基因多位於哪條染色體？", "a": "X染色體", "e": "性聯", "lv": "進階卷"}, {"q": "說明子女性別如何由父親決定？", "a": "母提供X父提供X或Y,Y為男X為女", "e": "決定", "lv": "挑戰卷"}, {"q": "為何色盲血友病男性較常見？", "a": "性聯隱性只需一個X上隱性即表現", "e": "性聯", "lv": "挑戰卷"}, {"q": "生男生女機率約各半的原因？", "a": "父親精子帶X或Y約各半", "e": "機率", "lv": "挑戰卷"}, {"q": "性染色體與體染色體的差別？", "a": "性染色體決定性別、體染色體其他性狀", "e": "區別", "lv": "挑戰卷"}, {"q": "母親為色盲帶因者對兒子的影響？", "a": "兒子有較高機率色盲", "e": "遺傳", "lv": "挑戰卷"}, {"q": "人類23對染色體中性染色體的角色？", "a": "決定性別與部分性聯性狀", "e": "角色", "lv": "挑戰卷"}, {"q": "性聯遺傳為何常隔代或偏一性別？", "a": "隱性基因在X上依性別表現不同", "e": "模式", "lv": "挑戰卷"}, {"q": "遺傳諮詢對遺傳疾病的意義？", "a": "評估風險協助預防", "e": "應用", "lv": "挑戰卷"}, {"q": "女兒的兩條X染色體分別來自？", "a": "一條來自母一條來自父", "e": "來源", "lv": "挑戰卷"}, {"q": "為何性染色體異常可能影響性別發育？", "a": "決定性別的基因異常", "e": "異常", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

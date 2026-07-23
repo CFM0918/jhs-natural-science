@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>八上2-3 混合物的分離｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
 <div class="top"><h1>八上2-3　混合物的分離</h1><div class="g">八年級上·理化　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">依成分性質差異可用不同方法分離混合物：過濾分離不溶固體與液體、蒸發結晶取得溶解的固體、蒸餾分離沸點不同的液體、簡易濾紙層析法分離不同色素。選擇方法要看成分的溶解性、沸點等差異。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">過濾</div><div class="b"><ul><li>分離不溶固體與液體</li><li>利用顆粒大小差異</li><li>濾紙留固體、濾液通過</li></ul></div></div><div class="acc"><div class="h">蒸發與結晶</div><div class="b"><ul><li>加熱使溶劑蒸發</li><li>留下溶解的固體</li><li>如海水曬鹽</li></ul></div></div><div class="acc"><div class="h">蒸餾</div><div class="b"><ul><li>利用沸點差異</li><li>加熱汽化再冷凝</li><li>分離水與溶解物、純化水</li></ul></div></div><div class="acc"><div class="h">簡易濾紙層析法</div><div class="b"><ul><li>分離混合色素</li><li>成分移動速率不同而分開</li><li>不涉及層析原理</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>海水曬鹽：蒸發結晶取鹽</li><li>淨水器：過濾去除雜質</li><li>墨水分析：層析看色素成分</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>過濾能分離溶解的鹽</div><div class="bk"><span class="tag">正確 ✓</span>過濾不能分離已溶解物，需蒸發</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>蒸餾後留在瓶內的是純水</div><div class="bk"><span class="tag">正確 ✓</span>蒸餾收集的冷凝液才是純水</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>層析要記原理</div><div class="bk"><span class="tag">正確 ✓</span>課綱只需操作，不涉原理</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>所有混合物都能過濾分離</div><div class="bk"><span class="tag">正確 ✓</span>要看是否為不溶固體</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">依成分性質差異可用不同方法分離混合物：過濾分離不溶固體與液體、蒸發結晶取得溶解的固體、蒸餾分離沸點不同的液體、簡易濾紙層析法分離不同色素。選擇方法要看成分的溶解性、沸點等差異。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>過濾</b><span>分離不溶固體與液體、利用顆粒大小差異</span></div><div class="goal"><div class="ic">🔬</div><b>蒸發與結晶</b><span>加熱使溶劑蒸發、留下溶解的固體</span></div><div class="goal"><div class="ic">⚗️</div><b>蒸餾</b><span>利用沸點差異、加熱汽化再冷凝</span></div><div class="goal"><div class="ic">🌱</div><b>簡易濾紙層析法</b><span>分離混合色素、成分移動速率不同而分開</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國二上學期 · 自然 · 八上2</div><h1>八上2-3　混合物的分離</h1><p class="lead">把混合物分開</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">過濾</span></li><li><span class="hl">蒸發與結晶</span></li><li><span class="hl">蒸餾</span></li><li><span class="hl">簡易濾紙層析法</span></li></ul><div class="box y">依成分性質差異可用不同方法分離混合物：過濾分離不溶固體與液體、蒸發結晶取得溶解的固體、蒸餾分離沸點不同的液體、簡易濾紙層…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>過濾</h2><div class="box"><span class="hl">分離不溶固體與液體</span></div><ul><li>利用顆粒大小差異</li><li>濾紙留固體、濾液通過</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>蒸發與結晶</h2><div class="box"><span class="hl-b">加熱使溶劑蒸發</span></div><ul><li>留下溶解的固體</li><li>如海水曬鹽</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>蒸餾</h2><div class="box"><span class="hl">利用沸點差異</span></div><ul><li>加熱汽化再冷凝</li><li>分離水與溶解物、純化水</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>簡易濾紙層析法</h2><div class="box"><span class="hl-r">分離混合色素</span></div><ul><li>成分移動速率不同而分開</li><li>不涉及層析原理</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>過濾能分離溶解的鹽</td><td>過濾不能分離已溶解物，需蒸發</td></tr><tr><td>蒸餾後留在瓶內的是純水</td><td>蒸餾收集的冷凝液才是純水</td></tr><tr><td>層析要記原理</td><td>課綱只需操作，不涉原理</td></tr><tr><td>所有混合物都能過濾分離</td><td>要看是否為不溶固體</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">鹽和沙的混合物如何分離？</div><p style="color:#f0d878;margin:0;">→ 加水溶鹽→過濾→蒸發　<span style="color:#9fc8d8;font-size:15px;">(兩步驟)</span></p></div><div class="eg"><div class="q">為何蒸餾能得純水？</div><p style="color:#f0d878;margin:0;">→ 水汽化冷凝、雜質留下　<span style="color:#9fc8d8;font-size:15px;">(分離沸點)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">海水曬鹽</span>：蒸發結晶取鹽</li><li><span class="hl-b">淨水器</span>：過濾去除雜質</li><li><span class="hl-b">墨水分析</span>：層析看色素成分</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記各分離法。</div><div class="box-b"><span class="hl-b">B 精熟</span>：選對分離法。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合設計。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">過濾</span>：分離不溶固體與液體</div><div class="box"><span class="hl">蒸發與結晶</span>：加熱使溶劑蒸發</div><div class="box"><span class="hl">蒸餾</span>：利用沸點差異</div><div class="box"><span class="hl">簡易濾紙層析法</span>：分離混合色素</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>2-4　水溶液與濃度</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">混合物的分離｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">過濾</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">分離不溶固體與液體　利用顆粒大小差異</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">蒸發與結晶</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">加熱使溶劑蒸發　留下溶解的固體</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">蒸餾</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">利用沸點差異　加熱汽化再冷凝</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">簡易濾紙層析法</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">分離混合色素　成分移動速率不同而分開</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">過濾能分離溶解的鹽</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">過濾不能分離已溶解物，需蒸發</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">蒸餾後留在瓶內的是純水</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">蒸餾收集的冷凝液才是純水</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">層析要記原理</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">課綱只需操作，不涉原理</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">所有混合物都能過濾分離</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">要看是否為不溶固體</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記各分離法。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">選對分離法。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合設計。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">海水曬鹽</b>　<span style="font-size:15px;">蒸發結晶取鹽</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">淨水器</b>　<span style="font-size:15px;">過濾去除雜質</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">墨水分析</b>　<span style="font-size:15px;">層析看色素成分</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>過濾能分離溶解的鹽</div><div class="bk"><span class="tag">正確 ✓</span>過濾不能分離已溶解物，需蒸發</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>蒸餾後留在瓶內的是純水</div><div class="bk"><span class="tag">正確 ✓</span>蒸餾收集的冷凝液才是純水</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>層析要記原理</div><div class="bk"><span class="tag">正確 ✓</span>課綱只需操作，不涉原理</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>所有混合物都能過濾分離</div><div class="bk"><span class="tag">正確 ✓</span>要看是否為不溶固體</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "分離不溶固體與液體用？", "a": "過濾", "e": "顆粒差異", "lv": "基礎卷"}, {"q": "海水取鹽用什麼方法？", "a": "蒸發結晶", "e": "溶劑蒸發", "lv": "基礎卷"}, {"q": "利用沸點差異分離液體用？", "a": "蒸餾", "e": "汽化冷凝", "lv": "基礎卷"}, {"q": "分離混合色素用？", "a": "濾紙層析", "e": "移動速率差", "lv": "基礎卷"}, {"q": "過濾後留在濾紙上的是？", "a": "不溶固體", "e": "被擋住", "lv": "基礎卷"}, {"q": "蒸餾中蒸氣冷卻變回液體叫？", "a": "冷凝", "e": "放熱", "lv": "基礎卷"}, {"q": "曬鹽利用哪種方法？", "a": "蒸發", "e": "日曬", "lv": "基礎卷"}, {"q": "過濾能分離溶解的糖嗎？", "a": "不能", "e": "需蒸發", "lv": "基礎卷"}, {"q": "過濾用到的多孔紙張是？", "a": "濾紙", "e": "器材", "lv": "基礎卷"}, {"q": "把海水變飲用水的處理稱？", "a": "海水淡化", "e": "淡化", "lv": "基礎卷"}, {"q": "分離泥沙與水用？", "a": "過濾", "e": "沙不溶", "lv": "進階卷"}, {"q": "分離酒精與水用？", "a": "蒸餾", "e": "沸點不同", "lv": "進階卷"}, {"q": "鹽水蒸乾得到？", "a": "鹽", "e": "水蒸發", "lv": "進階卷"}, {"q": "蒸餾收集到的液體是？", "a": "純化的溶劑(水)", "e": "冷凝液", "lv": "進階卷"}, {"q": "層析中跑得快的成分表示？", "a": "與濾紙作用弱、移動快", "e": "分離依據", "lv": "進階卷"}, {"q": "要同時取得水和鹽用？", "a": "蒸餾", "e": "冷凝取水、殘留取鹽", "lv": "進階卷"}, {"q": "過濾裝置需要哪些器材？", "a": "漏斗與濾紙", "e": "基本組", "lv": "進階卷"}, {"q": "海水淡化常用原理近似？", "a": "蒸餾", "e": "汽化再凝", "lv": "進階卷"}, {"q": "分離糖水中的糖用什麼方法？", "a": "蒸發結晶", "e": "溶劑蒸發", "lv": "進階卷"}, {"q": "蒸餾過程中先發生什麼？", "a": "液體受熱汽化", "e": "汽化", "lv": "進階卷"}, {"q": "鹽和沙的混合物如何分離？", "a": "加水溶鹽→過濾→蒸發", "e": "兩步驟", "lv": "挑戰卷"}, {"q": "為何蒸餾能得純水？", "a": "水汽化冷凝、雜質留下", "e": "分離沸點", "lv": "挑戰卷"}, {"q": "層析為何色素會分開？", "a": "各成分移動速率不同", "e": "速率差", "lv": "挑戰卷"}, {"q": "分離不互溶的油和水最簡便法？", "a": "分液(傾析)", "e": "密度分層", "lv": "挑戰卷"}, {"q": "先過濾再蒸發能分離哪三者？", "a": "不溶固體/溶解固體/水", "e": "逐步", "lv": "挑戰卷"}, {"q": "墨水點在濾紙下端要注意？", "a": "不可浸入溶劑中", "e": "避免溶掉", "lv": "挑戰卷"}, {"q": "酒精沸點78℃、水100℃先蒸出？", "a": "酒精", "e": "沸點低先汽化", "lv": "挑戰卷"}, {"q": "如何驗證蒸餾水較純？", "a": "導電性低、沸點固定", "e": "性質檢驗", "lv": "挑戰卷"}, {"q": "分析墨水色素成分用哪種方法?為何", "a": "濾紙層析,各色素移動速率不同", "e": "層析", "lv": "挑戰卷"}, {"q": "分離沙鹽水三者的步驟順序？", "a": "溶解過濾再蒸發", "e": "步驟", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

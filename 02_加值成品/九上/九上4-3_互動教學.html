@@ -1,87 +1,105 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>九上4-3 電壓、電阻與歐姆定律｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
-<div class="top"><h1>九上4-3　電壓、電阻與歐姆定律</h1><div class="g">九年級上　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="top"><h1>九上4-3　電壓、電阻與歐姆定律</h1><div class="g">九年級上·理化＋地科　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">電壓(電位差)是驅動電流的原因,單位伏特(V),用伏特計並聯測量。電阻是阻礙電流的程度,單位歐姆(Ω)。歐姆定律:電壓=電流×電阻(V=IR)。用三用電表可測電流電壓、觀察電阻特性。課綱不涉電阻串並聯公式計算,也刪除非歐姆式導體。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">電壓</div><div class="b"><ul><li>驅動電流的電位差</li><li>單位伏特V</li><li>用伏特計並聯測量</li></ul></div></div><div class="acc"><div class="h">電阻</div><div class="b"><ul><li>阻礙電流的程度</li><li>單位歐姆Ω</li><li>導體電阻與材質長度粗細有關</li></ul></div></div><div class="acc"><div class="h">歐姆定律</div><div class="b"><ul><li>V=IR</li><li>電壓與電流成正比(定電阻)</li><li>三用電表可測驗證</li></ul></div></div><div class="acc"><div class="h">課綱範圍</div><div class="b"><ul><li>不涉串並聯公式計算(移高中)</li><li>刪非歐姆式導體</li><li>以V=IR基本應用</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>電池電壓：驅動電流</li><li>電熱器電阻：發熱</li><li>三用電表：測電</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>電壓就是電流</div><div class="bk"><span class="tag">正確 ✓</span>電壓是驅動、電流是流動</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>伏特計要串聯</div><div class="bk"><span class="tag">正確 ✓</span>伏特計須並聯</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>電阻越大電流越大</div><div class="bk"><span class="tag">正確 ✓</span>電阻越大電流越小</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>歐姆定律對所有導體成立</div><div class="bk"><span class="tag">正確 ✓</span>非歐姆導體不適用(課綱已刪)</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">電壓(電位差)是驅動電流的原因,單位伏特(V),用伏特計並聯測量。電阻是阻礙電流的程度,單位歐姆(Ω)。歐姆定律:電壓=電流×電阻(V=IR)。用三用電表可測電流電壓、觀察電阻特性。課綱不涉電阻串並聯公式計算,也刪除非歐姆式導體。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>電壓</b><span>驅動電流的電位差、單位伏特V</span></div><div class="goal"><div class="ic">🔬</div><b>電阻</b><span>阻礙電流的程度、單位歐姆Ω</span></div><div class="goal"><div class="ic">⚗️</div><b>歐姆定律</b><span>V=IR、電壓與電流成正比(定電阻)</span></div><div class="goal"><div class="ic">🌱</div><b>課綱範圍</b><span>不涉串並聯公式計算(移高中)、刪非歐姆式導體</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國三上 · 理化 · 第四章 靜電與電路</div><h1>4-3　電壓、電阻與歐姆定律</h1><p class="lead">V = I × R</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">電壓</span>(推力)與<span class="hl-r">電阻</span>(阻力)</li><li><span class="hl-b">歐姆定律 V=IR</span></li><li>三用電表的量測與接法</li></ul><div class="box y">電壓推動電流、電阻阻礙電流，三者用一條式子連起來。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>電壓</h2><div class="box"><span class="hl">電壓(電位差)</span>：驅動電流的原因</div><ul><li>單位<span class="hl">伏特 V</span></li><li>用<span class="hl-b">伏特計</span>測量，須<span class="hl-b">並聯</span>在待測元件兩端</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>電阻</h2><div class="box r"><span class="hl-r">電阻</span>：阻礙電流的程度</div><ul><li>單位<span class="hl-r">歐姆 Ω</span></li><li>導線越<span class="hl">長</span>電阻越大、越<span class="hl">粗</span>電阻越小</li><li>也與材質有關</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">水流類比</div><h2>用水管理解電路</h2><table class="tbl"><tr><th>電路</th><th>水流類比</th></tr><tr><td>電壓 V</td><td>水位落差(推力)</td></tr><tr><td>電流 I</td><td>水流量</td></tr><tr><td>電阻 R</td><td>水管的窄阻</td></tr></table><div class="box y">落差越大水流越快、管子越窄水流越小——電路也一樣。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</h2><h2>歐姆定律</h2><div class="box"><span class="hl">V = I × R</span>　(電壓＝電流×電阻)</div><ul><li>電阻固定時，電壓與電流成<span class="hl-b">正比</span></li><li>變形：I=V/R、R=V/I</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">電路量測</h2><h2>安培計串聯、伏特計並聯</h2><div class="big-center"><svg viewBox="0 0 260 130" width="66%"><rect x="20" y="20" width="220" height="90" fill="none" stroke="#f4f1e8" stroke-width="1.5"/><rect x="15" y="55" width="10" height="20" fill="#f0d878"/><text x="0" y="52" font-size="11" fill="#f0d878">電池</text><rect x="110" y="12" width="40" height="16" fill="rgba(232,160,160,.3)" stroke="#e8a0a0"/><text x="118" y="24" font-size="10" fill="#f4f1e8">電阻R</text><circle cx="200" cy="20" r="11" fill="none" stroke="#9fc8d8"/><text x="196" y="24" font-size="11" fill="#9fc8d8">A</text><circle cx="130" cy="80" r="11" fill="none" stroke="#a8d0a0"/><text x="126" y="84" font-size="11" fill="#a8d0a0">V</text><line x1="130" y1="28" x2="130" y2="69" stroke="#a8d0a0" stroke-dasharray="3"/></svg></div><div class="box y">A(安培計)串在電路中；V(伏特計)並接電阻兩端。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★☆☆</h2><h2>直接代入</h2><div class="eg"><div class="q">電壓 6V、電阻 2Ω，電流多少？</div></div><div class="box y">I = V/R = 6/2 = <span class="hl">3 A</span></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★☆</h2><h2>求電阻</h2><div class="eg"><div class="q">電壓 9V 使電流 0.3A 流過燈泡，電阻多少？</div></div><div class="box y">R = V/I = 9 ÷ 0.3 = <span class="hl">30 Ω</span></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</h2><h2>V–I 圖：正比直線</h2><div class="big-center"><svg viewBox="0 0 200 150" width="52%"><line x1="30" y1="120" x2="180" y2="120" stroke="#f4f1e8"/><line x1="30" y1="120" x2="30" y2="20" stroke="#f4f1e8"/><text x="4" y="30" font-size="12" fill="#9fc8d8">V</text><text x="170" y="138" font-size="12" fill="#9fc8d8">I</text><line x1="30" y1="120" x2="160" y2="35" stroke="#f0d878" stroke-width="2.5"/><text x="95" y="55" font-size="11" fill="#f0d878">斜率=R</text></svg></div><div class="box y">定電阻導體的 V–I 圖是通過原點的直線，斜率就是電阻。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">推理</h2><h2>電阻越大電流越小</h2><div class="eg"><div class="q">電壓不變，電阻加倍，電流如何變？</div></div><div class="box y">I=V/R，R 加倍 → 電流<span class="hl-r">減半</span>(反比)。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">工具</h2><h2>三用電表</h2><ul><li>一台可測<span class="hl">電流、電壓、電阻</span></li><li>觀察電阻特性、驗證歐姆定律</li></ul><div class="box y">量電流前記得選對檔位並正確接法。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">課綱提醒</h2><h2>國中範圍</h2><div class="box">以 <span class="hl">V=IR</span> 的基本應用為主</div><div class="box r">不涉電阻<span class="hl-r">串、並聯</span>公式計算（移高中）</div><div class="box-b">刪除不遵循歐姆定律的非歐姆式導體</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 應用</h2><h2>電阻的熱效應</h2><ul><li>電流通過電阻會<span class="hl-r">發熱</span></li><li>電熱器、電暖器用高電阻發熱線</li></ul><div class="box y">歐姆定律與發熱，是家電運作的基礎。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</h2><h2>一條式子三句話</h2><div class="box"><span class="hl">電壓 V</span>：推力，伏特計並聯量</div><div class="box-b"><span class="hl-b">電阻 R</span>：阻力，越長越大越粗越小</div><div class="box r"><span class="hl-r">歐姆定律：</span>V=IR，定電阻下 V∝I</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一章預告</div><h1>Ch5　水與陸地</h1><p class="lead">進入地球科學</p></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">歐姆定律 V=IR</div><div class="isub">電壓、電流、電阻</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;"><div style="text-align:center;font-size:30px;color:var(--yellow);font-weight:900;">V = I × R</div><div style="display:flex;gap:10px;font-size:14px;"><div style="flex:1;background:rgba(240,216,120,.12);border-radius:10px;padding:14px;"><b style="color:var(--yellow)">V 電壓</b><br>伏特 V<br>推動電流</div><div style="flex:1;background:rgba(159,200,216,.12);border-radius:10px;padding:14px;"><b style="color:var(--blue)">I 電流</b><br>安培 A<br>電荷流動</div><div style="flex:1;background:rgba(232,160,160,.12);border-radius:10px;padding:14px;"><b style="color:var(--red)">R 電阻</b><br>歐姆 Ω<br>阻礙電流</div></div><div style="text-align:center;font-size:14px;color:rgba(244,241,232,.8);">變形：I=V/R、R=V/I</div></div></div><div class="info"><div class="ititle">V–I 圖與電阻</div><div class="isub">正比直線,斜率=R</div><div style="flex:1;display:flex;align-items:center;justify-content:center;gap:24px;"><svg viewBox="0 0 220 170" width="48%"><line x1="30" y1="140" x2="200" y2="140" stroke="#f4f1e8" stroke-width="1.5"/><line x1="30" y1="140" x2="30" y2="20" stroke="#f4f1e8" stroke-width="1.5"/><text x="6" y="30" font-size="14" fill="#9fc8d8">V</text><text x="190" y="160" font-size="14" fill="#9fc8d8">I</text><line x1="30" y1="140" x2="180" y2="40" stroke="#f0d878" stroke-width="3"/><text x="110" y="70" font-size="13" fill="#f0d878">斜率 = R</text></svg><div style="font-size:16px;line-height:2;">定電阻導體<br>V 與 I 成<b style="color:#f0d878">正比</b><br>圖形過原點直線<br>斜率即為<b style="color:#e8a0a0">電阻 R</b></div></div></div><div class="info"><div class="ititle">儀表接法</div><div class="isub">安培計串聯·伏特計並聯</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;font-size:16px;"><div style="background:rgba(159,200,216,.12);border:1px solid rgba(159,200,216,.3);border-radius:10px;padding:18px;"><b style="color:var(--blue)">安培計 (A) 測電流</b><br><span style="font-size:14px;">串聯在電路中，讓待測電流通過</span></div><div style="background:rgba(168,208,160,.12);border:1px solid rgba(168,208,160,.3);border-radius:10px;padding:18px;"><b style="color:var(--green)">伏特計 (V) 測電壓</b><br><span style="font-size:14px;">並聯在元件兩端，量兩端電位差</span></div><div style="font-size:13px;color:rgba(244,241,232,.75);text-align:center;">口訣：安培串、伏特並</div></div></div><div class="info"><div class="ititle">電阻大小的因素</div><div class="isub">長度·粗細·材質</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;font-size:15px;"><div style="background:rgba(232,160,160,.1);border:1px solid rgba(232,160,160,.3);border-radius:10px;padding:16px;">📏 導線越<b>長</b> → 電阻越<b style="color:#e8a0a0">大</b></div><div style="background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:10px;padding:16px;">⭕ 導線越<b>粗</b> → 電阻越<b style="color:#9fc8d8">小</b></div><div style="background:rgba(240,216,120,.1);border:1px solid rgba(240,216,120,.3);border-radius:10px;padding:16px;">🔩 材質不同 → 電阻不同</div><div style="font-size:13px;color:rgba(244,241,232,.75);text-align:center;">國中不涉串並聯公式計算(移高中)</div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>電壓就是電流</div><div class="bk"><span class="tag">正確 ✓</span>電壓是驅動、電流是流動</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>伏特計要串聯</div><div class="bk"><span class="tag">正確 ✓</span>伏特計須並聯</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>電阻越大電流越大</div><div class="bk"><span class="tag">正確 ✓</span>電阻越大電流越小</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>歐姆定律對所有導體成立</div><div class="bk"><span class="tag">正確 ✓</span>非歐姆導體不適用(課綱已刪)</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "驅動電流的電位差是？", "a": "電壓", "e": "推力", "lv": "基礎卷"}, {"q": "電壓的單位是？", "a": "伏特(V)", "e": "電壓", "lv": "基礎卷"}, {"q": "阻礙電流的程度是？", "a": "電阻", "e": "阻力", "lv": "基礎卷"}, {"q": "電阻的單位是？", "a": "歐姆(Ω)", "e": "電阻", "lv": "基礎卷"}, {"q": "歐姆定律公式是？", "a": "V=IR", "e": "電壓電流電阻", "lv": "基礎卷"}, {"q": "測電壓的儀器是？", "a": "伏特計", "e": "三用電表", "lv": "基礎卷"}, {"q": "伏特計要怎麼接？", "a": "並聯", "e": "並接", "lv": "基礎卷"}, {"q": "電阻越大電流？", "a": "越小", "e": "阻礙", "lv": "基礎卷"}, {"q": "電流受到的阻礙程度稱？", "a": "電阻", "e": "阻礙", "lv": "基礎卷"}, {"q": "歐姆定律電壓等於電流乘？", "a": "電阻", "e": "V=IR", "lv": "基礎卷"}, {"q": "電壓6V電阻2Ω,電流？", "a": "3 A", "e": "V/R", "lv": "進階卷"}, {"q": "電流2A電阻5Ω,電壓？", "a": "10 V", "e": "IR", "lv": "進階卷"}, {"q": "電壓12V電流3A,電阻？", "a": "4 Ω", "e": "V/I", "lv": "進階卷"}, {"q": "定電阻下電壓加倍電流？", "a": "加倍", "e": "正比", "lv": "進階卷"}, {"q": "伏特計串聯還並聯？", "a": "並聯", "e": "接法", "lv": "進階卷"}, {"q": "導體電阻與長度關係？", "a": "越長電阻越大", "e": "正比", "lv": "進階卷"}, {"q": "導體電阻與粗細關係？", "a": "越粗電阻越小", "e": "反比", "lv": "進階卷"}, {"q": "三用電表可測哪些量？", "a": "電流電壓電阻", "e": "多功能", "lv": "進階卷"}, {"q": "電壓10V電阻5Ω電流？", "a": "2 A", "e": "V/R", "lv": "進階卷"}, {"q": "電流3A電阻4Ω電壓？", "a": "12 V", "e": "IR", "lv": "進階卷"}, {"q": "電壓9V使電流0.3A流過燈泡,電阻多少？", "a": "30 Ω", "e": "V/I", "lv": "挑戰卷"}, {"q": "為何伏特計並聯而安培計串聯？", "a": "量電位差需並接兩端;量電流需串接", "e": "接法", "lv": "挑戰卷"}, {"q": "定電阻導體V-I圖形是？", "a": "過原點直線", "e": "線性", "lv": "挑戰卷"}, {"q": "同材質導線變長變細電阻如何？", "a": "增大", "e": "長增粗減", "lv": "挑戰卷"}, {"q": "電壓不變電阻加倍電流如何？", "a": "減半", "e": "反比", "lv": "挑戰卷"}, {"q": "用三用電表如何驗證歐姆定律？", "a": "測不同電壓下電流看V與I成正比", "e": "實驗", "lv": "挑戰卷"}, {"q": "電熱器利用電阻的什麼效應？", "a": "電流通過電阻發熱", "e": "熱效應", "lv": "挑戰卷"}, {"q": "為何課綱刪串並聯公式計算？", "a": "移高中,國中重基本概念", "e": "課綱", "lv": "挑戰卷"}, {"q": "電壓12V電流0.5A電阻多少？", "a": "24 Ω", "e": "V/I", "lv": "挑戰卷"}, {"q": "導線越長電阻越?越粗電阻越?", "a": "越長越大、越粗越小", "e": "長粗", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

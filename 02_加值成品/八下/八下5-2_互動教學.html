@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>八下5-2 常見有機化合物｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
 <div class="top"><h1>八下5-2　常見有機化合物</h1><div class="g">八年級下·理化　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">常見有機化合物包括醣類(如葡萄糖、澱粉,提供能量)、蛋白質(建構身體、酵素)、脂質(儲能、保溫)與有機聚合物(如塑膠、橡膠、纖維,由小分子重複連接而成)。課綱刪除食品科學內容,聚焦這些有機物的基本認識。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">醣類</div><div class="b"><ul><li>如葡萄糖、澱粉</li><li>提供能量</li><li>由碳氫氧組成</li></ul></div></div><div class="acc"><div class="h">蛋白質</div><div class="b"><ul><li>建構身體、組成酵素</li><li>由胺基酸組成</li><li>含氮</li></ul></div></div><div class="acc"><div class="h">脂質</div><div class="b"><ul><li>儲存能量、保溫</li><li>油脂類</li><li>疏水</li></ul></div></div><div class="acc"><div class="h">有機聚合物</div><div class="b"><ul><li>小分子(單體)重複連接</li><li>如塑膠、橡膠、纖維</li><li>分子巨大</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>米飯澱粉：醣類供能</li><li>保鮮膜：有機聚合物</li><li>毛衣纖維：聚合物</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>醣類只有甜的糖</div><div class="bk"><span class="tag">正確 ✓</span>澱粉等多醣不甜也是醣</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>脂肪完全有害</div><div class="bk"><span class="tag">正確 ✓</span>脂質是必要營養與儲能物</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>聚合物是天然唯一</div><div class="bk"><span class="tag">正確 ✓</span>有天然與人造聚合物</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>蛋白質只在肉類</div><div class="bk"><span class="tag">正確 ✓</span>豆類等也富含蛋白質</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">常見有機化合物包括醣類(如葡萄糖、澱粉,提供能量)、蛋白質(建構身體、酵素)、脂質(儲能、保溫)與有機聚合物(如塑膠、橡膠、纖維,由小分子重複連接而成)。課綱刪除食品科學內容,聚焦這些有機物的基本認識。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>醣類</b><span>如葡萄糖、澱粉、提供能量</span></div><div class="goal"><div class="ic">🔬</div><b>蛋白質</b><span>建構身體、組成酵素、由胺基酸組成</span></div><div class="goal"><div class="ic">⚗️</div><b>脂質</b><span>儲存能量、保溫、油脂類</span></div><div class="goal"><div class="ic">🌱</div><b>有機聚合物</b><span>小分子(單體)重複連接、如塑膠、橡膠、纖維</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國二下學期 · 自然 · 八下5</div><h1>八下5-2　常見有機化合物</h1><p class="lead">醣、蛋白、脂質</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">醣類</span></li><li><span class="hl">蛋白質</span></li><li><span class="hl">脂質</span></li><li><span class="hl">有機聚合物</span></li></ul><div class="box y">常見有機化合物包括醣類(如葡萄糖、澱粉,提供能量)、蛋白質(建構身體、酵素)、脂質(儲能、保溫)與有機聚合物(如塑膠、橡…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>醣類</h2><div class="box"><span class="hl">如葡萄糖、澱粉</span></div><ul><li>提供能量</li><li>由碳氫氧組成</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>蛋白質</h2><div class="box"><span class="hl-b">建構身體、組成酵素</span></div><ul><li>由胺基酸組成</li><li>含氮</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>脂質</h2><div class="box"><span class="hl">儲存能量、保溫</span></div><ul><li>油脂類</li><li>疏水</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>有機聚合物</h2><div class="box"><span class="hl-r">小分子(單體)重複連接</span></div><ul><li>如塑膠、橡膠、纖維</li><li>分子巨大</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>醣類只有甜的糖</td><td>澱粉等多醣不甜也是醣</td></tr><tr><td>脂肪完全有害</td><td>脂質是必要營養與儲能物</td></tr><tr><td>聚合物是天然唯一</td><td>有天然與人造聚合物</td></tr><tr><td>蛋白質只在肉類</td><td>豆類等也富含蛋白質</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">聚合物如何由單體形成？</div><p style="color:#f0d878;margin:0;">→ 許多小分子單體重複連接　<span style="color:#9fc8d8;font-size:15px;">(聚合)</span></p></div><div class="eg"><div class="q">比較天然與人造聚合物各一例？</div><p style="color:#f0d878;margin:0;">→ 天然:纖維素;人造:塑膠　<span style="color:#9fc8d8;font-size:15px;">(對比)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">米飯澱粉</span>：醣類供能</li><li><span class="hl-b">保鮮膜</span>：有機聚合物</li><li><span class="hl-b">毛衣纖維</span>：聚合物</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記四類有機物。</div><div class="box-b"><span class="hl-b">B 精熟</span>：判斷類別功能。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合分析。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">醣類</span>：如葡萄糖、澱粉</div><div class="box"><span class="hl">蛋白質</span>：建構身體、組成酵素</div><div class="box"><span class="hl">脂質</span>：儲存能量、保溫</div><div class="box"><span class="hl">有機聚合物</span>：小分子(單體)重複連接</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>5-3　有機物與生活</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">常見有機化合物｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">醣類</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">如葡萄糖、澱粉　提供能量</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">蛋白質</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">建構身體、組成酵素　由胺基酸組成</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">脂質</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">儲存能量、保溫　油脂類</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">有機聚合物</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">小分子(單體)重複連接　如塑膠、橡膠、纖維</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">醣類只有甜的糖</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">澱粉等多醣不甜也是醣</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">脂肪完全有害</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">脂質是必要營養與儲能物</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">聚合物是天然唯一</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">有天然與人造聚合物</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">蛋白質只在肉類</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">豆類等也富含蛋白質</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記四類有機物。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">判斷類別功能。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">米飯澱粉</b>　<span style="font-size:15px;">醣類供能</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">保鮮膜</b>　<span style="font-size:15px;">有機聚合物</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">毛衣纖維</b>　<span style="font-size:15px;">聚合物</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>醣類只有甜的糖</div><div class="bk"><span class="tag">正確 ✓</span>澱粉等多醣不甜也是醣</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>脂肪完全有害</div><div class="bk"><span class="tag">正確 ✓</span>脂質是必要營養與儲能物</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>聚合物是天然唯一</div><div class="bk"><span class="tag">正確 ✓</span>有天然與人造聚合物</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>蛋白質只在肉類</div><div class="bk"><span class="tag">正確 ✓</span>豆類等也富含蛋白質</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "提供人體主要能量的有機物？", "a": "醣類", "e": "供能", "lv": "基礎卷"}, {"q": "建構身體、組成酵素的是？", "a": "蛋白質", "e": "建構", "lv": "基礎卷"}, {"q": "儲存能量、保溫的有機物？", "a": "脂質", "e": "儲能", "lv": "基礎卷"}, {"q": "由小分子重複連接的大分子？", "a": "有機聚合物", "e": "高分子", "lv": "基礎卷"}, {"q": "澱粉屬於哪類？", "a": "醣類", "e": "多醣", "lv": "基礎卷"}, {"q": "塑膠屬於哪類有機物？", "a": "有機聚合物", "e": "人造", "lv": "基礎卷"}, {"q": "蛋白質由什麼組成？", "a": "胺基酸", "e": "單元", "lv": "基礎卷"}, {"q": "葡萄糖屬於哪類？", "a": "醣類", "e": "單醣", "lv": "基礎卷"}, {"q": "人體主要能量來源的養分是？", "a": "醣類", "e": "供能", "lv": "基礎卷"}, {"q": "酵素本質屬哪類有機物？", "a": "蛋白質", "e": "蛋白", "lv": "基礎卷"}, {"q": "米飯麵包主要提供？", "a": "醣類", "e": "能量", "lv": "進階卷"}, {"q": "肉蛋豆主要提供？", "a": "蛋白質", "e": "建構", "lv": "進階卷"}, {"q": "橡膠與纖維屬於？", "a": "有機聚合物", "e": "高分子", "lv": "進階卷"}, {"q": "聚合物的小分子單元稱？", "a": "單體", "e": "monomer", "lv": "進階卷"}, {"q": "脂質溶於水嗎？", "a": "不易(疏水)", "e": "油性", "lv": "進階卷"}, {"q": "酵素本質是哪類有機物？", "a": "蛋白質", "e": "生物催化", "lv": "進階卷"}, {"q": "多醣不甜也算醣嗎？", "a": "算", "e": "如澱粉", "lv": "進階卷"}, {"q": "天然聚合物例子？", "a": "澱粉/纖維素/蛋白質", "e": "天然", "lv": "進階卷"}, {"q": "澱粉是由許多什麼連接的多醣？", "a": "葡萄糖", "e": "聚合", "lv": "進階卷"}, {"q": "塑膠是天然還人造聚合物？", "a": "人造", "e": "人造", "lv": "進階卷"}, {"q": "聚合物如何由單體形成？", "a": "許多小分子單體重複連接", "e": "聚合", "lv": "挑戰卷"}, {"q": "比較天然與人造聚合物各一例？", "a": "天然:纖維素;人造:塑膠", "e": "對比", "lv": "挑戰卷"}, {"q": "為何脂質適合儲能？", "a": "單位質量含能量高", "e": "儲能", "lv": "挑戰卷"}, {"q": "蛋白質功能為何多樣？", "a": "由不同胺基酸序列決定", "e": "多樣", "lv": "挑戰卷"}, {"q": "澱粉與葡萄糖關係？", "a": "澱粉是葡萄糖聚合成的多醣", "e": "聚合", "lv": "挑戰卷"}, {"q": "塑膠難分解對環境的影響？", "a": "聚合物穩定造成污染", "e": "環境", "lv": "挑戰卷"}, {"q": "人體缺乏蛋白質可能影響？", "a": "生長修復與酵素功能", "e": "健康", "lv": "挑戰卷"}, {"q": "為何說碳鏈能力造就這些大分子？", "a": "碳可連成長鏈支撐聚合", "e": "碳鍵", "lv": "挑戰卷"}, {"q": "為何蛋白質能有多種功能？", "a": "由不同胺基酸序列決定", "e": "多樣", "lv": "挑戰卷"}, {"q": "比較醣類與脂質作為能量來源？", "a": "醣類快速供能脂質儲存能量", "e": "對比", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>

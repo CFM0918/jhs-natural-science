@@ -1,87 +1,108 @@
-<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>九下4-1 全球氣候變遷｜互動教學</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0d1410;color:#f4f1e8;line-height:1.7}
-.top{position:sticky;top:0;z-index:20;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
-.top h1{font-size:19px;color:#f0d878}.top .g{font-size:12px;color:#9fc8d8}
-.tabs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.7}
+.top{position:sticky;top:0;z-index:30;background:#16241c;border-bottom:2px solid #f0d878;padding:12px 16px}
+.top h1{font-size:19px;color:#f0d878;margin:0}.top .g{font-size:12px;color:#9fc8d8}
+.tabs{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-size:13.5px;padding:6px 13px;border-radius:20px;border:1px solid rgba(159,200,216,.4);color:#9fc8d8;background:none}
 .tab.on{background:#f0d878;color:#16241c;border-color:#f0d878;font-weight:700}
-.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block;animation:fade .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 14px 70px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-.lead{background:#1a2e1a;border-left:4px solid #9fc8d8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
-.acc{background:#1a2e1a;border:1px solid rgba(240,216,120,.2);border-radius:10px;margin:10px 0;overflow:hidden}
-.acc>.h{cursor:pointer;padding:14px 18px;font-size:16px;font-weight:700;color:#f0d878;display:flex;justify-content:space-between;align-items:center}
-.acc>.h::after{content:'＋';color:#9fc8d8}.acc.open>.h::after{content:'－'}
-.acc>.b{max-height:0;overflow:hidden;transition:max-height .3s;padding:0 18px}
-.acc.open>.b{max-height:600px;padding:0 18px 14px}
-.acc li{margin:6px 0 6px 4px;list-style:none;padding-left:20px;position:relative;font-size:14.5px}
-.acc li::before{content:'▹';position:absolute;left:0;color:#f0d878}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.flip{height:120px;perspective:900px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
-.flip.f .in{transform:rotateY(180deg)}
-.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
+.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:4px 0 14px}
+/* 學習目標 */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:12px;padding:16px 18px}
+.goal .ic{font-size:26px}.goal b{color:#f0d878;display:block;margin:6px 0 4px;font-size:16px}
+.goal span{font-size:13.5px;color:rgba(244,241,232,.85)}
+.leadbox{background:var(--board);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14.5px}
+/* 簡報翻頁器 */
+.deck{position:relative}
+.slidebox{background:var(--board);border-radius:12px;border:1px solid rgba(240,216,120,.2);min-height:440px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center}
+.slidebox h1{font-family:'Noto Serif TC',serif;font-size:30px;color:#f4f1e8;margin:0 0 8px}
+.slidebox h2{font-family:'Noto Serif TC',serif;font-size:24px;color:var(--yellow);margin:0 0 16px;border-bottom:2px solid rgba(240,216,120,.3);padding-bottom:8px}
+.slidebox .eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.slidebox p{font-size:17px;margin:8px 0}.slidebox ul{margin:6px 0;padding-left:6px}
+.slidebox li{font-size:16px;line-height:1.9;list-style:none;padding-left:24px;position:relative}
+.slidebox li::before{content:'▹';position:absolute;left:2px;color:var(--yellow)}
+.slidebox .lead{font-size:19px;color:var(--blue)}
+.slidebox .big-center{align-items:center;text-align:center}
+.box,.box-b{background:rgba(159,200,216,.1);border:1px solid rgba(159,200,216,.3);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}
+.box.y{background:rgba(240,216,120,.1);border-color:rgba(240,216,120,.3)}
+.box.r{background:rgba(232,160,160,.1);border-color:rgba(232,160,160,.3)}
+.eg{background:rgba(0,0,0,.22);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:16px}.eg .q{color:var(--blue);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}.tbl th,.tbl td{border:1px solid rgba(244,241,232,.2);padding:8px 12px;text-align:center}.tbl th{background:rgba(240,216,120,.15);color:var(--yellow)}
+.hl{color:var(--yellow);font-weight:700}.hl-b{color:var(--blue);font-weight:700}.hl-r{color:var(--red);font-weight:700}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
+.nav button{cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:8px;padding:8px 18px;font-weight:700;font-size:15px}
+.nav button:disabled{opacity:.35;cursor:default}.nav .pg{color:#9fc8d8;font-size:14px}
+/* 資訊圖 */
+.info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
+.info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
+.info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 迷思翻牌 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .in{transform:rotateY(180deg)}.flip .fr,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14.5px}
 .flip .fr{background:rgba(232,160,160,.15);border:1px solid rgba(232,160,160,.5);color:#f4d0d0}
 .flip .bk{background:rgba(168,208,160,.15);border:1px solid rgba(168,208,160,.5);color:#d0e8c8;transform:rotateY(180deg)}
 .flip .tag{position:absolute;top:8px;left:10px;font-size:11px;opacity:.7}
-.hint{text-align:center;color:rgba(244,241,232,.5);font-size:12px;margin:6px 0 14px}
+/* 闖關 */
 .lv{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .lv button{cursor:pointer;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(159,200,216,.4);background:none;color:#9fc8d8}
 .lv button.on{background:#9fc8d8;color:#16241c;font-weight:700}
-.card{background:#1a2e1a;border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
-.card .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
-.card .q{font-size:19px;margin:10px 0}
-.card .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}
-.card .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
+.qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
-.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}
-.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}
-.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
+.mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
 .score{text-align:center;font-size:14px;color:#9fc8d8}
-.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}
-.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
+.done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
 </style></head><body>
-<div class="top"><h1>九下4-1　全球氣候變遷</h1><div class="g">九年級下　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="concept">📖 觀念導覽</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="top"><h1>九下4-1　全球氣候變遷</h1><div class="g">九年級下·理化＋地科　互動教學</div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
 <div class="wrap">
-<section id="concept" class="on"><div class="lead">人類大量燃燒化石燃料排放二氧化碳等溫室氣體,增強溫室效應,造成全球暖化與氣候變遷,引發海平面上升、極端天氣等問題。因應之道有兩大途徑:減緩(減少排放、發展再生能源)與調適(調整生活與建設以適應變化)。課綱刪除臭氧洞與聖嬰現象(移高中)。</div><div class="hint">點各主題展開重點 ▾</div><div class="acc"><div class="h">溫室效應與暖化</div><div class="b"><ul><li>溫室氣體留住地表熱</li><li>適度溫室效應維持溫暖</li><li>過量造成全球暖化</li></ul></div></div><div class="acc"><div class="h">氣候變遷的影響</div><div class="b"><ul><li>海平面上升</li><li>極端天氣增多</li><li>生態與農業受衝擊</li></ul></div></div><div class="acc"><div class="h">減緩</div><div class="b"><ul><li>減少溫室氣體排放</li><li>發展再生能源</li><li>節能減碳</li></ul></div></div><div class="acc"><div class="h">調適</div><div class="b"><ul><li>調整生活與建設</li><li>防洪、耐旱作物</li><li>適應氣候變化</li></ul></div></div><div class="acc"><div class="h">素養 · 生活連結</div><div class="b"><ul><li>節能減碳：減緩</li><li>海平面上升：沿海威脅</li><li>搭大眾運輸：減排</li></ul></div></div></section>
-<section id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>溫室效應完全有害</div><div class="bk"><span class="tag">正確 ✓</span>適度溫室效應維持適居溫度</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>暖化和臭氧洞是同一件事</div><div class="bk"><span class="tag">正確 ✓</span>兩者不同(臭氧洞課綱已移高中)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>個人行為對暖化沒影響</div><div class="bk"><span class="tag">正確 ✓</span>節能減碳人人有責</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>只要減緩不用調適</div><div class="bk"><span class="tag">正確 ✓</span>兩者都需要並行</div></div></div></div></section>
-<section id="game"><div class="hint">選難度 → 想答案 → 點看答案 → 誠實標記，最後看得分！</div>
-<div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div>
-<div id="gamebox"></div></section>
-<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div>
-</div>
+<div class="pane on" id="goals"><div class="leadbox">人類大量燃燒化石燃料排放二氧化碳等溫室氣體,增強溫室效應,造成全球暖化與氣候變遷,引發海平面上升、極端天氣等問題。因應之道有兩大途徑:減緩(減少排放、發展再生能源)與調適(調整生活與建設以適應變化)。課綱刪除臭氧洞與聖嬰現象(移高中)。</div><div class="goals"><div class="goal"><div class="ic">🎯</div><b>溫室效應與暖化</b><span>溫室氣體留住地表熱、適度溫室效應維持溫暖</span></div><div class="goal"><div class="ic">🔬</div><b>氣候變遷的影響</b><span>海平面上升、極端天氣增多</span></div><div class="goal"><div class="ic">⚗️</div><b>減緩</b><span>減少溫室氣體排放、發展再生能源</span></div><div class="goal"><div class="ic">🌱</div><b>調適</b><span>調整生活與建設、防洪、耐旱作物</span></div></div></div>
+<div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox"><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">國三下學期 · 自然 · 九下4</div><h1>九下4-1　全球氣候變遷</h1><p class="lead">暖化的挑戰</p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節導覽</div><h2>今天要學會</h2><ul><li><span class="hl">溫室效應與暖化</span></li><li><span class="hl">氣候變遷的影響</span></li><li><span class="hl">減緩</span></li><li><span class="hl">調適</span></li></ul><div class="box y">人類大量燃燒化石燃料排放二氧化碳等溫室氣體,增強溫室效應,造成全球暖化與氣候變遷,引發海平面上升、極端天氣等問題。因應之…</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ①</div><h2>溫室效應與暖化</h2><div class="box"><span class="hl">溫室氣體留住地表熱</span></div><ul><li>適度溫室效應維持溫暖</li><li>過量造成全球暖化</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ②</div><h2>氣候變遷的影響</h2><div class="box"><span class="hl-b">海平面上升</span></div><ul><li>極端天氣增多</li><li>生態與農業受衝擊</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ③</div><h2>減緩</h2><div class="box"><span class="hl">減少溫室氣體排放</span></div><ul><li>發展再生能源</li><li>節能減碳</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">核心 ④</div><h2>調適</h2><div class="box"><span class="hl-r">調整生活與建設</span></div><ul><li>防洪、耐旱作物</li><li>適應氣候變化</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">避雷指南</div><h2>常見迷思</h2><table class="tbl"><tr><th>❌ 迷思</th><th>✓ 正確觀念</th></tr><tr><td>溫室效應完全有害</td><td>適度溫室效應維持適居溫度</td></tr><tr><td>暖化和臭氧洞是同一件事</td><td>兩者不同(臭氧洞課綱已移高中)</td></tr><tr><td>個人行為對暖化沒影響</td><td>節能減碳人人有責</td></tr><tr><td>只要減緩不用調適</td><td>兩者都需要並行</td></tr></table></div><div class="slide-inner" style="display:none"><div class="eyebrow">例題 ★★★</div><h2>試試看</h2><div class="eg"><div class="q">說明溫室效應如何造成全球暖化？</div><p style="color:#f0d878;margin:0;">→ 溫室氣體增加留住更多熱能使均溫上升　<span style="color:#9fc8d8;font-size:15px;">(機制)</span></p></div><div class="eg"><div class="q">比較減緩與調適的差別並各舉例？</div><p style="color:#f0d878;margin:0;">→ 減緩減少排放(再生能源);調適適應變化(防洪)　<span style="color:#9fc8d8;font-size:15px;">(對策)</span></p></div></div><div class="slide-inner" style="display:none"><div class="eyebrow">素養 · 生活連結</div><h2>學到的用在哪</h2><ul><li><span class="hl-b">節能減碳</span>：減緩</li><li><span class="hl-b">海平面上升</span>：沿海威脅</li><li><span class="hl-b">搭大眾運輸</span>：減排</li></ul></div><div class="slide-inner" style="display:none"><div class="eyebrow">差異化教學</div><h2>三層次學習</h2><div class="box"><span class="hl">A 基礎</span>：記暖化與對策。</div><div class="box-b"><span class="hl-b">B 精熟</span>：判斷對策。</div><div class="box r"><span class="hl-r">C 挑戰</span>：綜合分析。</div></div><div class="slide-inner" style="display:none"><div class="eyebrow">本節總結</div><h2>重點回顧</h2><div class="box"><span class="hl">溫室效應與暖化</span>：溫室氣體留住地表熱</div><div class="box"><span class="hl">氣候變遷的影響</span>：海平面上升</div><div class="box"><span class="hl">減緩</span>：減少溫室氣體排放</div><div class="box"><span class="hl">調適</span>：調整生活與建設</div></div><div class="slide-inner" style="display:none"><div class="big-center"><div class="eyebrow">下一節預告</div><h1>4-2　海洋與海水運動</h1></div></div></div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
+<div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div><div class="info"><div class="ititle">全球氣候變遷｜重點總覽</div><div class="isub">四大主題一次看</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(159,200,216);margin-bottom:4px;">溫室效應與暖化</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">溫室氣體留住地表熱　適度溫室效應維持溫暖</div></div><div style="background:rgba(240,216,120,0.12);border:1px solid rgba(240,216,120,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(240,216,120);margin-bottom:4px;">氣候變遷的影響</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">海平面上升　極端天氣增多</div></div><div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(168,208,160);margin-bottom:4px;">減緩</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">減少溫室氣體排放　發展再生能源</div></div><div style="background:rgba(196,168,216,0.12);border:1px solid rgba(196,168,216,0.35);border-radius:10px;padding:16px 20px;"><div style="font-size:17px;font-weight:700;color:rgb(196,168,216);margin-bottom:4px;">調適</div><div style="font-size:15px;color:rgba(244,241,232,0.85);">調整生活與建設　防洪、耐旱作物</div></div></div></div><div class="info"><div class="ititle">迷思破解</div><div class="isub">考前最後提醒</div><div style="flex:1;display:flex;align-items:center;"><table style="width:100%;border-collapse:collapse;font-size:16px;"><tr style="background:rgba(240,216,120,0.15);"><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">常見迷思</th><th style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--yellow);">正確觀念</th></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">溫室效應完全有害</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">適度溫室效應維持適居溫度</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">暖化和臭氧洞是同一件事</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">兩者不同(臭氧洞課綱已移高中)</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">個人行為對暖化沒影響</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">節能減碳人人有責</td></tr><tr><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--red);">只要減緩不用調適</td><td style="border:1px solid rgba(244,241,232,0.2);padding:12px;color:var(--green);">兩者都需要並行</td></tr></table></div></div><div class="info"><div class="ititle">三層次差異化</div><div class="isub">因材施教</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+    <div style="background:rgba(168,208,160,0.12);border:1px solid rgba(168,208,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--green);">A 基礎鞏固</b>　<span style="font-size:15px;">記暖化與對策。</span></div>
+    <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">判斷對策。</span></div>
+    <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">節能減碳</b>　<span style="font-size:15px;">減緩</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">海平面上升</b>　<span style="font-size:15px;">沿海威脅</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">搭大眾運輸</b>　<span style="font-size:15px;">減排</span></div></div></div></div>
+<div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>溫室效應完全有害</div><div class="bk"><span class="tag">正確 ✓</span>適度溫室效應維持適居溫度</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>暖化和臭氧洞是同一件事</div><div class="bk"><span class="tag">正確 ✓</span>兩者不同(臭氧洞課綱已移高中)</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>個人行為對暖化沒影響</div><div class="bk"><span class="tag">正確 ✓</span>節能減碳人人有責</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>只要減緩不用調適</div><div class="bk"><span class="tag">正確 ✓</span>兩者都需要並行</div></div></div></div></div>
+<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！</div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__=[{"q": "留住地表熱的氣體稱？", "a": "溫室氣體", "e": "如CO₂", "lv": "基礎卷"}, {"q": "過量溫室氣體造成？", "a": "全球暖化", "e": "暖化", "lv": "基礎卷"}, {"q": "主要溫室氣體是？", "a": "二氧化碳", "e": "CO₂", "lv": "基礎卷"}, {"q": "暖化造成海平面？", "a": "上升", "e": "融冰", "lv": "基礎卷"}, {"q": "減少排放的途徑稱？", "a": "減緩", "e": "減量", "lv": "基礎卷"}, {"q": "調整生活以適應變化稱？", "a": "調適", "e": "適應", "lv": "基礎卷"}, {"q": "燃燒化石燃料會排放？", "a": "二氧化碳", "e": "排碳", "lv": "基礎卷"}, {"q": "發展再生能源屬於？", "a": "減緩", "e": "減排", "lv": "基礎卷"}, {"q": "過多溫室氣體導致全球？", "a": "暖化", "e": "暖化", "lv": "基礎卷"}, {"q": "減少溫室氣體排放的途徑稱？", "a": "減緩", "e": "減量", "lv": "基礎卷"}, {"q": "適度溫室效應的作用？", "a": "維持適居溫度", "e": "必要", "lv": "進階卷"}, {"q": "氣候變遷造成天氣？", "a": "更極端", "e": "極端", "lv": "進階卷"}, {"q": "防洪耐旱建設屬於？", "a": "調適", "e": "適應", "lv": "進階卷"}, {"q": "節能減碳屬於？", "a": "減緩", "e": "減排", "lv": "進階卷"}, {"q": "暖化對農業影響？", "a": "作物與產量受衝擊", "e": "農業", "lv": "進階卷"}, {"q": "海平面上升威脅？", "a": "沿海低地", "e": "淹沒", "lv": "進階卷"}, {"q": "搭乘大眾運輸有助？", "a": "減少排碳", "e": "減緩", "lv": "進階卷"}, {"q": "減緩與調適應如何？", "a": "兩者並行", "e": "並重", "lv": "進階卷"}, {"q": "全球暖化使海平面？", "a": "上升", "e": "融冰", "lv": "進階卷"}, {"q": "調整生活與建設適應變化稱？", "a": "調適", "e": "適應", "lv": "進階卷"}, {"q": "說明溫室效應如何造成全球暖化？", "a": "溫室氣體增加留住更多熱能使均溫上升", "e": "機制", "lv": "挑戰卷"}, {"q": "比較減緩與調適的差別並各舉例？", "a": "減緩減少排放(再生能源);調適適應變化(防洪)", "e": "對策", "lv": "挑戰卷"}, {"q": "氣候變遷對臺灣可能的影響？", "a": "海平面上升極端降雨颱風增強", "e": "在地", "lv": "挑戰卷"}, {"q": "個人如何為減碳盡力？", "a": "節電少開車減少浪費", "e": "行動", "lv": "挑戰卷"}, {"q": "為何減緩與調適需並行？", "a": "減緩治本較慢調適因應現有衝擊", "e": "並行", "lv": "挑戰卷"}, {"q": "冰川融化對全球的連鎖影響？", "a": "海面上升淹沒沿海改變生態", "e": "連鎖", "lv": "挑戰卷"}, {"q": "再生能源如何幫助減緩暖化？", "a": "取代化石燃料減少CO₂排放", "e": "減排", "lv": "挑戰卷"}, {"q": "為何國中不談臭氧洞聖嬰？", "a": "移高中,國中聚焦暖化與對策", "e": "課綱", "lv": "挑戰卷"}, {"q": "溫室效應過強為何造成暖化？", "a": "留住更多熱能使均溫上升", "e": "機制", "lv": "挑戰卷"}, {"q": "減緩與調適各舉一例？", "a": "減緩用再生能源、調適建防洪", "e": "對策", "lv": "挑戰卷"}];</script>
 <script>
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
-});
-document.querySelectorAll('.acc>.h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
-// 闖關自測
+// 簡報翻頁
+let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
+function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
+  document.querySelectorAll('.slidebox .slide-inner').forEach((s,k)=>s.style.display=k===si?'block':'none');
+  document.getElementById('pg').textContent=(si+1)+' / '+SL.length;
+  document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
+window.showSlide=showSlide;
+document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
+// 闖關
 const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
-  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();}
-function render(){const box=document.getElementById('gamebox');
+  document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
+function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];
-  box.innerHTML='<div class="card"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div>'+
-   '<div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];
-  document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div>'+
-   '<div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;render();}
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
+function mark(ok){if(ok)right++;idx++;grender();}
 window.start=start;window.showAns=showAns;window.mark=mark;
-start('基礎卷');
-</script>
-</body></html>
+showSlide(0);start('基礎卷');
+</script></body></html>
