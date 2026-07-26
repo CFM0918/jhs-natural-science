@@ -19,7 +19,8 @@ def esc(x): return html.escape(str(x))
 
 # 每節對應的 canvas 模擬類型（依 L['code']）；未列者用互動配對 match
 SIMMAP = {
- '八上3-1':'wave','八上3-2':'wave','八上3-3':'wave','八上3-4':'wave',
+ '八上3-1':'wave','八上3-3':'wave',
+ '八上3-2':'echo','八上3-4':'echo',
  '八上1-4':'density','八下6-4':'density',
  '八下3-2':'ph','八下3-3':'ph',
  '八下4-1':'rate','八下4-2':'rate',
@@ -32,11 +33,18 @@ SIMMAP = {
  '八上4-2':'lens','八上4-4':'lens',
  '九上7-2':'moon','九上7-1':'season',
  '生物2-2':'photosyn','八上2-4':'concentration',
+ '八上5-3':'heat','八上5-4':'heatcurve',
+ '八下6-2':'friction','八下6-3':'pressure',
+ '八下2-2':'activity','八下2-3':'activity',
+ '九上2-3':'newton','九上3-2':'energy',
 }
 SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和模擬','rate':'反應速率碰撞模擬',
  'motion':'運動 v-t 模擬','fma':'F=ma 模擬','ohm':'歐姆定律電路模擬','magnet':'電磁鐵模擬',
  'punnett':'遺傳棋盤模擬','lens':'凸透鏡成像模擬','moon':'月相盈虧模擬','season':'季節成因模擬',
- 'photosyn':'光合作用速率模擬','circuit':'電路通路模擬','concentration':'溶液濃度模擬','match':'概念互動配對'}
+ 'photosyn':'光合作用速率模擬','circuit':'電路通路模擬','concentration':'溶液濃度模擬',
+ 'heat':'熱傳播模擬','heatcurve':'加熱曲線模擬','echo':'回聲測距模擬','friction':'摩擦力模擬',
+ 'pressure':'壓力模擬','activity':'金屬活性置換模擬','newton':'作用反作用模擬','energy':'力學能守恆模擬',
+ 'match':'概念互動配對'}
 
 HUB_CSS = """
 :root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
@@ -165,7 +173,7 @@ def build(L, runcode):
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
-<script src="../sims.js?v=2"></script>
+<script src="../sims.js?v=3"></script>
 <script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
 </body></html>'''
     return doc

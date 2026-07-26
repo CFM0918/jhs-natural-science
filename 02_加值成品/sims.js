@@ -207,6 +207,96 @@ S.concentration=function(host){let solute=20,water=80;const g=cv(host,320,240);c
   ro.innerHTML='重量百分濃度 = 溶質÷溶液×100% = '+solute+'÷'+(solute+water)+'×100% = <b style="color:'+C.y+'">'+pct.toFixed(1)+'%</b>　（顏色越深越濃）';
   requestAnimationFrame(loop);})();};
 
+// 熱的傳播
+S.heat=function(host){let mode='傳導';const g=cv(host,460,220);const c=ctrl(host);
+ ['傳導','對流','輻射'].forEach(m=>{const b=el('<button style="cursor:pointer;background:'+(m==='傳導'?C.y:'none')+';color:'+(m==='傳導'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 14px;font-weight:700">'+m+'</button>');b.onclick=function(){mode=m;Array.prototype.forEach.call(c.querySelectorAll('button'),function(x){x.style.background='none';x.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,460,220);g.font='13px sans-serif';
+  if(mode==='傳導'){const p=Math.min(1,(t%4)/4+0.05);for(let x=0;x<380;x++){const h=Math.max(0,1-(x/380)/p);g.fillStyle='rgb('+Math.round(70+185*h)+','+Math.round(70*(1-h))+',45)';g.fillRect(50+x,110,1,32);}g.fillStyle=C.r;g.font='22px sans-serif';g.fillText('🔥',22,138);g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('金屬棒：熱由高溫端沿棒傳導(固體)',110,80);}
+  else if(mode==='對流'){g.strokeStyle='rgba(159,200,216,.4)';g.strokeRect(130,40,200,150);g.font='22px sans-serif';g.fillStyle=C.r;g.fillText('🔥',215,212);const yy=(t*60)%150;g.fillStyle=C.r;g.beginPath();g.moveTo(185,185-yy);g.lineTo(190,193-yy);g.lineTo(180,193-yy);g.fill();g.fillStyle=C.b;g.beginPath();g.moveTo(285,45+yy);g.lineTo(290,37+yy);g.lineTo(280,37+yy);g.fill();g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('流體：熱者上升、冷者下降形成對流',110,28);}
+  else{const cx=230,cy=115;for(let k=0;k<4;k++){const rr=((t*90+k*35)%140);g.strokeStyle='rgba(240,216,120,'+(1-rr/140).toFixed(2)+')';g.lineWidth=2;g.beginPath();g.arc(cx,cy,rr,0,7);g.stroke();}g.fillStyle=C.y;g.beginPath();g.arc(cx,cy,14,0,7);g.fill();g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('輻射：不需介質，以電磁波向外傳播',105,30);}
+  ro.innerHTML='熱傳播方式：<b style="color:'+C.y+'">'+mode+'</b>　（傳導=固體｜對流=流體流動｜輻射=不需介質）';
+  requestAnimationFrame(loop);})();};
+
+// 回聲測距
+S.echo=function(host){let dist=200;let pulse=-1;const g=cv(host,500,180);const c=ctrl(host);
+ slider(c,'到障礙距離(m)',50,340,dist,10,v=>dist=v);
+ const btn=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">發聲 🔊</button>');c.appendChild(btn);btn.onclick=()=>pulse=0;
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,500,180);const wx=460;
+  g.fillStyle=C.chalk;g.font='22px sans-serif';g.fillText('🧍',20,95);g.fillStyle='#888';g.fillRect(wx,40,12,100);g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('障礙',wx-6,32);
+  const span=wx-46;if(pulse>=0){pulse+=0.012;let x;if(pulse<=1)x=46+span*pulse;else if(pulse<=2)x=wx-span*(pulse-1);else pulse=-1;if(pulse>=0){g.strokeStyle=C.b;g.lineWidth=2;g.beginPath();g.arc(x,90,12,0,7);g.stroke();}}
+  const tt=(2*dist/340);ro.innerHTML='聲速340m/s　來回時間 t = 2d÷v = 2×'+dist+'÷340 = <b style="color:'+C.y+'">'+tt.toFixed(2)+' 秒</b>　→ 由回聲時間可反推距離 d=vt÷2';
+  requestAnimationFrame(loop);})();};
+
+// 摩擦力
+S.friction=function(host){let F=0;const maxs=8;const g=cv(host,460,180);const c=ctrl(host);
+ slider(c,'施力 F(N)',0,16,F,1,v=>F=v);const ro=readout(host);let x=60,vx=0;
+ (function loop(){g.clearRect(0,0,460,180);g.strokeStyle='rgba(244,241,232,.3)';g.beginPath();g.moveTo(0,130);g.lineTo(460,130);g.stroke();
+  let fric,moving;if(F<=maxs){fric=F;moving=false;vx=0;}else{fric=maxs*0.7;moving=true;vx+=(F-fric)/4*0.02;x+=vx;}if(x>400){x=60;vx=0;}
+  g.fillStyle=C.g;g.fillRect(x,95,50,35);
+  if(F>0){g.strokeStyle=C.b;g.lineWidth=3;g.beginPath();g.moveTo(x+50,112);g.lineTo(x+50+F*4,112);g.stroke();g.fillStyle=C.b;g.fillText('F',x+52+F*4,108);}
+  g.strokeStyle=C.r;g.lineWidth=3;g.beginPath();g.moveTo(x,120);g.lineTo(x-fric*4,120);g.stroke();g.fillStyle=C.r;g.font='12px sans-serif';g.fillText('摩擦',x-fric*4-28,124);
+  ro.innerHTML=moving?'<b style="color:'+C.g+'">物體滑動</b>：F 超過最大靜摩擦，開始移動（動摩擦）':'<b style="color:'+C.r+'">靜止</b>：F≤最大靜摩擦，靜摩擦力=施力，合力為零';
+  requestAnimationFrame(loop);})();};
+
+// 金屬活性置換
+S.activity=function(host){const rank={'鎂':4,'鋅':3,'鐵':2,'銅':1};let metal='鐵';const g=cv(host,320,240);const c=ctrl(host);
+ const w=el('<label style="font-size:13px;color:'+C.b+'">放入硫酸銅溶液的金屬：<select style="font-size:14px"><option>鎂</option><option>鋅</option><option selected>鐵</option><option>銅</option></select></label>');w.querySelector('select').onchange=e=>metal=e.target.value;c.appendChild(w);
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.03;g.clearRect(0,0,320,240);const react=rank[metal]>rank['銅'];
+  g.fillStyle='rgba(100,150,220,.25)';g.fillRect(100,70,120,150);g.strokeStyle=C.chalk;g.strokeRect(100,70,120,150);g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('硫酸銅溶液',108,64);
+  g.fillStyle='#bbb';g.fillRect(150,90,20,90);g.fillStyle=C.chalk;g.fillText(metal+'片',150,205);
+  if(react){for(let k=0;k<8;k++){const yy=(t*30+k*12)%90;g.fillStyle='#c87137';g.fillRect(150+(k%2?14:2),90+yy,6,6);}}
+  ro.innerHTML=react?'<b style="color:'+C.g+'">會置換</b>：'+metal+'活性大於銅，'+metal+'溶解、表面析出紅色銅':'<b style="color:'+C.r+'">不反應</b>：銅活性最小，無法置換溶液中的銅';
+  requestAnimationFrame(loop);})();};
+
+// 壓力 P=F/A
+S.pressure=function(host){let F=40,A=4;const g=cv(host,360,220);const c=ctrl(host);
+ slider(c,'力 F(N)',10,100,F,10,v=>F=v);slider(c,'接觸面積 A(m²)',1,10,A,1,v=>A=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,360,220);const P=F/A;const depth=Math.min(60,P*3);
+  g.fillStyle='rgba(200,180,140,.4)';g.fillRect(0,150+depth,360,70);g.strokeStyle=C.chalk;g.beginPath();g.moveTo(0,150+depth);g.lineTo(360,150+depth);g.stroke();
+  const w=20+A*14;g.fillStyle=C.g;g.fillRect(180-w/2,150+depth-40,w,40);
+  g.strokeStyle=C.b;g.lineWidth=3;g.beginPath();g.moveTo(180,150+depth-40);g.lineTo(180,150+depth-40-F*0.6);g.stroke();
+  ro.innerHTML='壓力 P = F÷A = '+F+'÷'+A+' = <b style="color:'+C.y+'">'+P.toFixed(1)+' Pa</b>　（面積越小壓力越大，陷越深）';
+  requestAnimationFrame(loop);})();};
+
+// 加熱曲線與物態變化
+S.heatcurve=function(host){const g=cv(host,500,240);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=0.006;if(t>1)t=0;g.clearRect(0,0,500,240);
+  g.strokeStyle='rgba(244,241,232,.3)';g.beginPath();g.moveTo(50,210);g.lineTo(480,210);g.moveTo(50,210);g.lineTo(50,20);g.stroke();
+  g.fillStyle=C.b;g.font='12px sans-serif';g.fillText('溫度',10,30);g.fillText('加熱時間',400,228);
+  function T(x){if(x<0.15)return 20+x/0.15*(-0+ (0-20));if(x<0.3)return 0;if(x<0.6)return 0+(x-0.3)/0.3*100;if(x<0.8)return 100;return 100+(x-0.8)/0.2*20;}
+  g.strokeStyle=C.y;g.lineWidth=2;g.beginPath();for(let x=0;x<=1;x+=0.01){g.lineTo(50+x*430,210-T(x)*1.4);}g.stroke();
+  const cx=50+t*430,cy=210-T(t)*1.4;g.fillStyle=C.r;g.beginPath();g.arc(cx,cy,5,0,7);g.fill();
+  let st;if(t<0.15)st='固態升溫';else if(t<0.3)st='熔化(溫度不變·吸潛熱)';else if(t<0.6)st='液態升溫';else if(t<0.8)st='沸騰(溫度不變·吸潛熱)';else st='氣態升溫';
+  ro.innerHTML='冰→水→水蒸氣加熱曲線　目前：<b style="color:'+C.y+'">'+st+'</b>　（平段=物態變化，溫度不變）';
+  requestAnimationFrame(loop);})();};
+
+// 作用反作用（火箭）
+S.newton=function(host){let fire=false;const g=cv(host,300,260);const c=ctrl(host);
+ const btn=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:6px 16px;font-weight:700">噴氣 🚀</button>');c.appendChild(btn);btn.onclick=()=>fire=!fire;
+ const ro=readout(host);let y=200,vy=0;
+ (function loop(){g.clearRect(0,0,300,260);if(fire){vy-=0.06;}else{vy+=0.04;}y+=vy;if(y>200){y=200;vy=0;}if(y<20){y=20;vy=0;}
+  g.fillStyle=C.g;g.beginPath();g.moveTo(150,y);g.lineTo(165,y+40);g.lineTo(135,y+40);g.fill();
+  if(fire){g.strokeStyle=C.b;g.lineWidth=3;g.beginPath();g.moveTo(150,y+40);g.lineTo(150,y+80);g.stroke();g.fillStyle=C.b;g.fillText('▼氣體向下',110,y+95);
+   g.strokeStyle=C.r;g.beginPath();g.moveTo(150,y);g.lineTo(150,y-30);g.stroke();g.fillStyle=C.r;g.fillText('▲火箭向上',110,y-36);}
+  ro.innerHTML=fire?'<b style="color:'+C.y+'">作用力與反作用力</b>：火箭噴氣(向下)，氣體同時推火箭(向上)':'按「噴氣」：火箭向下噴氣、氣體向上推火箭（牛頓第三定律）';
+  requestAnimationFrame(loop);})();};
+
+// 力學能守恆（雲霄飛車）
+S.energy=function(host){let h0=1;const g=cv(host,480,240);const c=ctrl(host);
+ slider(c,'起始高度',0.5,1,h0,0.1,v=>h0=v);const ro=readout(host);let x=0,dir=1;
+ (function loop(){x+=0.006*dir;if(x>1){x=1;dir=-1;}if(x<0){x=0;dir=1;}g.clearRect(0,0,480,240);
+  function track(u){return 200-Math.abs(Math.cos(u*Math.PI))*130*h0;}
+  g.strokeStyle='rgba(244,241,232,.5)';g.lineWidth=3;g.beginPath();for(let u=0;u<=1;u+=0.01){g.lineTo(40+u*400,track(u));}g.stroke();
+  const cx=40+x*400,cy=track(x);g.fillStyle=C.r;g.beginPath();g.arc(cx,cy,8,0,7);g.fill();
+  const H=(200-cy)/(130*h0);const PE=Math.max(0,H),KE=1-PE;
+  g.fillStyle=C.b;g.fillRect(30,20,PE*120,14);g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('位能',30,16);
+  g.fillStyle=C.y;g.fillRect(30,50,KE*120,14);g.fillStyle=C.chalk;g.fillText('動能',30,46);
+  ro.innerHTML='不計摩擦：位能+動能=<b style="color:'+C.g+'">定值(守恆)</b>　高處位能大、低處動能大（互相轉換）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
