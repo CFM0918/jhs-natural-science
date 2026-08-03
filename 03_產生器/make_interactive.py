@@ -158,6 +158,21 @@ body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system
 .score{text-align:center;font-size:14px;color:#9fc8d8}
 .done{text-align:center;padding:30px}.done .big{font-size:40px;color:#f0d878;font-weight:900}.done button{margin-top:16px;cursor:pointer;background:#f0d878;color:#16241c;border:none;border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:20px}
+/* 行動裝置優化 */
+@media(max-width:640px){
+ .top h1{font-size:16.5px}.top .g{font-size:11px}
+ .tab{font-size:12.5px;padding:8px 12px;min-height:40px}
+ .slidebox{padding:22px 18px;min-height:340px}
+ .slidebox h1{font-size:23px}.slidebox h2{font-size:19px}
+ .slidebox p,.slidebox li{font-size:15px}
+ .nav button{padding:10px 16px;min-height:44px;min-width:44px}
+ .opts2{gap:10px}.optbtn{padding:13px 14px;font-size:15.5px;min-height:44px}
+ .lv button{padding:9px 14px;min-height:42px}
+ #simhost button{padding:9px 14px!important;font-size:14px!important;min-height:42px}
+ #simhost input[type=range]{height:28px;width:100%!important;max-width:220px}
+ #simhost label{display:inline-flex;align-items:center;gap:6px;min-height:38px}
+ .qcard{padding:20px 16px}
+}
 """
 
 JS = """
@@ -179,14 +194,16 @@ const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[], answer
 function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;answered=false;
   document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
 function grender(){const box=document.getElementById('gamebox');
-  if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
+  if(idx>=pool.length){if(window.JHS)JHS.saveScore(window.__CODE__,window.__TITLE__,lvl,right,pool.length);
+    box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
   const q=pool[idx];answered=false;
   const opts=q.opts.map((o,k)=>'<button class="optbtn" data-k="'+k+'" onclick="choose('+k+')"><span class="ok-k">('+String.fromCharCode(65+k)+')</span> '+o+'</button>').join('');
   box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div class="opts2">'+opts+'</div><div id="fb"></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
 function choose(k){if(answered)return;answered=true;const q=pool[idx];
   const btns=document.querySelectorAll('#gamebox .optbtn');
   btns[q.ci].classList.add('good');if(k!==q.ci)btns[k].classList.add('bad');
-  if(k===q.ci)right++;
+  if(k===q.ci){right++;if(window.JHS)JHS.removeWrongByKey(window.__CODE__,lvl,q.q);}
+  else if(window.JHS)JHS.addWrong(window.__CODE__,window.__TITLE__,lvl,q.q,q.opts,q.ci,k,q.e);
   const head=k===q.ci?'✔ 答對！':'✗ 正解 ('+String.fromCharCode(65+q.ci)+') '+q.opts[q.ci];
   document.getElementById('fb').innerHTML='<div class="ans" style="font-size:16px">'+head+'</div><div class="ex">解析：'+q.e+'</div><button class="nextb" onclick="next()">'+(idx+1>=pool.length?'看得分 ›':'下一題 ›')+'</button>';}
 function next(){idx++;grender();}
@@ -224,9 +241,11 @@ def build(L, runcode):
 <div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div>{infos}</div>
 <div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid">{flips}</div></div>
 <div class="pane" id="simpane"><div class="hint">🔬 {SIMNAME.get(simtype,"互動模擬")}　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"></div></div>
-<div class="pane" id="game"><div class="hint">選難度 → 想答案 → 看答案 → 誠實標記，最後看得分！　｜　<a href="{esc(L["code"])}_線上測驗.html" target="_blank" style="color:#f0d878">📝 完整線上測驗</a>　·　<a href="{esc(L["code"])}_三種難度測驗卷.xlsx" style="color:#9fc8d8">⬇️ 下載 XLSX</a></div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+<div class="pane" id="game"><div class="hint">四選一單選，選好即知對錯！　｜　<a href="{esc(L["code"])}_線上測驗.html" target="_blank" style="color:#f0d878">📝 完整線上測驗</a>　·　<a href="{esc(L["code"])}_三種難度測驗卷.xlsx" style="color:#9fc8d8">⬇️ 下載 XLSX</a>　·　<a href="../../錯題本.html" style="color:#9fc8d8">📕 我的錯題本</a></div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
-<script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
+<script src="../progress.js?v=1"></script>
+<script>window.__CODE__={json.dumps(L["code"], ensure_ascii=False)};window.__TITLE__={json.dumps(L["title"], ensure_ascii=False)};
+window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
 <script src="../sims.js?v=12"></script>
 <script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>

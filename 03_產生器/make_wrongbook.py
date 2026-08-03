@@ -1,0 +1,87 @@
+# -*- coding: utf-8 -*-
+"""產生根目錄 錯題本.html：讀取 localStorage 的跨頁錯題紀錄，依節分組列出，
+可個別「已學會→移除」或「清空全部」，並附回原節線上測驗連結。"""
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+CSS = """
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0}
+*{box-sizing:border-box}
+body{margin:0;background:#0f1a0f;color:var(--chalk);font-family:'Noto Sans TC',sans-serif;line-height:1.7}
+.top{background:var(--board);border-bottom:2px solid rgba(240,216,120,.25);padding:20px 24px;text-align:center}
+.top h1{font-family:'Noto Serif TC',serif;font-size:26px;margin:0 0 6px;color:var(--yellow)}
+.top p{color:var(--blue);font-size:14px;margin:0}
+.wrap{max-width:820px;margin:0 auto;padding:22px 18px 60px}
+.nav2{text-align:center;margin:14px 0}.nav2 a{color:var(--blue);font-size:13px;text-decoration:none;margin:0 10px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.toolbar .cnt{color:var(--blue);font-size:14px}
+.toolbar button{cursor:pointer;background:none;color:var(--red);border:1px solid rgba(232,160,160,.4);border-radius:9px;padding:8px 16px;font-size:13px;min-height:40px}
+.grp{margin:20px 0 10px;font-size:15px;color:var(--yellow);font-weight:700;border-left:4px solid var(--yellow);padding-left:10px}
+.q{background:var(--board);border:1px solid rgba(240,216,120,.18);border-radius:14px;padding:16px 18px;margin:10px 0}
+.q .qn{font-size:12px;color:var(--blue);margin-bottom:6px}
+.q .qt{font-size:15.5px;margin-bottom:10px;font-weight:700}
+.opt{padding:8px 12px;margin:5px 0;border:1px solid rgba(159,200,216,.25);border-radius:9px;font-size:14px}
+.opt.correct{background:rgba(168,208,160,.18);border-color:var(--green);color:var(--green)}
+.opt.chosen{background:rgba(232,160,160,.18);border-color:var(--red);color:var(--red)}
+.exp{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(159,200,216,.3);font-size:13.5px;color:rgba(244,241,232,.75)}
+.qact{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.qact a,.qact button{font-size:12.5px;text-decoration:none;padding:7px 13px;border-radius:8px;border:1px solid rgba(159,200,216,.35);color:var(--blue);cursor:pointer;background:none;font-family:inherit;min-height:36px}
+.qact .done{color:var(--green);border-color:rgba(168,208,160,.4)}
+.empty{text-align:center;padding:60px 20px;color:rgba(244,241,232,.5)}
+.empty .big{font-size:44px;margin-bottom:10px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:24px}
+"""
+
+JS = """
+var FOLDERS=['生物','八上','八下','九上','九下'];
+function folderOf(code){for(var i=0;i<FOLDERS.length;i++){if(code.indexOf(FOLDERS[i])===0)return FOLDERS[i];}return '';}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function render(){
+ var items=JHS.getWrongBook();
+ document.getElementById('cnt').textContent=items.length+' 題待複習';
+ if(items.length===0){document.getElementById('list').innerHTML='<div class="empty"><div class="big">🎉</div>目前沒有錯題，繼續保持！</div>';return;}
+ var groups={};
+ items.slice().reverse().forEach(function(it){(groups[it.code]=groups[it.code]||[]).push(it);});
+ var html='';
+ Object.keys(groups).forEach(function(code){
+  var g=groups[code], title=g[0].title, folder=folderOf(code);
+  html+='<div class="grp">'+esc(code)+' '+esc(title)+'（'+g.length+' 題）</div>';
+  g.forEach(function(it){
+   var opts=it.opts.map(function(o,k){
+     var cls=k===it.ci?'correct':(k===it.chosen?'chosen':'');
+     return '<div class="opt '+cls+'">('+String.fromCharCode(65+k)+') '+esc(o)+'</div>';
+   }).join('');
+   html+='<div class="q"><div class="qn">'+esc(it.lv)+(it.chosen===-1?'　未作答':'')+'</div><div class="qt">'+esc(it.q)+'</div>'+opts+
+    '<div class="exp">解析：'+esc(it.e)+'</div><div class="qact">'+
+    (folder?'<a href="02_加值成品/'+encodeURIComponent(folder)+'/'+encodeURIComponent(code)+'_線上測驗.html">↻ 回該節重測</a>':'')+
+    '<button class="done" onclick="markDone(\\''+it.id.replace(/'/g,"\\\\'")+'\\')">✔ 我學會了，移除</button></div></div>';
+  });
+ });
+ document.getElementById('list').innerHTML=html;
+}
+function markDone(id){JHS.removeWrong(id);render();}
+function clearAll(){if(confirm('確定要清空全部錯題紀錄？')){JHS.clearWrongBook();render();}}
+window.markDone=markDone;window.clearAll=clearAll;
+render();
+"""
+
+def main():
+    doc = f'''<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>我的錯題本｜國中自然科加值教材</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>{CSS}</style></head><body>
+<div class="top"><h1>📕 我的錯題本</h1><p>自動收集各節線上測驗與模擬考的錯題（僅存於本機瀏覽器）</p></div>
+<div class="wrap">
+<div class="nav2"><a href="index.html">← 回教材總覽</a><a href="模擬考.html">📝 跨節模擬考</a></div>
+<div class="toolbar"><span class="cnt" id="cnt"></span><button onclick="clearAll()">🗑 清空錯題本</button></div>
+<div id="list"></div>
+</div>
+<div class="foot">錯題資料儲存在瀏覽器 localStorage，換裝置或清除快取會重新開始　🤖 Claude Code 協助生成</div>
+<script src="02_加值成品/progress.js?v=1"></script>
+<script>{JS}</script>
+</body></html>'''
+    open(os.path.join(ROOT,'錯題本.html'),'w',encoding='utf-8').write(doc)
+    print('OK: 錯題本.html 已產出')
+
+if __name__=='__main__': main()

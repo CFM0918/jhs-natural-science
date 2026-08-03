@@ -1,0 +1,124 @@
+# -*- coding: utf-8 -*-
+"""產生根目錄 模擬考.html：跨節抽題混合模擬考（讀 02_加值成品/quizbank.json）。
+選範圍(冊)＋難度＋題數 → 隨機抽題 → 作答 → 交卷自動批改，錯題自動存入錯題本。"""
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+CSS = """
+:root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0}
+*{box-sizing:border-box}
+body{margin:0;background:#0f1a0f;color:var(--chalk);font-family:'Noto Sans TC',sans-serif;line-height:1.7}
+.top{background:var(--board);border-bottom:2px solid rgba(240,216,120,.25);padding:20px 24px;text-align:center}
+.top h1{font-family:'Noto Serif TC',serif;font-size:26px;margin:0 0 6px;color:var(--yellow)}
+.top p{color:var(--blue);font-size:14px;margin:0}
+.wrap{max-width:820px;margin:0 auto;padding:22px 18px 60px}
+.setup{background:var(--board);border:1px solid rgba(240,216,120,.2);border-radius:14px;padding:22px 20px;margin-bottom:20px}
+.setup h3{margin:0 0 10px;font-size:15px;color:var(--blue)}
+.chk{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.chk label{cursor:pointer;font-size:14px;padding:8px 14px;border-radius:9px;border:1px solid rgba(159,200,216,.35);display:flex;align-items:center;gap:6px;min-height:40px}
+.chk input{accent-color:var(--yellow)}
+.numrow{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.numrow select{font-size:14px;padding:8px 12px;border-radius:8px;background:#0d160d;color:var(--chalk);border:1px solid rgba(159,200,216,.35)}
+.go{cursor:pointer;background:var(--yellow);color:#16241c;border:none;border-radius:10px;padding:12px 28px;font-weight:700;font-size:16px;width:100%;min-height:48px}
+.go:disabled{opacity:.4;cursor:default}
+#panel{display:none}
+.pbar{position:sticky;top:0;background:#0f1a0f;padding:10px 0;z-index:10;border-bottom:1px solid rgba(240,216,120,.15);margin-bottom:14px}
+.pbar .bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.pbar .bar>i{display:block;height:100%;background:var(--green);width:0;transition:width .3s}
+.pbar .txt{font-size:12px;color:var(--blue);margin-top:6px}
+.q{background:var(--board);border:1px solid rgba(240,216,120,.18);border-radius:14px;padding:18px 20px;margin:12px 0}
+.q .qn{font-size:12px;color:var(--blue);margin-bottom:6px}
+.q .qt{font-size:16.5px;margin-bottom:12px;font-weight:700}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;margin:6px 0;border:1px solid rgba(159,200,216,.25);border-radius:10px;cursor:pointer;font-size:15px;min-height:44px}
+.opt:hover{background:rgba(159,200,216,.08)}.opt input{margin-top:4px}.opt .k{color:var(--blue);font-weight:700;margin-right:2px}
+.q.graded .opt{cursor:default}
+.opt.correct{background:rgba(168,208,160,.18);border-color:var(--green)}.opt.correct .k{color:var(--green)}
+.opt.wrong{background:rgba(232,160,160,.18);border-color:var(--red)}.opt.wrong .k{color:var(--red)}
+.exp{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(159,200,216,.3);font-size:14px;color:rgba(244,241,232,.75)}
+.q.graded .exp{display:block}
+.submit{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:20px 0}
+.submit button{cursor:pointer;font-size:15px;font-weight:700;padding:12px 28px;border-radius:10px;border:none;font-family:inherit;min-height:46px}
+.submit .go2{background:var(--yellow);color:#16241c}.submit .re{background:none;color:var(--blue);border:1px solid rgba(159,200,216,.4)}
+.result{font-size:16px}.result b{color:var(--yellow);font-size:24px}
+.foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:24px}
+.nav2{text-align:center;margin:14px 0}.nav2 a{color:var(--blue);font-size:13px;text-decoration:none;margin:0 10px}
+@media(max-width:640px){.chk label{flex:1;min-width:80px;justify-content:center}}
+"""
+
+JS = """
+var BANK=null, CUR=[];
+function loadBank(){
+ return fetch('02_加值成品/quizbank.json').then(r=>r.json()).then(d=>{BANK=d;document.getElementById('go').disabled=false;document.getElementById('loading').textContent='題庫載入完成，共 '+d.length+' 題可供抽題';});
+}
+function startExam(){
+ var books=Array.from(document.querySelectorAll('.chk input[name=book]:checked')).map(x=>x.value);
+ var lvs=Array.from(document.querySelectorAll('.chk input[name=lv]:checked')).map(x=>x.value);
+ var n=+document.getElementById('nq').value;
+ var pool=BANK.filter(x=>books.includes(x.b)&&lvs.includes(x.l));
+ if(pool.length===0){alert('目前選擇沒有題目，請調整範圍');return;}
+ // shuffle
+ var a=pool.slice();
+ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+ CUR=a.slice(0,Math.min(n,a.length));
+ document.getElementById('setup').style.display='none';
+ renderExam();
+ document.getElementById('panel').style.display='block';
+ window.scrollTo(0,0);
+}
+function renderExam(){
+ var html='<div class="pbar"><div class="bar"><i id="pbi" style="width:0"></i></div><div class="txt">共 '+CUR.length+' 題　·　來自跨節混合抽題</div></div>';
+ CUR.forEach(function(it,i){
+  var opts=it.o.map((o,k)=>'<label class="opt"><input type="radio" name="mq_'+i+'" value="'+k+'" onchange="updProg()"><span><span class="k">('+String.fromCharCode(65+k)+')</span> '+o+'</span></label>').join('');
+  html+='<div class="q" id="mq_'+i+'" data-ci="'+it.i+'"><div class="qn">'+it.b+' '+it.c+' '+it.t+'　·　'+it.l+'　第 '+(i+1)+'/'+CUR.length+' 題</div><div class="qt">'+it.q+'</div>'+opts+
+   '<div class="exp"><span style="color:var(--yellow);font-weight:700">正解 ('+String.fromCharCode(65+it.i)+')</span> '+it.o[it.i]+'<br>解析：'+it.e+'</div></div>';
+ });
+ html+='<div class="submit"><button class="go2" onclick="gradeExam()">✅ 交卷批改</button><button class="re" onclick="location.reload()">↺ 重新開始</button><span class="result" id="examres"></span></div>';
+ document.getElementById('panel').innerHTML=html;
+}
+function updProg(){var done=0;CUR.forEach(function(_,i){if(document.querySelector('input[name=mq_'+i+']:checked'))done++;});
+ document.getElementById('pbi').style.width=(done/CUR.length*100)+'%';}
+function gradeExam(){var right=0;
+ CUR.forEach(function(it,i){
+  var card=document.getElementById('mq_'+i);
+  var ci=it.i, opts=card.querySelectorAll('.opt'), sel=card.querySelector('input:checked');
+  opts[ci].classList.add('correct');
+  if(sel){var s=+sel.value; if(s===ci){right++; if(window.JHS)JHS.removeWrongByKey(it.c,it.l,it.q);}
+   else{opts[s].classList.add('wrong'); if(window.JHS)JHS.addWrong(it.c,it.t,it.l,it.q,it.o,ci,s,it.e);}}
+  else{ if(window.JHS)JHS.addWrong(it.c,it.t,it.l,it.q,it.o,ci,-1,it.e); }
+  card.classList.add('graded');
+ });
+ document.getElementById('examres').innerHTML='得分 <b>'+right+'</b> / '+CUR.length+'　（'+(right/CUR.length*100).toFixed(0)+'%）'+
+   (right===CUR.length?' 🎉 滿分！':right/CUR.length>=0.6?' 👍 及格':' 📖 再加油');
+}
+window.startExam=startExam;window.gradeExam=gradeExam;window.updProg=updProg;
+loadBank();
+"""
+
+def main():
+    books = ['生物','八上','八下','九上','九下']
+    lvs = ['基礎卷','進階卷','挑戰卷']
+    chk_books = ''.join(f'<label><input type="checkbox" name="book" value="{b}" checked> {b}</label>' for b in books)
+    chk_lvs = ''.join(f'<label><input type="checkbox" name="lv" value="{l}" checked> {l}</label>' for l in lvs)
+    doc = f'''<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>跨節模擬考｜國中自然科加值教材</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>{CSS}</style></head><body>
+<div class="top"><h1>📝 跨節混合模擬考</h1><p>從全 103 節、3090 題題庫中隨機抽題，模擬會考混合出題情境</p></div>
+<div class="wrap">
+<div class="nav2"><a href="index.html">← 回教材總覽</a><a href="錯題本.html">📕 我的錯題本</a></div>
+<div class="setup" id="setup">
+<h3>1. 選擇範圍（冊）</h3><div class="chk">{chk_books}</div>
+<h3>2. 選擇難度</h3><div class="chk">{chk_lvs}</div>
+<h3>3. 題數</h3><div class="numrow"><select id="nq"><option>10</option><option selected>20</option><option>30</option><option>50</option><option>100</option></select><span id="loading" style="color:var(--blue);font-size:13px">題庫載入中…</span></div>
+<button class="go" id="go" onclick="startExam()" disabled>🚀 開始模擬考</button>
+</div>
+<div id="panel"></div>
+</div>
+<div class="foot">跨節混合模擬考・自動批改・答錯自動存入錯題本　🤖 Claude Code 協助生成</div>
+<script src="02_加值成品/progress.js?v=1"></script>
+<script>{JS}</script>
+</body></html>'''
+    open(os.path.join(ROOT,'模擬考.html'),'w',encoding='utf-8').write(doc)
+    print('OK: 模擬考.html 已產出')
+
+if __name__=='__main__': main()

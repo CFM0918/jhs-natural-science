@@ -40,7 +40,22 @@ a.i{border-color:rgba(168,208,160,.6);color:#a8d0a0;font-weight:700}a.i:hover{ba
 a.q{border-color:rgba(232,160,160,.5);color:#e8a0a0}a.q:hover{background:#e8a0a0;color:#1a2e1a}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:24px}
 .foot a{color:#9fc8d8}
-@media(max-width:600px){.sec .name{min-width:100%}}
+.hero .navlinks{margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero .navlinks a{font-size:13px;text-decoration:none;color:#16241c;background:#f0d878;padding:8px 18px;border-radius:20px;font-weight:700}
+.hero .navlinks a.alt{background:none;color:#9fc8d8;border:1px solid rgba(159,200,216,.4)}
+.searchbar{position:sticky;top:0;z-index:15;background:#0d1410;padding:12px 0;margin-bottom:6px}
+.searchbar input{width:100%;font-size:15px;padding:11px 16px;border-radius:10px;border:1px solid rgba(159,200,216,.35);background:#16241c;color:#f4f1e8}
+.searchbar input::placeholder{color:rgba(244,241,232,.4)}
+.searchbar .cnt{font-size:12px;color:#9fc8d8;margin-top:6px;padding-left:2px}
+.sec.hide{display:none}
+.pbadge{font-size:11px;border-radius:5px;padding:2px 7px;font-weight:700;margin-left:4px}
+.pbadge.full{background:#a8d0a0;color:#16241c}.pbadge.part{background:#f0d878;color:#16241c}
+@media(max-width:600px){
+ .sec .name{min-width:100%}
+ a.btn{padding:8px 12px;min-height:38px;font-size:12.5px}
+ .book>summary{padding:16px 18px;font-size:17px}
+ .hero h1{font-size:24px}.hero .navlinks a{padding:9px 16px;min-height:40px}
+}
 """
 
 def title_of(book, code):
@@ -53,8 +68,10 @@ def title_of(book, code):
 
 body = [f'''<div class="hero"><h1>國中自然科 加值教材</h1>
 <p>108 課綱・會考範圍｜生物＋理化＋地科｜南一・康軒・翰林三版共同核心</p>
-<div class="stat">103 節 · 每節 5 種成品 · 3090 題測驗 · 互動簡報與資訊圖</div></div>
-<div class="wrap">''']
+<div class="stat">103 節 · 每節 5 種成品 · 3090 題測驗 · 互動簡報與資訊圖 · <span id="donestat">學習進度載入中…</span></div>
+<div class="navlinks"><a href="模擬考.html">📝 跨節混合模擬考</a><a class="alt" href="錯題本.html">📕 我的錯題本</a></div></div>
+<div class="wrap">
+<div class="searchbar"><input id="search" type="text" placeholder="🔍 搜尋章節（例：光的反射、八上4-1、遺傳）..." oninput="doSearch()"><div class="cnt" id="searchcnt"></div></div>''']
 
 for bk, nm, desc in BOOKS:
     files = sorted(glob.glob(os.path.join(ROOT,'02_加值成品',nm,'*_教材摘要與重點主題.md')),
@@ -76,17 +93,48 @@ for bk, nm, desc in BOOKS:
                  f'<a class="btn q" href="{url(nm,full+"_線上測驗.html")}" target="_blank">📝 線上測驗</a>'
                  f'<a class="btn" href="{url(nm,full+"_三種難度測驗卷.xlsx")}">⬇️ 測驗XLSX</a>'
                  f'<a class="btn" href="{url(nm,full+"_教材摘要與重點主題.md")}" target="_blank">📄 摘要</a>')
-        body.append(f'<div class="sec"><div class="name"><span class="code">{esc(sec)}</span>{esc(t)}{hand}</div>{links}</div>')
+        body.append(f'<div class="sec" data-code="{esc(full)}" data-search="{esc(full+t)}"><div class="name"><span class="code">{esc(sec)}</span>{esc(t)}{hand}<span class="pbadge" id="pb_{esc(full)}" style="display:none"></span></div>{links}</div>')
     body.append('</div></details>')
 
 body.append('''<div class="foot">108課綱國中自然科加值教材 · 生物/理化/地科<br>
 原始檔與產生器：<a href="https://github.com/CFM0918/jhs-natural-science" target="_blank">GitHub</a>　·　🤖 Claude Code 協助生成</div></div>''')
+
+JS = """
+function doSearch(){
+ var kw=document.getElementById('search').value.trim();
+ var secs=document.querySelectorAll('.sec'); var shown=0;
+ secs.forEach(function(s){
+  var hit=!kw || s.dataset.search.toLowerCase().indexOf(kw.toLowerCase())>-1;
+  s.classList.toggle('hide', !hit); if(hit)shown++;
+  if(hit && kw){var d=s.closest('details'); if(d)d.open=true;}
+ });
+ document.getElementById('searchcnt').textContent = kw ? ('符合 '+shown+' 節') : '';
+}
+function paintProgress(){
+ if(!window.JHS) return;
+ var p=JHS.getProgress(); var done=0, total=document.querySelectorAll('.sec').length;
+ document.querySelectorAll('.sec').forEach(function(s){
+  var code=s.dataset.code, rec=p[code]; var b=document.getElementById('pb_'+code);
+  if(!rec){return;}
+  var lvs=Object.keys(rec.levels||{}); if(lvs.length===0)return;
+  var right=0,total2=0; lvs.forEach(function(l){right+=rec.levels[l].right;total2+=rec.levels[l].total;});
+  var full = lvs.length>=3;
+  if(full)done++;
+  if(b){b.style.display='inline';b.textContent=right+'/'+total2;b.className='pbadge '+(full?'full':'part');}
+ });
+ document.getElementById('donestat').textContent = '已完整作答 '+done+'/'+total+' 節';
+}
+doSearch(); paintProgress();
+"""
 doc = f'''<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>國中自然科 加值教材｜生物·理化·地科</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>{CSS}</style></head><body>{"".join(body)}</body></html>'''
+<style>{CSS}</style></head><body>{"".join(body)}
+<script src="02_加值成品/progress.js?v=1"></script>
+<script>{JS}</script>
+</body></html>'''
 open(os.path.join(ROOT, "index.html"), 'w', encoding='utf-8').write(doc)
 open(os.path.join(ROOT, ".nojekyll"), 'w').write('')   # 讓 Pages 原樣服務(含中文路徑)
 print("OK: index.html + .nojekyll")

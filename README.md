@@ -40,6 +40,17 @@
 
 > 修改模擬：編輯 `sims.js`（新增 `S.<type>` 函式）→ 在 `03_產生器/make_interactive.py` 的 `SIMMAP`/`SIMNAME` 掛節 → `python make_interactive.py` 重生。`sims.js` 引用帶版本號 `?v=N`，改動後遞增即可破快取。
 
+## 學習輔助功能
+
+- **🔍 首頁搜尋**：`index.html` 頂部搜尋框，即時過濾章節（比對代碼與標題）。
+- **📊 學習進度**：`02_加值成品/progress.js` 提供跨頁 localStorage 存取；線上測驗／闖關自測交卷後自動記錄各節各卷分數，首頁對應節旁顯示分數徽章與整體完成度。
+- **📕 錯題本**（`錯題本.html`）：任何測驗答錯或未答的題目自動收錄，依節分組列出正解/解析，可個別標記「已學會」移除或一鍵清空，並附「回該節重測」連結。
+- **📝 跨節混合模擬考**（`模擬考.html`）：讀取 `02_加值成品/quizbank.json`（`make_quizbank.py` 產生，全 103 節 3090 題彙整），可選範圍（冊）／難度／題數隨機抽題，交卷自動批改，錯題同步存入錯題本。
+- 以上資料皆存於瀏覽器 **localStorage**（同源跨頁共享，換裝置或清快取會重置），不經任何伺服器。
+- 手機適配：測驗選項、模擬控制列、按鈕觸控區已加大（`@media(max-width:640px)`），並在 GitHub Pages 實測驗證。
+
+重生順序：`python make_quiz.py && python make_quizbank.py && python make_interactive.py && python make_site.py && python make_mockexam.py && python make_wrongbook.py`（XLSX 需另用有 openpyxl 的 Python 執行 `engine.gen_quiz`）。
+
 ## 目錄結構
 
 ```

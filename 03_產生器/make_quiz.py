@@ -53,6 +53,14 @@ body{margin:0;background:#0f1a0f;color:var(--chalk);font-family:'Noto Sans TC',s
 .result{font-size:16px}.result b{color:var(--yellow);font-size:22px}
 .foot{text-align:center;color:rgba(244,241,232,.4);font-size:12px;padding:24px}
 .lvsec{display:none}.lvsec.on{display:block}.lvhd{display:none}
+@media(max-width:640px){
+ .top{padding:14px 16px}.top h1{font-size:18px}.top .g{font-size:12px}
+ .act a,.act button{padding:10px 16px;min-height:44px;font-size:13.5px;flex:1;text-align:center}
+ .tabs button{padding:10px 14px;min-height:44px;font-size:13px;flex:1;min-width:100px}
+ .opt{padding:12px 14px;font-size:15px;min-height:44px}
+ .submit{flex-direction:column;align-items:stretch}
+ .submit button{padding:12px;min-height:46px}
+}
 @media print{
  body{background:#fff;color:#000}.top{position:static;background:#fff;border-color:#999}.act,.tabs,.submit{display:none!important}
  .top h1,.top .g{color:#000}.q{border-color:#bbb;break-inside:avoid;page-break-inside:avoid}
@@ -71,9 +79,13 @@ function grade(lv){var items=Q[lv],right=0,unanswered=0;
   var sel=card.querySelector('input:checked');
   opts.forEach(function(o){o.classList.remove('correct','wrong');});
   opts[ci].classList.add('correct');
-  if(sel===null){unanswered++;}
-  else{var s=+sel.value; if(s===ci){right++;}else{opts[s].classList.add('wrong');}}
+  var it=items[i], optsText=Array.prototype.map.call(opts,function(o){return o.textContent.replace(/^\\(\\w\\)\\s*/,'');});
+  if(sel===null){unanswered++; if(window.JHS)JHS.addWrong(window.__CODE__,window.__TITLE__,lv,it.q,optsText,ci,-1,it.e);}
+  else{var s=+sel.value;
+   if(s===ci){right++; if(window.JHS)JHS.removeWrongByKey(window.__CODE__,lv,it.q);}
+   else{opts[s].classList.add('wrong'); if(window.JHS)JHS.addWrong(window.__CODE__,window.__TITLE__,lv,it.q,optsText,ci,s,it.e);}}
   card.classList.add('graded');}
+ if(window.JHS)JHS.saveScore(window.__CODE__,window.__TITLE__,lv,right,items.length);
  var r=document.getElementById('res_'+lv);
  r.innerHTML='得分 <b>'+right+'</b> / '+items.length+'　（答對 '+right+' 題'+(unanswered?('，未作答 '+unanswered+' 題'):'')+'）'+
    (right===items.length?'　🎉 滿分！':right/items.length>=0.6?'　👍 及格':'　📖 再複習');}
@@ -116,13 +128,15 @@ def build(L, runcode):
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body>
 <div class="top"><h1>{esc(L["code"])}　{esc(L["title"])}</h1><div class="g">{esc(GRADE[bk])}　線上測驗（四選一單選・共 {total} 題）</div>
-<div class="act"><a class="dl" href="{xlsx}" download>⬇️ 下載測驗卷 XLSX</a><button onclick="window.print()">🖨 列印/存 PDF</button></div></div>
+<div class="act"><a class="dl" href="{xlsx}" download>⬇️ 下載測驗卷 XLSX</a><button onclick="window.print()">🖨 列印/存 PDF</button><a href="../../錯題本.html" style="margin-left:auto">📕 我的錯題本</a></div></div>
 <div class="wrap">
 <div class="tabs">{tabs}</div>
 {secs}
 </div>
-<div class="foot">四選一單選，選好後按「交卷批改」自動計分並顯示正解與解析。完整卷可下載 XLSX 或列印。　🤖 Claude Code 協助生成</div>
-<script>window.__QUIZ__={json.dumps(M, ensure_ascii=False)};window.__LVS__={json.dumps(lvs, ensure_ascii=False)};</script>
+<div class="foot">四選一單選，選好後按「交卷批改」自動計分並顯示正解與解析（答錯/未答自動存入錯題本）。完整卷可下載 XLSX 或列印。　🤖 Claude Code 協助生成</div>
+<script src="../progress.js?v=1"></script>
+<script>window.__CODE__={json.dumps(L["code"], ensure_ascii=False)};window.__TITLE__={json.dumps(L["title"], ensure_ascii=False)};
+window.__QUIZ__={json.dumps(M, ensure_ascii=False)};window.__LVS__={json.dumps(lvs, ensure_ascii=False)};</script>
 <script>{JS}</script>
 </body></html>'''
     return doc
