@@ -14,3 +14,8 @@ _hand_*.py
 # 系統
 .DS_Store
 Thumbs.db
+
+# 歷屆試題原始 PDF(可從官方網址重新下載，見 make_pastexam.py 註解)
+03_產生器/_exam_src/*.pdf
+03_產生器/_exam_src/_dbg*.txt
+03_產生器/_exam_src/_report*.txt
