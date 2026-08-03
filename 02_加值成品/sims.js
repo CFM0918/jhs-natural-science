@@ -835,6 +835,98 @@ S.massbalance=function(host){const obj=70;let load=0;const g=cv(host,420,200);co
   ro.innerHTML=load===obj?'<b style="color:'+C.g+'">天平平衡</b>！砝碼共 '+load+' g = 物體質量 <b style="color:'+C.y+'">'+obj+' g</b>':'目前砝碼 '+load+' g　'+(load<obj?'太輕，繼續加':'太重，請減少')+'（天平兩側力矩相等才平衡）';
   requestAnimationFrame(loop);})();};
 
+// 科學方法流程
+S.scimethod=function(host){const st=['觀察現象','提出問題','建立假設','設計實驗','分析→結論'];let i=0;const g=cv(host,420,180);const c=ctrl(host);
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">下一步 ▶</button>');b.onclick=function(){i=(i+1)%5;};c.appendChild(b);
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,420,180);const cx=210,cy=90;g.font='12px sans-serif';for(let k=0;k<5;k++){const a=-Math.PI/2+k/5*Math.PI*2;const x=cx+Math.cos(a)*70,y=cy+Math.sin(a)*55;g.fillStyle=k===i?C.y:'rgba(159,200,216,.25)';g.beginPath();g.arc(x,y,26,0,7);g.fill();g.fillStyle=k===i?'#16241c':C.chalk;const w=st[k];g.fillText(w.length>3?w.slice(0,3):w,x-(w.length>3?18:15),y-2);if(w.length>3)g.fillText(w.slice(3),x-12,y+12);}
+  ro.innerHTML='科學方法：<b style="color:'+C.y+'">'+st[i]+'</b>　（觀察→問題→假設→實驗驗證→結論，必要時修正假設再實驗，循環求證）';
+  requestAnimationFrame(loop);})();};
+
+// 物理變化 vs 化學變化
+S.property=function(host){let mode='物理';const g=cv(host,340,200);const c=ctrl(host);
+ ['物理變化','化學變化'].forEach(x=>{const b=el('<button style="cursor:pointer;background:'+(x==='物理變化'?C.y:'none')+';color:'+(x==='物理變化'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">'+x+'</button>');b.onclick=function(){mode=x[0]==='物'?'物理':'化學';Array.prototype.forEach.call(c.querySelectorAll('button'),function(z){z.style.background='none';z.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;if(t>1)t=0;g.clearRect(0,0,340,200);g.font='13px sans-serif';
+  if(mode==='物理'){const melt=t;g.fillStyle='rgba(159,200,216,'+(1-melt*0.5)+')';g.fillRect(130,60-melt*20,80,60+melt*20);g.fillStyle='rgba(100,150,220,.5)';g.fillRect(120,150,100,20*melt+5);g.fillStyle=C.chalk;g.fillText('冰 → 水（只是狀態改變）',80,40);}
+  else{const bn=t;g.fillStyle='rgba(220,200,160,'+(1-bn)+')';g.fillRect(140,90,60,50);for(let k=0;k<5;k++){const yy=(t*80+k*16)%80;g.fillStyle='rgba(120,120,120,'+(1-yy/80).toFixed(2)+')';g.beginPath();g.arc(150+k*10,85-yy,5,0,7);g.fill();}g.fillStyle=C.r;g.font='18px sans-serif';g.fillText('🔥',160,165);g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('紙燃燒 → 灰＋氣體（新物質）',70,40);}
+  ro.innerHTML=mode==='物理'?'<b style="color:'+C.b+'">物理變化</b>：沒有產生新物質、通常可逆（三態變化、溶解、形狀改變）':'<b style="color:'+C.r+'">化學變化</b>：產生<b>新物質</b>、常不可逆（燃燒、生鏽、酸鹼中和、發酵）';
+  requestAnimationFrame(loop);})();};
+
+// 純物質與混合物
+S.puremix=function(host){let mode='元素';const g=cv(host,340,200);const c=ctrl(host);
+ ['元素','化合物','混合物'].forEach(x=>{const b=el('<button style="cursor:pointer;background:'+(x==='元素'?C.y:'none')+';color:'+(x==='元素'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">'+x+'</button>');b.onclick=function(){mode=x;Array.prototype.forEach.call(c.querySelectorAll('button'),function(z){z.style.background='none';z.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,340,200);for(let r=0;r<4;r++)for(let col=0;col<6;col++){const x=50+col*45,y=45+r*40;if(mode==='元素'){g.fillStyle=C.b;g.beginPath();g.arc(x,y,10,0,7);g.fill();}else if(mode==='化合物'){g.fillStyle=C.b;g.beginPath();g.arc(x-5,y,9,0,7);g.fill();g.fillStyle=C.r;g.beginPath();g.arc(x+6,y,7,0,7);g.fill();}else{const pick=(r*6+col)%3;if(pick===0){g.fillStyle=C.b;g.beginPath();g.arc(x,y,10,0,7);g.fill();}else if(pick===1){g.fillStyle=C.g;g.beginPath();g.arc(x,y,9,0,7);g.fill();}else{g.fillStyle=C.b;g.beginPath();g.arc(x-5,y,8,0,7);g.fill();g.fillStyle=C.r;g.beginPath();g.arc(x+5,y,6,0,7);g.fill();}}}
+  const txt={'元素':'單一種原子，無法再用化學方法分解','化合物':'兩種以上元素以<b>固定比例</b>化合，性質全新','混合物':'多種物質<b>任意比例</b>混合，各保留原性質、可用物理方法分離'}[mode];
+  ro.innerHTML='<b style="color:'+C.y+'">'+mode+'</b>（'+(mode==='混合物'?'非純物質':'純物質')+'）：'+txt;
+  requestAnimationFrame(loop);})();};
+
+// 能源與能量轉換
+S.energysource=function(host){const chain={'火力發電(非再生)':['化學能(煤/油)','熱能','動能(汽輪機)','電能'],'水力發電(再生)':['位能(高處水)','動能','電能'],'太陽能(再生)':['太陽光能','電能'],'風力發電(再生)':['風的動能','電能']};
+ let s='火力發電(非再生)';const g=cv(host,440,160);const c=ctrl(host);
+ const w=el('<label style="font-size:13px;color:'+C.b+'">能源：<select style="font-size:14px"><option>火力發電(非再生)</option><option>水力發電(再生)</option><option>太陽能(再生)</option><option>風力發電(再生)</option></select></label>');w.querySelector('select').onchange=e=>s=e.target.value;c.appendChild(w);
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,440,160);const ch=chain[s];const gap=420/ch.length;g.font='12px sans-serif';
+  ch.forEach((e,i)=>{const x=20+i*gap+gap/2-30;g.fillStyle=i===ch.length-1?C.y:'rgba(159,200,216,.3)';g.fillRect(x,60,64,40);g.fillStyle=i===ch.length-1?'#16241c':C.chalk;g.fillText(e.length>5?e.slice(0,4):e,x+4,78);if(e.length>5)g.fillText(e.slice(4),x+4,94);if(i<ch.length-1){g.fillStyle=C.chalk;g.fillText('→',x+66,84);}});
+  ro.innerHTML='<b style="color:'+C.y+'">'+s+'</b>　能量轉換：'+ch.join(' → ')+'　（再生能源可不斷補充、較潔淨；化石燃料有限且排碳）';
+  requestAnimationFrame(loop);})();};
+
+// 家庭用電與安全（並聯/保險絲）
+S.household=function(host){let n=3;const g=cv(host,420,200);const c=ctrl(host);
+ slider(c,'同時使用的家電數',1,8,n,1,v=>n=v);const ro=readout(host);const lim=15;
+ (function loop(){const total=n*3;const over=total>lim;g.clearRect(0,0,420,200);
+  g.strokeStyle=over?C.r:C.chalk;g.lineWidth=2;g.beginPath();g.moveTo(30,40);g.lineTo(390,40);g.moveTo(30,160);g.lineTo(390,160);g.stroke();
+  for(let i=0;i<n;i++){const x=60+i*42;g.strokeStyle=over?'rgba(232,160,160,.6)':C.b;g.beginPath();g.moveTo(x,40);g.lineTo(x,70);g.stroke();g.fillStyle=over?C.r:C.g;g.fillRect(x-12,70,24,20);g.beginPath();g.moveTo(x,90);g.lineTo(x,160);g.stroke();g.fillStyle=C.chalk;g.font='10px sans-serif';g.fillText('3A',x-7,105);}
+  g.fillStyle=over?C.r:C.y;g.fillRect(180,12,60,20);g.fillStyle='#16241c';g.font='11px sans-serif';g.fillText(over?'保險絲熔斷':'保險絲',188,26);
+  ro.innerHTML='並聯家電電流相加：總電流 = '+n+'×3 = <b style="color:'+(over?C.r:C.y)+'">'+total+' A</b>（上限 '+lim+'A）'+(over?'　→ <b style="color:'+C.r+'">過載！保險絲/斷路器切斷電源保護</b>':'　安全範圍內');
+  requestAnimationFrame(loop);})();};
+
+// 資源永續
+S.sustain=function(host){let use=5;const g=cv(host,400,180);const c=ctrl(host);
+ slider(c,'消耗速率',1,10,use,1,v=>use=v);const ro=readout(host);let stock=60;const regen=5;
+ (function loop(){stock+=(regen-use)*0.15;if(stock>100)stock=100;if(stock<0)stock=0;g.clearRect(0,0,400,180);
+  g.strokeStyle='rgba(244,241,232,.3)';g.strokeRect(40,30,320,80);g.fillStyle=stock<20?C.r:(use<=regen?C.g:C.y);g.fillRect(41,31,318*stock/100,78);
+  g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('資源存量 '+stock.toFixed(0)+'%',150,150);g.fillText('再生速率 '+regen,60,25);
+  ro.innerHTML=use<=regen?'<b style="color:'+C.g+'">永續</b>：消耗 ≤ 再生速率，資源可維持（如適度捕撈、造林）':'<b style="color:'+C.r+'">過度耗用</b>：消耗 > 再生，資源逐漸枯竭 → 需節約、回收(3R)、開發替代資源';
+  requestAnimationFrame(loop);})();};
+
+// 生物的特徵
+S.lifechar=function(host){const ch=['需要營養','進行呼吸/代謝','能生長發育','能繁殖後代','對刺激有感應','能適應與演化'];let n=1;const g=cv(host,420,170);const c=ctrl(host);
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">再顯示一項 ▶</button>');b.onclick=function(){n=n>=6?1:n+1;};c.appendChild(b);
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,420,170);g.font='14px sans-serif';for(let i=0;i<6;i++){g.fillStyle=i<n?C.g:'rgba(120,120,120,.3)';g.fillText((i<n?'✔ ':'○ ')+ch[i],40+ (i%2)*200,40+Math.floor(i/2)*40);}
+  ro.innerHTML='<b style="color:'+C.y+'">生物的共同特徵</b>：'+ch.slice(0,n).join('、')+'　（同時具備這些才算生物；病毒因無細胞構造、需寄主才能繁殖，介於生物與非生物之間）';
+  requestAnimationFrame(loop);})();};
+
+// 內分泌與血糖調節（負回饋）
+S.endocrine=function(host){let sugar=90,p=0;const g=cv(host,440,180);const c=ctrl(host);
+ const be=el('<button style="cursor:pointer;background:'+C.r+';color:#16241c;border:none;border-radius:8px;padding:5px 12px;font-weight:700">進食</button>');be.onclick=function(){p=60;};c.appendChild(be);
+ const bx=el('<button style="cursor:pointer;background:'+C.b+';color:#16241c;border:none;border-radius:8px;padding:5px 12px;font-weight:700">運動</button>');bx.onclick=function(){p=-50;};c.appendChild(bx);
+ const ro=readout(host);const hist=[];
+ (function loop(){sugar+=p*0.03;p*=0.92;sugar+=(90-sugar)*0.04;hist.push(sugar);if(hist.length>400)hist.shift();
+  g.clearRect(0,0,440,180);g.strokeStyle='rgba(168,208,160,.5)';g.setLineDash([4,4]);g.beginPath();g.moveTo(30,90);g.lineTo(430,90);g.stroke();g.setLineDash([]);g.fillStyle=C.g;g.font='11px sans-serif';g.fillText('正常 ~90 mg/dL',30,84);
+  g.strokeStyle=C.y;g.lineWidth=2;g.beginPath();hist.forEach((v,i)=>{const y=90-(v-90)*1.4;i?g.lineTo(30+i,y):g.moveTo(30+i,y);});g.stroke();
+  const act=sugar>105?'胰島素分泌↑ → 降血糖':(sugar<78?'升糖素分泌↑ → 升血糖':'維持恆定');ro.innerHTML='血糖 <b style="color:'+C.y+'">'+sugar.toFixed(0)+' mg/dL</b>　胰島(內分泌)以<b>負回饋</b>調節：'+act+'（激素經血液運送、作用慢而持久）';
+  requestAnimationFrame(loop);})();};
+
+// 基因突變
+S.mutation=function(host){const bases=['A','T','G','C','A','T','G','G','C','A','T','C'];let seq=bases.slice();let mut=-1;const g=cv(host,440,160);const c=ctrl(host);
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">發生突變</button>');b.onclick=function(){mut=Math.floor(Math.random()*seq.length);const o={'A':'T','T':'A','G':'C','C':'G'};let nb=['A','T','G','C'].filter(x=>x!==seq[mut]);seq[mut]=nb[Math.floor(Math.random()*3)];};c.appendChild(b);
+ const br=el('<button style="cursor:pointer;background:none;color:'+C.b+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">重設</button>');br.onclick=function(){seq=bases.slice();mut=-1;};c.appendChild(br);
+ const ro=readout(host);const col={'A':C.r,'T':C.b,'G':C.g,'C':C.y};
+ (function loop(){g.clearRect(0,0,440,160);g.font='15px sans-serif';seq.forEach((bp,i)=>{const x=30+i*33;g.fillStyle=i===mut?'#fff':col[bp];g.fillRect(x,60,26,30);g.strokeStyle=i===mut?C.r:'transparent';g.lineWidth=3;g.strokeRect(x,60,26,30);g.fillStyle='#16241c';g.fillText(bp,x+8,81);});
+  ro.innerHTML=mut>=0?'第 '+(mut+1)+' 個鹼基改變 → <b style="color:'+C.r+'">基因突變</b>：可能改變蛋白質胺基酸序列→性狀改變。突變是<b>變異與演化</b>的來源(也是生物技術的基礎)':'DNA 由 A、T、G、C 四種鹼基排列。按「發生突變」看鹼基序列改變';
+  requestAnimationFrame(loop);})();};
+
+// 生物多樣性與保育
+S.biodiversity=function(host){let dmg=20;const g=cv(host,420,200);const c=ctrl(host);
+ slider(c,'棲地破壞(%)',0,80,dmg,10,v=>dmg=v);const ro=readout(host);const cols=['#e8a0a0','#9fc8d8','#a8d0a0','#f0d878','#c8a0e8','#e8c0a0','#a0e8d0','#d0d0a0'];
+ (function loop(){g.clearRect(0,0,420,200);const total=32;const alive=Math.round(total*(1-dmg/100));g.fillStyle='rgba(120,90,60,'+(0.15+dmg/100*0.4)+')';g.fillRect(0,0,420,200);
+  let cnt=0;for(let r=0;r<4;r++)for(let col=0;col<8;col++){if(cnt<alive){g.fillStyle=cols[(r*8+col)%cols.length];g.beginPath();g.arc(40+col*46,40+r*42,11,0,7);g.fill();}cnt++;}
+  ro.innerHTML='棲地破壞 '+dmg+'% → 存活物種數 <b style="color:'+(alive<12?C.r:C.y)+'">'+alive+'/'+total+'</b>　棲地破壞/污染/外來種使<b>生物多樣性下降</b>；保育(保護區、復育)維持多樣性與生態平衡';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
