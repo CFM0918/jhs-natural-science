@@ -49,6 +49,8 @@ SIMMAP = {
  '九下4-2':'tide','生物3-1':'transpiration','生物7-1':'selection',
  '八上2-3':'separate','九上5-2':'rockcycle','九下4-1':'greenhouse',
  '生物4-1':'reflex','生物2-3':'digest','九下3-1':'aircurrent',
+ '八下1-4':'thermochem','九上5-3':'erosion','九上6-3':'strata',
+ '生物4-3':'homeostasis','九下3-2':'humidity',
 }
 SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和模擬','rate':'反應速率碰撞模擬',
  'motion':'運動 v-t 模擬','fma':'F=ma 模擬','ohm':'歐姆定律電路模擬','magnet':'電磁鐵模擬',
@@ -66,6 +68,8 @@ SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和�
  'transpiration':'蒸散作用模擬','selection':'天擇演化模擬',
  'separate':'混合物分離模擬','rockcycle':'岩石循環模擬','greenhouse':'溫室效應模擬','reflex':'反射弧模擬',
  'digest':'消化吸收模擬','aircurrent':'高低氣壓與風模擬',
+ 'thermochem':'放熱吸熱反應模擬','erosion':'地表侵蝕堆積模擬','strata':'地層與化石模擬',
+ 'homeostasis':'恆定性負回饋模擬','humidity':'大氣中的水模擬',
  'match':'概念互動配對'}
 
 HUB_CSS = """
@@ -195,7 +199,7 @@ def build(L, runcode):
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
-<script src="../sims.js?v=8"></script>
+<script src="../sims.js?v=9"></script>
 <script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
 </body></html>'''
     return doc

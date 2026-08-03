@@ -647,6 +647,59 @@ S.aircurrent=function(host){const g=cv(host,420,220);const c=ctrl(host);const ro
   ro.innerHTML='<b style="color:'+C.b+'">高壓</b>氣流下沉、天氣晴；<b style="color:'+C.r+'">低壓</b>氣流上升、易成雲雨。地面風由<b style="color:'+C.y+'">高壓吹向低壓</b>';
   requestAnimationFrame(loop);})();};
 
+// 化學反應的能量（放熱/吸熱）
+S.thermochem=function(host){let mode='放熱';const g=cv(host,300,240);const c=ctrl(host);
+ ['放熱反應','吸熱反應'].forEach(x=>{const b=el('<button style="cursor:pointer;background:'+(x==='放熱反應'?C.y:'none')+';color:'+(x==='放熱反應'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">'+x+'</button>');b.onclick=function(){mode=x[0]==='放'?'放熱':'吸熱';Array.prototype.forEach.call(c.querySelectorAll('button'),function(z){z.style.background='none';z.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let lvl=80;
+ (function loop(){const target=mode==='放熱'?150:30;lvl+=(target-lvl)*0.04;g.clearRect(0,0,300,240);
+  g.strokeStyle=C.chalk;g.lineWidth=2;g.strokeRect(140,20,26,180);g.beginPath();g.arc(153,205,16,0,7);g.stroke();
+  g.fillStyle=mode==='放熱'?C.r:C.b;g.beginPath();g.arc(153,205,13,0,7);g.fill();g.fillRect(147,200-lvl,12,lvl+5);
+  const temp=(mode==='放熱'?25+(lvl-80)*0.5:25-(80-lvl)*0.5);g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('約 '+temp.toFixed(0)+'℃',180,110);
+  ro.innerHTML=mode==='放熱'?'<b style="color:'+C.r+'">放熱反應</b>：放出能量，周圍溫度<b>上升</b>（如燃燒、酸鹼中和、生鏽）':'<b style="color:'+C.b+'">吸熱反應</b>：吸收能量，周圍溫度<b>下降</b>（如光合作用、部分溶解、熱分解）';
+  requestAnimationFrame(loop);})();};
+
+// 地表的改變（風化侵蝕堆積）
+S.erosion=function(host){const g=cv(host,440,220);const c=ctrl(host);const ro=readout(host);let t=0;
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">重新開始</button>');b.onclick=function(){t=0;};c.appendChild(b);
+ (function loop(){if(t<1)t+=0.004;g.clearRect(0,0,440,220);g.fillStyle='rgba(100,150,220,.3)';g.fillRect(0,170,440,50);
+  const h=110*(1-t*0.7);g.fillStyle='#8a6d3b';g.beginPath();g.moveTo(40,170);g.lineTo(140,170-h);g.lineTo(240,170);g.fill();
+  const pile=60*t;g.fillStyle='#c9a86a';g.beginPath();g.moveTo(300,170);g.lineTo(340+pile/2,170-pile*0.5);g.lineTo(400+pile,170);g.fill();
+  g.strokeStyle=C.b;g.lineWidth=2;for(let k=0;k<3;k++){const x=(t*300+k*40+240)%180+240;g.beginPath();g.moveTo(x,150);g.lineTo(x-8,158);g.stroke();}
+  g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('高山被侵蝕',60,60);g.fillText('下游堆積',320,150);
+  ro.innerHTML='<b style="color:'+C.y+'">外營力</b>：風化使岩石崩解→流水/風<b>侵蝕、搬運</b>→低處<b>堆積</b>成沖積地形，地表漸趨平緩';
+  requestAnimationFrame(loop);})();};
+
+// 地層、化石與地質年代
+S.strata=function(host){const g=cv(host,360,240);const c=ctrl(host);const ro=readout(host);let t=0;
+ const cols=['#7a5a3a','#9a7a4a','#b89a6a','#8a9a6a','#6a8a9a'];
+ (function loop(){if(t<5)t+=0.008;g.clearRect(0,0,360,240);const n=Math.floor(t)+1;
+  for(let i=0;i<Math.min(n,5);i++){const y=200-i*36;g.fillStyle=cols[i];g.fillRect(60,y,240,34);g.strokeStyle='rgba(0,0,0,.3)';g.strokeRect(60,y,240,34);}
+  g.fillStyle='#333';g.font='14px sans-serif';g.fillText('🦴',150,200-1*36+24);
+  g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('↑越上層越新',305,60);g.fillText('↓越下層越老',305,200);
+  ro.innerHTML='<b style="color:'+C.y+'">地層疊置定律</b>：未擾動時，越下層沉積越早(越老)、越上層越新；同層<b>化石</b>可對比不同地區地層與地質年代';
+  requestAnimationFrame(loop);})();};
+
+// 恆定性（負回饋調節體溫）
+S.homeostasis=function(host){let temp=37,perturb=0;const g=cv(host,440,200);const c=ctrl(host);
+ const bh=el('<button style="cursor:pointer;background:'+C.r+';color:#16241c;border:none;border-radius:8px;padding:5px 12px;font-weight:700">環境變熱</button>');bh.onclick=function(){perturb=2.5;};c.appendChild(bh);
+ const bc=el('<button style="cursor:pointer;background:'+C.b+';color:#16241c;border:none;border-radius:8px;padding:5px 12px;font-weight:700">環境變冷</button>');bc.onclick=function(){perturb=-2.5;};c.appendChild(bc);
+ const ro=readout(host);const hist=[];
+ (function loop(){temp+=perturb*0.08;perturb*=0.9;temp+=(37-temp)*0.03;hist.push(temp);if(hist.length>380)hist.shift();
+  g.clearRect(0,0,440,200);g.strokeStyle='rgba(168,208,160,.5)';g.setLineDash([4,4]);g.beginPath();g.moveTo(40,100);g.lineTo(430,100);g.stroke();g.setLineDash([]);g.fillStyle=C.g;g.font='12px sans-serif';g.fillText('設定點 37℃',40,94);
+  g.strokeStyle=C.y;g.lineWidth=2;g.beginPath();hist.forEach((v,i)=>{const y=100-(v-37)*22;i?g.lineTo(40+i,y):g.moveTo(40+i,y);});g.stroke();
+  const act=temp>37.3?'流汗、血管舒張散熱':(temp<36.7?'顫抖、血管收縮產熱':'維持恆定');ro.innerHTML='體溫 <b style="color:'+C.y+'">'+temp.toFixed(1)+'℃</b>　身體以<b>負回饋</b>調節（'+act+'）使體溫回到約 37℃';
+  requestAnimationFrame(loop);})();};
+
+// 大氣中的水（凝結/露點）
+S.humidity=function(host){let T=28;const g=cv(host,380,220);const c=ctrl(host);
+ slider(c,'氣溫(℃)',5,35,T,1,v=>T=v);const ro=readout(host);const dp=15;
+ const pts=[];for(let i=0;i<16;i++)pts.push({x:30+Math.random()*320,y:20+Math.random()*120,vx:(Math.random()-.5)*1.2});
+ (function loop(){g.clearRect(0,0,380,220);g.fillStyle='rgba(120,90,60,.4)';g.fillRect(0,180,380,40);const cond=T<=dp;
+  pts.forEach(p=>{p.x+=p.vx;if(p.x<25||p.x>355)p.vx*=-1;if(cond){p.y+=1.5;if(p.y>178){p.y=178;}g.fillStyle=C.b;g.beginPath();g.arc(p.x,p.y,4,0,7);g.fill();}else{g.fillStyle='rgba(159,200,216,.7)';g.beginPath();g.arc(p.x,p.y,2.5,0,7);g.fill();}});
+  g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('露點約 '+dp+'℃',150,15);
+  ro.innerHTML=cond?'<b style="color:'+C.b+'">已達露點</b>：氣溫降到露點以下，水氣<b>凝結</b>成小水滴→雲、霧、露(近地面)':'水氣以氣態存在。氣溫越接近露點，相對濕度越高（降溫至露點即開始凝結）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
