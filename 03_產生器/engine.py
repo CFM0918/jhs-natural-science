@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 """教材加值產生引擎：吃一個 lesson dict，產出 摘要MD / 簡報HTML / 圖表HTML / Bloom MD / 測驗XLSX"""
-import os
+import os, importlib.util
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 OUT = "/mnt/user-data/outputs"
+
+_gen = os.path.dirname(os.path.abspath(__file__))
+_s = importlib.util.spec_from_file_location('mcq', os.path.join(_gen, 'mcq.py'))
+mcq = importlib.util.module_from_spec(_s); _s.loader.exec_module(mcq)
 
 # ---------- 1. 摘要 MD ----------
 def gen_summary(L):
@@ -115,33 +119,35 @@ def gen_quiz(L):
     wrap=Alignment(wrap_text=True,vertical='center')
     center=Alignment(horizontal='center',vertical='center')
     labels={'基礎卷':'★☆☆ 基礎（記憶・理解）','進階卷':'★★☆ 進階（應用・分析）','挑戰卷':'★★★ 挑戰（評鑑・創造）'}
+    M = mcq.build(L['quiz'], L['code'])
     wb=Workbook(); first=True
-    for sheet,items in L['quiz'].items():
+    for sheet in L['quiz']:
+        items=M.get(sheet, [])
         ws=wb.active if first else wb.create_sheet(sheet)
         if first: ws.title=sheet; first=False
-        ws.column_dimensions['A'].width=6
-        ws.column_dimensions['B'].width=62
-        ws.column_dimensions['C'].width=20
-        ws.column_dimensions['D'].width=42
-        ws.merge_cells('A1:D1')
-        c=ws['A1']; c.value=f"{L['grade']} {L['code']} {L['title']}　測驗　{labels[sheet]}"
+        widths=[6,54,20,20,20,20,8,40]
+        for col,w in zip('ABCDEFGH',widths): ws.column_dimensions[col].width=w
+        ws.merge_cells('A1:H1')
+        c=ws['A1']; c.value=f"{L['grade']} {L['code']} {L['title']}　測驗　{labels[sheet]}（四選一單選）"
         c.font=title_font; c.fill=title_fill; c.alignment=center
         ws.row_dimensions[1].height=30
-        for i,h in enumerate(['題號','題目','答案','解析'],1):
+        for i,h in enumerate(['題號','題目','(A)','(B)','(C)','(D)','答案','解析'],1):
             cell=ws.cell(row=2,column=i,value=h); cell.font=header_font
             cell.fill=header_fill; cell.alignment=center; cell.border=border
         ws.row_dimensions[2].height=22
-        for idx,(q,a,e) in enumerate(items,1):
+        for idx,it in enumerate(items,1):
             r=idx+2
             ws.cell(row=r,column=1,value=idx).alignment=center
-            ws.cell(row=r,column=2,value=q).alignment=wrap
-            ac=ws.cell(row=r,column=3,value=a); ac.alignment=center; ac.font=ans_font
-            ws.cell(row=r,column=4,value=e).alignment=wrap
-            for col in range(1,5):
+            ws.cell(row=r,column=2,value=it['q']).alignment=wrap
+            for k in range(4):
+                oc=ws.cell(row=r,column=3+k,value=it['opts'][k]); oc.alignment=wrap
+            ac=ws.cell(row=r,column=7,value=chr(65+it['ci'])); ac.alignment=center; ac.font=ans_font
+            ws.cell(row=r,column=8,value=it['e']).alignment=wrap
+            for col in range(1,9):
                 cc=ws.cell(row=r,column=col); cc.border=border
-                if col!=3: cc.font=cell_font
+                if col!=7: cc.font=cell_font
                 if idx%2==0: cc.fill=alt_fill
-            ws.row_dimensions[r].height=34
+            ws.row_dimensions[r].height=40
         ws.freeze_panes='A3'
     p=os.path.join(OUT,f"{L['code']}_三種難度測驗卷.xlsx")
     wb.save(p)

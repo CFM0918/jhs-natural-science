@@ -10,7 +10,7 @@ GEN = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(GEN)
 def load(n):
     s = importlib.util.spec_from_file_location(n, os.path.join(GEN, n+'.py'))
     m = importlib.util.module_from_spec(s); s.loader.exec_module(m); return m
-slides_mod = load('slides'); autobuild = load('autobuild')
+slides_mod = load('slides'); autobuild = load('autobuild'); mcq = load('mcq')
 EXTRA = {}
 for p in sorted(glob.glob(os.path.join(GEN,'quiz_extra_*.py'))): EXTRA.update(load(os.path.basename(p)[:-3]).EXTRA)
 BOOK = {'a':'生物','b':'八上','c':'八下','d':'九上','e':'九下'}
@@ -146,6 +146,12 @@ body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system
 .qcard{background:var(--board);border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:26px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
 .qcard .qn{font-size:12px;color:#9fc8d8;position:absolute;top:12px;left:16px}
 .qcard .q{font-size:19px;margin:10px 0}.qcard .ans{font-size:22px;color:#f0d878;font-weight:700;margin:8px 0}.qcard .ex{font-size:13px;color:rgba(244,241,232,.7)}
+.opts2{display:flex;flex-direction:column;gap:8px;margin:14px 0 4px;text-align:left}
+.optbtn{cursor:pointer;font-family:inherit;font-size:15px;text-align:left;padding:10px 14px;border-radius:10px;border:1px solid rgba(159,200,216,.3);background:rgba(159,200,216,.05);color:var(--chalk)}
+.optbtn:hover{background:rgba(159,200,216,.14)}.optbtn .ok-k{color:#9fc8d8;font-weight:700;margin-right:4px}
+.optbtn.good{background:rgba(168,208,160,.2);border-color:#a8d0a0}.optbtn.good .ok-k{color:#a8d0a0}
+.optbtn.bad{background:rgba(232,160,160,.2);border-color:#e8a0a0}.optbtn.bad .ok-k{color:#e8a0a0}
+.nextb{cursor:pointer;margin-top:12px;background:#f0d878;color:#16241c;border:none;border-radius:9px;padding:8px 20px;font-weight:700;font-family:inherit}
 .reveal{cursor:pointer;color:#9fc8d8;font-size:14px;margin-top:10px;text-decoration:underline}
 .mk{display:flex;gap:10px;justify-content:center;margin-top:14px}.mk button{cursor:pointer;font-size:15px;padding:8px 22px;border-radius:10px;border:none;font-weight:700}.mk .y{background:#a8d0a0;color:#16241c}.mk .n{background:#e8a0a0;color:#16241c}
 .bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin:16px 0 6px;overflow:hidden}.bar>i{display:block;height:100%;background:#f0d878;width:0;transition:width .3s}
@@ -168,17 +174,23 @@ function showSlide(i){si=Math.max(0,Math.min(SL.length-1,i));
   document.getElementById('pv').disabled=si===0;document.getElementById('nx').disabled=si===SL.length-1;}
 window.showSlide=showSlide;
 document.addEventListener('keydown',e=>{if(document.getElementById('slides').classList.contains('on')){if(e.key==='ArrowRight')showSlide(si+1);if(e.key==='ArrowLeft')showSlide(si-1);}});
-// 闖關
-const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[];
-function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;
+// 闖關（四選一單選）
+const QUIZ=window.__QUIZ__; let lvl='基礎卷', idx=0, right=0, pool=[], answered=false;
+function start(l){lvl=l;pool=QUIZ.filter(q=>q.lv===l);idx=0;right=0;answered=false;
   document.querySelectorAll('.lv button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));grender();}
 function grender(){const box=document.getElementById('gamebox');
   if(idx>=pool.length){box.innerHTML='<div class="done"><div class="big">'+right+'/'+pool.length+'</div><p>'+(right/pool.length>=0.8?'太強了！🎉':right/pool.length>=0.5?'不錯，再複習弱點 💪':'多看幾次觀念再來 📖')+'</p><button onclick="start(lvl)">再挑戰一次</button></div>';return;}
-  const q=pool[idx];
-  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div id="rev"><div class="reveal" onclick="showAns()">👉 點擊看答案</div></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
-function showAns(){const q=pool[idx];document.getElementById('rev').innerHTML='<div class="ans">'+q.a+'</div><div class="ex">'+q.e+'</div><div class="mk"><button class="y" onclick="mark(1)">我會 ✓</button><button class="n" onclick="mark(0)">不會 ✗</button></div>';}
-function mark(ok){if(ok)right++;idx++;grender();}
-window.start=start;window.showAns=showAns;window.mark=mark;
+  const q=pool[idx];answered=false;
+  const opts=q.opts.map((o,k)=>'<button class="optbtn" data-k="'+k+'" onclick="choose('+k+')"><span class="ok-k">('+String.fromCharCode(65+k)+')</span> '+o+'</button>').join('');
+  box.innerHTML='<div class="qcard"><div class="qn">'+lvl+' '+(idx+1)+'/'+pool.length+'</div><div class="q">'+q.q+'</div><div class="opts2">'+opts+'</div><div id="fb"></div></div><div class="bar"><i style="width:'+(idx/pool.length*100)+'%"></i></div><div class="score">已答對 '+right+' 題</div>';}
+function choose(k){if(answered)return;answered=true;const q=pool[idx];
+  const btns=document.querySelectorAll('#gamebox .optbtn');
+  btns[q.ci].classList.add('good');if(k!==q.ci)btns[k].classList.add('bad');
+  if(k===q.ci)right++;
+  const head=k===q.ci?'✔ 答對！':'✗ 正解 ('+String.fromCharCode(65+q.ci)+') '+q.opts[q.ci];
+  document.getElementById('fb').innerHTML='<div class="ans" style="font-size:16px">'+head+'</div><div class="ex">解析：'+q.e+'</div><button class="nextb" onclick="next()">'+(idx+1>=pool.length?'看得分 ›':'下一題 ›')+'</button>';}
+function next(){idx++;grender();}
+window.start=start;window.choose=choose;window.next=next;
 showSlide(0);start('基礎卷');
 """
 GOAL_IC = ['🎯','🔬','⚗️','🌱','💡','📐']
@@ -188,7 +200,8 @@ def build(L, runcode):
     quiz = {k:list(v) for k,v in L['quiz'].items()}
     if runcode in EXTRA:
         for sh,qs in EXTRA[runcode].items(): quiz[sh]=quiz.get(sh,[])+list(qs)
-    qjs=[{'q':q,'a':a,'e':e,'lv':sh} for sh,items in quiz.items() for q,a,e in items]
+    _M = mcq.build(quiz, L['code'])
+    qjs=[{'q':it['q'],'opts':it['opts'],'ci':it['ci'],'a':it['a'],'e':it['e'],'lv':sh} for sh,items in _M.items() for it in items]
     bk=runcode[0]
     goals=''.join(f'<div class="goal"><div class="ic">{GOAL_IC[i%len(GOAL_IC)]}</div><b>{esc(t["name"])}</b><span>{esc("、".join(t["points"][:2]))}</span></div>' for i,t in enumerate(L['themes']))
     slides=''.join(f'<div class="slide-inner" style="display:none">{s["html"]}</div>' for s in L['slides'])
