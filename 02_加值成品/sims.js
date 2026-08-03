@@ -516,6 +516,69 @@ S.mitosis=function(host){const g=cv(host,360,220);const c=ctrl(host);const ro=re
   ro.innerHTML='<b style="color:'+C.y+'">'+ph+'</b>　（體細胞有絲分裂：1 個母細胞→2 個染色體數相同的子細胞）';
   requestAnimationFrame(loop);})();};
 
+// 原子模型（電子殼層）
+S.atom=function(host){const conf={'氫 H':[1],'氦 He':[2],'鋰 Li':[2,1],'碳 C':[2,4],'氧 O':[2,6],'鈉 Na':[2,8,1]};let e='碳 C';const g=cv(host,300,260);const c=ctrl(host);
+ const w=el('<label style="font-size:13px;color:'+C.b+'">元素：<select style="font-size:14px"><option>氫 H</option><option>氦 He</option><option>鋰 Li</option><option selected>碳 C</option><option>氧 O</option><option>鈉 Na</option></select></label>');w.querySelector('select').onchange=ev=>e=ev.target.value;c.appendChild(w);
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,300,260);const cx=150,cy=125,sh=conf[e];
+  g.fillStyle=C.r;g.beginPath();g.arc(cx,cy,16,0,7);g.fill();g.fillStyle='#16241c';g.font='11px sans-serif';g.fillText('核',cx-8,cy+4);
+  sh.forEach((cnt,i)=>{const R=38+i*32;g.strokeStyle='rgba(159,200,216,.35)';g.beginPath();g.arc(cx,cy,R,0,7);g.stroke();for(let k=0;k<cnt;k++){const a=t*(1-i*0.2)+k/cnt*Math.PI*2;g.fillStyle=C.y;g.beginPath();g.arc(cx+Math.cos(a)*R,cy+Math.sin(a)*R,5,0,7);g.fill();}});
+  ro.innerHTML=e+'：電子分層排列 <b style="color:'+C.y+'">'+sh.join('、')+'</b>　（每層上限 2,8,…；最外層電子數決定化學性質）';
+  requestAnimationFrame(loop);})();};
+
+// 氧化反應（燃燒需要氧）
+S.oxidation=function(host){let ox=true;const g=cv(host,340,200);const c=ctrl(host);
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">有氧氣</button>');b.onclick=function(){ox=!ox;b.textContent=ox?'有氧氣':'無氧氣(蓋熄)';};c.appendChild(b);
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.15;g.clearRect(0,0,340,200);g.fillStyle='#7a4a2a';g.fillRect(130,150,80,20);
+  if(ox){for(let k=0;k<7;k++){const h=40+Math.sin(t+k)*14+k*4;const x=170+(k-3)*9;g.fillStyle=k<4?C.y:C.r;g.beginPath();g.moveTo(x,150);g.quadraticCurveTo(x-6,150-h/2,x,150-h);g.quadraticCurveTo(x+6,150-h/2,x,150);g.fill();}}
+  else{for(let k=0;k<3;k++){const yy=(t*4+k*20)%60;g.fillStyle='rgba(180,180,180,'+(1-yy/60).toFixed(2)+')';g.beginPath();g.arc(170+(k-1)*10,140-yy,6,0,7);g.fill();}}
+  ro.innerHTML=ox?'<b style="color:'+C.r+'">持續燃燒</b>：燃燒是劇烈的氧化反應，需要可燃物＋氧氣＋達燃點':'<b style="color:'+C.b+'">火焰熄滅</b>：隔絕氧氣即無法燃燒（滅火原理之一）；生鏽則是緩慢氧化';
+  requestAnimationFrame(loop);})();};
+
+// 天氣鋒面
+S.front=function(host){let type='冷鋒';const g=cv(host,440,200);const c=ctrl(host);
+ ['冷鋒','暖鋒'].forEach(m=>{const b=el('<button style="cursor:pointer;background:'+(m==='冷鋒'?C.y:'none')+';color:'+(m==='冷鋒'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 14px;font-weight:700">'+m+'</button>');b.onclick=function(){type=m;Array.prototype.forEach.call(c.querySelectorAll('button'),function(x){x.style.background='none';x.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,440,200);const fx=100+((t*20)%260);g.fillStyle='rgba(120,90,60,.4)';g.fillRect(0,170,440,30);
+  if(type==='冷鋒'){g.fillStyle='rgba(159,200,216,.35)';g.beginPath();g.moveTo(0,170);g.lineTo(fx,170);g.lineTo(fx-70,60);g.lineTo(0,60);g.fill();g.fillStyle='rgba(232,160,160,.3)';g.beginPath();g.moveTo(fx,170);g.lineTo(440,170);g.lineTo(440,90);g.lineTo(fx-70,90);g.fill();
+   g.fillStyle='#666';g.beginPath();g.arc(fx-40,55,20,0,7);g.arc(fx-15,50,24,0,7);g.fill();}
+  else{g.fillStyle='rgba(232,160,160,.3)';g.beginPath();g.moveTo(fx,170);g.lineTo(440,170);g.lineTo(440,60);g.lineTo(fx+120,60);g.fill();g.fillStyle='rgba(159,200,216,.35)';g.beginPath();g.moveTo(0,170);g.lineTo(fx,170);g.lineTo(fx+120,60);g.lineTo(0,60);g.fill();
+   g.fillStyle='#888';g.beginPath();g.arc(fx+50,70,16,0,7);g.arc(fx+80,68,18,0,7);g.fill();}
+  ro.innerHTML=type==='冷鋒'?'<b style="color:'+C.b+'">冷鋒</b>：冷氣團推進、暖空氣被迫急速抬升→積雨雲、短時強降雨、氣溫驟降':'<b style="color:'+C.r+'">暖鋒</b>：暖氣團緩緩爬升於冷空氣上→層狀雲、連續性緩雨、氣溫漸升';
+  requestAnimationFrame(loop);})();};
+
+// 潮汐
+S.tide=function(host){const g=cv(host,440,200);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,440,200);const lvl=Math.sin(t)*40;
+  g.fillStyle='rgba(100,150,220,.4)';g.fillRect(0,120-lvl,440,80+lvl);g.strokeStyle=C.b;g.beginPath();g.moveTo(0,120-lvl);g.lineTo(440,120-lvl);g.stroke();
+  g.fillStyle='#8a6d3b';g.fillRect(30,90,50,60);g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('岸',48,85);
+  g.fillStyle='#ddd';g.beginPath();g.arc(370+Math.cos(t)*30,50,16,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('🌙月球',330,30);
+  ro.innerHTML=lvl>25?'<b style="color:'+C.b+'">滿潮(高潮)</b>：海水面升高':(lvl<-25?'<b style="color:'+C.y+'">乾潮(低潮)</b>：海水面下降':'潮位變化中…')+'　月球(與太陽)引力造成，一天約有兩次滿潮兩次乾潮';
+  requestAnimationFrame(loop);})();};
+
+// 蒸散作用
+S.transpiration=function(host){let light=5;const g=cv(host,320,240);const c=ctrl(host);
+ slider(c,'光照/溫度',1,10,light,1,v=>light=v);const ro=readout(host);let t=0;
+ (function loop(){t+=0.02*light;g.clearRect(0,0,320,240);
+  g.strokeStyle='#5a8a3a';g.lineWidth=8;g.beginPath();g.moveTo(160,210);g.lineTo(160,90);g.stroke();g.fillStyle='#5a8a3a';g.beginPath();g.arc(130,80,26,0,7);g.arc(190,80,26,0,7);g.arc(160,60,28,0,7);g.fill();
+  g.fillStyle='#7a5a2a';g.beginPath();g.moveTo(150,210);g.lineTo(160,235);g.lineTo(170,210);g.fill();
+  for(let k=0;k<5;k++){const yy=(t+k*24)%120;g.fillStyle=C.b;g.beginPath();g.arc(160,205-yy,3,0,7);g.fill();}
+  for(let k=0;k<4;k++){const yy=(t+k*15)%50;g.fillStyle='rgba(159,200,216,'+(1-yy/50).toFixed(2)+')';g.beginPath();g.arc(120+k*28,70-yy,3,0,7);g.fill();}
+  ro.innerHTML='<b style="color:'+C.y+'">蒸散作用</b>：葉的氣孔散失水氣→產生拉力，使水分由根經莖(木質部)向上運輸　（光越強/溫越高→蒸散越快）';
+  requestAnimationFrame(loop);})();};
+
+// 天擇（胡椒蛾）
+S.selection=function(host){let env='淺色';let light=8,dark=8;const g=cv(host,360,200);const c=ctrl(host);
+ ['淺色環境','深色環境'].forEach(m=>{const b=el('<button style="cursor:pointer;background:'+(m==='淺色環境'?C.y:'none')+';color:'+(m==='淺色環境'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">'+m+'</button>');b.onclick=function(){env=m[0]==='淺'?'淺色':'深色';light=8;dark=8;Array.prototype.forEach.call(c.querySelectorAll('button'),function(x){x.style.background='none';x.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;if(t>1){t=0;if(env==='淺色'){light=Math.min(20,light+1);dark=Math.max(1,dark-1);}else{dark=Math.min(20,dark+1);light=Math.max(1,light-1);}}
+  g.clearRect(0,0,360,200);g.fillStyle=env==='淺色'?'#cbb89a':'#4a3a2a';g.fillRect(0,0,360,200);
+  let i=0;for(let n=0;n<light;n++){g.fillStyle='#eee';g.beginPath();g.arc(30+(i%9)*38,30+Math.floor(i/9)*40,7,0,7);g.fill();i++;}
+  for(let n=0;n<dark;n++){g.fillStyle='#222';g.beginPath();g.arc(30+(i%9)*38,30+Math.floor(i/9)*40,7,0,7);g.fill();i++;}
+  ro.innerHTML='環境：<b style="color:'+C.y+'">'+env+'樹幹</b>　淺色蛾 '+light+' ｜ 深色蛾 '+dark+'　→ 與環境相近者不易被捕食、存活繁殖多，族群比例改變（<b>天擇</b>）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
