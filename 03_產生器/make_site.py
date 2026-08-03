@@ -73,7 +73,8 @@ for bk, nm, desc in BOOKS:
         links = (f'<a class="btn i" href="{url(nm,full+"_互動教學.html")}" target="_blank">🎮 互動教學</a>'
                  f'<a class="btn s" href="{url(nm,full+"_授課簡報.html")}" target="_blank">📽 授課簡報</a>'
                  f'<a class="btn" href="{url(nm,full+"_資訊圖表_16-9.html")}" target="_blank">🖼 資訊圖</a>'
-                 f'<a class="btn q" href="{url(nm,full+"_三種難度測驗卷.xlsx")}">📝 測驗</a>'
+                 f'<a class="btn q" href="{url(nm,full+"_線上測驗.html")}" target="_blank">📝 線上測驗</a>'
+                 f'<a class="btn" href="{url(nm,full+"_三種難度測驗卷.xlsx")}">⬇️ 測驗XLSX</a>'
                  f'<a class="btn" href="{url(nm,full+"_教材摘要與重點主題.md")}" target="_blank">📄 摘要</a>')
         body.append(f'<div class="sec"><div class="name"><span class="code">{esc(sec)}</span>{esc(t)}{hand}</div>{links}</div>')
     body.append('</div></details>')

@@ -21,7 +21,7 @@
 | 教材摘要與重點主題 | MD(+PDF) | 該節重點整理 |
 | 資訊圖表 16:9 | HTML(+PDF) | 4 張資訊圖 |
 | Bloom 差異化教材報告 | MD(+PDF) | A/B/C 三層差異化教學 |
-| 三種難度測驗卷 | XLSX | 基礎／進階／挑戰各 10 題＝**每節 30 題**（含答案與解析）|
+| 三種難度測驗卷 | XLSX＋線上 | 基礎／進階／挑戰各 10 題＝**每節 30 題**（含答案與解析）。**線上作答**（`<code>_線上測驗.html`，自評式三難度、逐題顯示答案＋解析＋計分＋可列印）與 **XLSX 下載**並行，同頁互通 |
 
 > PDF 為衍生檔，未納入版控；可用 `03_產生器/topdf.py` 重產。
 
@@ -62,6 +62,9 @@ cd 03_產生器
 pip install openpyxl playwright          # 首次；PDF 另需 playwright install chromium
 python run.py b1-1 c3-3 d4-3              # 產指定節的 5 種成品（可多節）
 python verify_quiz.py                     # 驗證測驗（結構/重複/空欄）
+python make_quiz.py                       # 產全部線上測驗頁（與 XLSX 並行）
+python make_interactive.py                # 產全部互動教學頁
+python make_site.py                       # 重建 GitHub Pages 首頁 index.html
 python topdf.py all                       # 全部成品轉 PDF
 python make_index.py                      # 重建總目錄
 ```
