@@ -700,6 +700,68 @@ S.humidity=function(host){let T=28;const g=cv(host,380,220);const c=ctrl(host);
   ro.innerHTML=cond?'<b style="color:'+C.b+'">已達露點</b>：氣溫降到露點以下，水氣<b>凝結</b>成小水滴→雲、霧、露(近地面)':'水氣以氣態存在。氣溫越接近露點，相對濕度越高（降溫至露點即開始凝結）';
   requestAnimationFrame(loop);})();};
 
+// 溫度計（攝氏/華氏/凱氏）
+S.thermometer=function(host){let T=25;const g=cv(host,300,240);const c=ctrl(host);
+ slider(c,'攝氏溫度(℃)',-20,120,T,5,v=>T=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,300,240);const lvl=(T+20)/140*160;
+  g.strokeStyle=C.chalk;g.lineWidth=2;g.strokeRect(130,20,22,180);g.beginPath();g.arc(141,205,15,0,7);g.stroke();
+  g.fillStyle=C.r;g.beginPath();g.arc(141,205,12,0,7);g.fill();g.fillRect(135,200-lvl,12,lvl+5);
+  g.strokeStyle='rgba(159,200,216,.5)';g.fillStyle=C.b;g.font='11px sans-serif';[[0,'冰點0℃'],[100,'沸點100℃']].forEach(m=>{const y=200-(m[0]+20)/140*160;g.beginPath();g.moveTo(152,y);g.lineTo(168,y);g.stroke();g.fillText(m[1],158,y-3);});
+  const F=T*9/5+32,K=T+273;ro.innerHTML='<b style="color:'+C.y+'">'+T+' ℃</b> ＝ <b style="color:'+C.r+'">'+F.toFixed(0)+' ℉</b>（℃×9/5+32）＝ <b style="color:'+C.b+'">'+K+' K</b>（℃+273）';
+  requestAnimationFrame(loop);})();};
+
+// 尺的測量與估計值
+S.measure=function(host){let L=6.4;const g=cv(host,420,160);const c=ctrl(host);
+ slider(c,'物體長度(cm)',1,9,L,0.1,v=>L=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,420,160);const x0=30,sc=40;
+  g.strokeStyle=C.chalk;g.lineWidth=1;g.beginPath();g.moveTo(x0,90);g.lineTo(x0+10*sc,90);g.stroke();
+  for(let i=0;i<=100;i++){const x=x0+i*sc/10;const big=i%10===0;g.beginPath();g.moveTo(x,90);g.lineTo(x,big?72:82);g.stroke();if(big){g.fillStyle=C.chalk;g.font='11px sans-serif';g.fillText(i/10,x-3,66);}}
+  g.fillStyle='rgba(168,208,160,.6)';g.fillRect(x0,95,L*sc,24);g.strokeStyle=C.g;g.strokeRect(x0,95,L*sc,24);
+  g.strokeStyle=C.r;g.lineWidth=2;g.beginPath();g.moveTo(x0+L*sc,60);g.lineTo(x0+L*sc,120);g.stroke();
+  ro.innerHTML='最小刻度 0.1 cm → 需再<b>估讀一位</b>：讀數 = <b style="color:'+C.y+'">'+L.toFixed(1)+' cm</b>（最後一位為估計值，含不確定性）';
+  requestAnimationFrame(loop);})();};
+
+// 週期表結構
+S.periodic=function(host){const PT={'H':[1,1,'非金屬',[1]],'He':[18,1,'惰性氣體',[2]],'Li':[1,2,'鹼金屬',[2,1]],'Be':[2,2,'鹼土金屬',[2,2]],'B':[13,2,'類金屬',[2,3]],'C':[14,2,'非金屬',[2,4]],'N':[15,2,'非金屬',[2,5]],'O':[16,2,'非金屬',[2,6]],'F':[17,2,'鹵素',[2,7]],'Ne':[18,2,'惰性氣體',[2,8]],'Na':[1,3,'鹼金屬',[2,8,1]],'Mg':[2,3,'鹼土金屬',[2,8,2]],'Al':[13,3,'金屬',[2,8,3]],'Si':[14,3,'類金屬',[2,8,4]],'P':[15,3,'非金屬',[2,8,5]],'S':[16,3,'非金屬',[2,8,6]],'Cl':[17,3,'鹵素',[2,8,7]],'Ar':[18,3,'惰性氣體',[2,8,8]],'K':[1,4,'鹼金屬',[2,8,8,1]],'Ca':[2,4,'鹼土金屬',[2,8,8,2]]};
+ let sel='C';const g=cv(host,400,180);const c=ctrl(host);
+ const w=el('<label style="font-size:13px;color:'+C.b+'">元素：<select style="font-size:14px"></select></label>');const sl=w.querySelector('select');Object.keys(PT).forEach(k=>{const o=el('<option>'+k+'</option>');if(k==='C')o.selected=true;sl.appendChild(o);});sl.onchange=e=>sel=e.target.value;c.appendChild(w);
+ const ro=readout(host);const cw=20,ch=30,x0=8,y0=12;
+ host.querySelector('canvas').onclick=function(ev){const r=this.getBoundingClientRect();const mx=(ev.clientX-r.left)*(400/r.width),my=(ev.clientY-r.top)*(180/r.height);Object.keys(PT).forEach(k=>{const p=PT[k];const x=x0+(p[0]-1)*cw,y=y0+(p[1]-1)*ch;if(mx>=x&&mx<=x+cw-2&&my>=y&&my<=y+ch-2){sel=k;sl.value=k;}});};
+ (function loop(){g.clearRect(0,0,400,180);g.font='11px sans-serif';Object.keys(PT).forEach(k=>{const p=PT[k];const x=x0+(p[0]-1)*cw,y=y0+(p[1]-1)*ch;g.fillStyle=k===sel?C.y:'rgba(159,200,216,.25)';g.fillRect(x,y,cw-2,ch-2);g.fillStyle=k===sel?'#16241c':C.chalk;g.fillText(k,x+3,y+18);});
+  const p=PT[sel];ro.innerHTML='<b style="color:'+C.y+'">'+sel+'</b>：第 <b>'+p[1]+'</b> 週期（=電子層數 '+p[3].length+'）、第 <b>'+p[0]+'</b> 族　類別：'+p[2]+'　電子排列 '+p[3].join('、')+'（最外層 '+p[3][p[3].length-1]+' 個決定化性）';
+  requestAnimationFrame(loop);})();};
+
+// 莫耳換算
+S.mole=function(host){let n=1;const g=cv(host,300,180);const c=ctrl(host);
+ slider(c,'碳的莫耳數(mol)',0.5,3,n,0.5,v=>n=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,300,180);const dots=Math.round(n*8);for(let i=0;i<dots;i++){g.fillStyle=C.y;g.beginPath();g.arc(40+(i%6)*40,40+Math.floor(i/6)*40,10,0,7);g.fill();g.fillStyle='#16241c';g.font='10px sans-serif';g.fillText('C',36+(i%6)*40,44+Math.floor(i/6)*40);}
+  const N=(n*6.02).toFixed(2),mass=(n*12);ro.innerHTML='<b style="color:'+C.y+'">'+n+' mol</b> 碳 ＝ 粒子數 '+N+'×10²³ 個（1 mol=6.02×10²³）＝ 質量 <b style="color:'+C.g+'">'+mass+' g</b>（碳原子量 12）';
+  requestAnimationFrame(loop);})();};
+
+// 細胞構造（動物/植物）
+S.cell=function(host){let type='植物';const g=cv(host,320,240);const c=ctrl(host);
+ ['動物細胞','植物細胞'].forEach(x=>{const b=el('<button style="cursor:pointer;background:'+(x==='植物細胞'?C.y:'none')+';color:'+(x==='植物細胞'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">'+x+'</button>');b.onclick=function(){type=x[0]==='植'?'植物':'動物';Array.prototype.forEach.call(c.querySelectorAll('button'),function(z){z.style.background='none';z.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,320,240);const cx=160,cy=120;g.font='11px sans-serif';
+  if(type==='植物'){g.strokeStyle='#6a8a3a';g.lineWidth=4;g.strokeRect(50,40,220,160);g.fillStyle=C.chalk;g.fillText('細胞壁',52,34);}
+  g.fillStyle='rgba(159,200,216,.15)';g.beginPath();g.ellipse(cx,cy,100,72,0,0,7);g.fill();g.strokeStyle=C.b;g.lineWidth=2;g.stroke();g.fillStyle=C.chalk;g.fillText('細胞膜',cx+70,cy-60);
+  g.fillStyle='rgba(232,160,160,.6)';g.beginPath();g.arc(cx,cy,26,0,7);g.fill();g.fillStyle='#16241c';g.fillText('細胞核',cx-22,cy+4);
+  g.fillStyle=C.r;g.beginPath();g.ellipse(cx-55,cy+30,14,7,0.5,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('粒線體',cx-80,cy+55);
+  if(type==='植物'){g.fillStyle='rgba(120,90,220,.25)';g.beginPath();g.arc(cx+45,cy+20,30,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('大液泡',cx+30,cy+22);for(let k=0;k<4;k++){g.fillStyle=C.g;g.beginPath();g.ellipse(cx-40+k*12,cy-40,7,4,0.5,0,7);g.fill();}g.fillText('葉綠體',cx-55,cy-48);}
+  ro.innerHTML='<b style="color:'+C.y+'">'+type+'細胞</b>　共有：細胞膜、細胞核、細胞質、粒線體；<b style="color:'+C.g+'">植物特有</b>：細胞壁、葉綠體、大液泡';
+  requestAnimationFrame(loop);})();};
+
+// 免疫反應
+S.immune=function(host){const g=cv(host,420,200);const c=ctrl(host);const paths=[];const wbcs=[];
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">病原入侵</button>');b.onclick=function(){for(let i=0;i<8;i++)paths.push({x:40+Math.random()*340,y:30+Math.random()*140,dead:false});if(wbcs.length===0)for(let i=0;i<4;i++)wbcs.push({x:Math.random()*420,y:Math.random()*200});};c.appendChild(b);
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,420,200);let alive=paths.filter(p=>!p.dead);
+  wbcs.forEach(w=>{const tgt=alive[0];if(tgt){w.x+=(tgt.x-w.x)*0.03;w.y+=(tgt.y-w.y)*0.03;if(Math.abs(w.x-tgt.x)<12&&Math.abs(w.y-tgt.y)<12)tgt.dead=true;}g.fillStyle=C.b;g.beginPath();g.arc(w.x,w.y,12,0,7);g.fill();});
+  paths.forEach(p=>{if(!p.dead){g.fillStyle=C.r;g.beginPath();g.arc(p.x,p.y,6,0,7);g.fill();}});
+  g.fillStyle=C.chalk;g.font='11px sans-serif';g.fillText('🔵白血球',20,20);g.fillText('🔴病原',110,20);
+  ro.innerHTML='<b style="color:'+C.y+'">免疫</b>：皮膚為第一道防線；病原入侵後<b style="color:'+C.b+'">白血球吞噬</b>、淋巴球產生<b>抗體</b>專一結合病原（剩 '+alive.length+' 個病原）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
