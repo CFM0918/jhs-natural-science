@@ -53,6 +53,8 @@ SIMMAP = {
  '生物4-3':'homeostasis','九下3-2':'humidity',
  '八上5-1':'thermometer','八上1-2':'measure','八上6-2':'periodic',
  '八下1-3':'mole','生物1-2':'cell','生物3-3':'immune',
+ '八下1-1':'chemeq','生物1-3':'levels','生物5-2':'repro',
+ '八下5-1':'organic','生物7-2':'classify','八上1-3':'massbalance',
 }
 SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和模擬','rate':'反應速率碰撞模擬',
  'motion':'運動 v-t 模擬','fma':'F=ma 模擬','ohm':'歐姆定律電路模擬','magnet':'電磁鐵模擬',
@@ -74,6 +76,8 @@ SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和�
  'homeostasis':'恆定性負回饋模擬','humidity':'大氣中的水模擬',
  'thermometer':'溫度計三溫標模擬','measure':'尺的測量估讀模擬','periodic':'週期表結構模擬','mole':'莫耳換算模擬',
  'cell':'細胞構造模擬','immune':'免疫反應模擬',
+ 'chemeq':'化學式配平模擬','levels':'組成層次模擬','repro':'有性無性生殖模擬','organic':'有機物碳骨架模擬',
+ 'classify':'生物分類檢索模擬','massbalance':'天平測質量模擬',
  'match':'概念互動配對'}
 
 HUB_CSS = """
@@ -203,7 +207,7 @@ def build(L, runcode):
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
-<script src="../sims.js?v=10"></script>
+<script src="../sims.js?v=11"></script>
 <script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
 </body></html>'''
     return doc

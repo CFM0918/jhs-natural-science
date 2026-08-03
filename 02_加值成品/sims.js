@@ -762,6 +762,79 @@ S.immune=function(host){const g=cv(host,420,200);const c=ctrl(host);const paths=
   ro.innerHTML='<b style="color:'+C.y+'">免疫</b>：皮膚為第一道防線；病原入侵後<b style="color:'+C.b+'">白血球吞噬</b>、淋巴球產生<b>抗體</b>專一結合病原（剩 '+alive.length+' 個病原）';
   requestAnimationFrame(loop);})();};
 
+// 化學反應與化學式（原子守恆）
+S.chemeq=function(host){const g=cv(host,440,180);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=0.01;if(t>1)t=0;g.clearRect(0,0,440,180);g.font='13px sans-serif';const merge=t<0.5?t*2:1;
+  function mol(x,y,atoms){atoms.forEach(a=>{g.fillStyle=a[2];g.beginPath();g.arc(x+a[0],y+a[1],9,0,7);g.fill();g.fillStyle='#16241c';g.font='10px sans-serif';g.fillText(a[3],x+a[0]-4,y+a[1]+3);});}
+  // 反應物 2H2 + O2
+  mol(60-merge*10,60,[[0,0,C.b,'H'],[16,0,C.b,'H']]);mol(60-merge*10,110,[[0,0,C.b,'H'],[16,0,C.b,'H']]);
+  mol(150+merge*10,85,[[0,0,C.r,'O'],[16,0,C.r,'O']]);
+  g.fillStyle=C.chalk;g.font='20px sans-serif';g.fillText('→',230,95);
+  // 生成物 2H2O
+  mol(280,60,[[0,0,C.r,'O'],[-13,8,C.b,'H'],[13,8,C.b,'H']]);mol(280,120,[[0,0,C.r,'O'],[-13,8,C.b,'H'],[13,8,C.b,'H']]);
+  g.fillStyle=C.chalk;g.font='14px sans-serif';g.fillText('2H₂ + O₂ → 2H₂O',150,25);
+  ro.innerHTML='<b style="color:'+C.y+'">2H₂ + O₂ → 2H₂O</b>　反應前後原子種類與數目相同（H:4、O:2）→ 質量守恆；係數用來<b>配平</b>方程式';
+  requestAnimationFrame(loop);})();};
+
+// 生物體的組成層次
+S.levels=function(host){const g=cv(host,440,140);const c=ctrl(host);let step=0;
+ const L=['細胞','組織','器官','器官系統','個體'];
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">下一層 ▶</button>');b.onclick=function(){step=(step+1)%5;};c.appendChild(b);
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,440,140);for(let i=0;i<5;i++){const x=20+i*84;g.fillStyle=i<=step?C.g:'rgba(120,120,120,.4)';g.fillRect(x,50,70,40);g.fillStyle=i<=step?'#16241c':C.chalk;g.font='13px sans-serif';g.fillText(L[i],x+ (L[i].length>3?4:18),75);if(i<4){g.fillStyle=C.chalk;g.fillText('→',x+74,75);}}
+  ro.innerHTML='生物體組成層次（由小到大）：<b style="color:'+C.y+'">'+L.slice(0,step+1).join(' → ')+'</b>　（細胞是生物體構造與功能的基本單位）';
+  requestAnimationFrame(loop);})();};
+
+// 有性/無性生殖
+S.repro=function(host){let mode='無性';const g=cv(host,420,180);const c=ctrl(host);
+ ['無性生殖','有性生殖'].forEach(x=>{const b=el('<button style="cursor:pointer;background:'+(x==='無性生殖'?C.y:'none')+';color:'+(x==='無性生殖'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">'+x+'</button>');b.onclick=function(){mode=x[0]==='無'?'無性':'有性';Array.prototype.forEach.call(c.querySelectorAll('button'),function(z){z.style.background='none';z.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,420,180);g.font='12px sans-serif';
+  if(mode==='無性'){g.fillStyle=C.g;g.beginPath();g.arc(90,90,26,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('親代(1)',66,130);g.strokeStyle=C.chalk;g.beginPath();g.moveTo(120,90);g.lineTo(180,90);g.stroke();
+   [60,90,120].forEach(y=>{g.fillStyle=C.g;g.beginPath();g.arc(230,y,16,0,7);g.fill();});g.fillStyle=C.chalk;g.fillText('子代：與親代完全相同(基因一樣)',250,90);}
+  else{g.fillStyle=C.b;g.beginPath();g.arc(70,60,20,0,7);g.fill();g.fillStyle=C.r;g.beginPath();g.arc(70,120,20,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('精',64,64);g.fillText('卵',64,124);
+   g.strokeStyle=C.chalk;g.beginPath();g.moveTo(95,60);g.lineTo(150,88);g.moveTo(95,120);g.lineTo(150,92);g.stroke();g.fillStyle='#b98';g.beginPath();g.arc(170,90,18,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('受精卵',150,130);
+   [60,90,120].forEach((y,i)=>{g.fillStyle=['#a8d','#8da','#da8'][i];g.beginPath();g.arc(300,y,15,0,7);g.fill();});g.fillStyle=C.chalk;g.fillText('子代：具變異(親代基因重組)',320,90);}
+  ro.innerHTML=mode==='無性'?'<b style="color:'+C.y+'">無性生殖</b>：1 個親代、不經受精 → 子代基因與親代<b>相同</b>(如分裂、出芽、營養器官)':'<b style="color:'+C.y+'">有性生殖</b>：精＋卵受精 → 子代基因<b>重組具變異</b>，較能適應環境變化';
+  requestAnimationFrame(loop);})();};
+
+// 有機化合物（碳骨架）
+S.organic=function(host){const mol={'甲烷 CH₄':[['C',0,0],['H',-1,-1],['H',1,-1],['H',-1,1],['H',1,1]],'乙烷 C₂H₆':[['C',-0.6,0],['C',0.6,0],['H',-1.4,-1],['H',-1.4,1],['H',-0.6,-1.3],['H',0.6,-1.3],['H',1.4,-1],['H',1.4,1]],'乙烯 C₂H₄':[['C',-0.6,0],['C',0.6,0],['H',-1.4,-1],['H',-1.4,1],['H',1.4,-1],['H',1.4,1]]};
+ let m='甲烷 CH₄';const g=cv(host,320,220);const c=ctrl(host);
+ const w=el('<label style="font-size:13px;color:'+C.b+'">分子：<select style="font-size:14px"><option>甲烷 CH₄</option><option>乙烷 C₂H₆</option><option>乙烯 C₂H₄</option></select></label>');w.querySelector('select').onchange=e=>m=e.target.value;c.appendChild(w);
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,320,220);const cx=160,cy=105,s=42;const at=mol[m];
+  g.strokeStyle='rgba(244,241,232,.5)';g.lineWidth=2;const cs=at.filter(a=>a[0]==='C');at.forEach(a=>{if(a[0]==='H'){let nc=cs[0];cs.forEach(cc=>{if(Math.hypot(cc[1]-a[1],cc[2]-a[2])<Math.hypot(nc[1]-a[1],nc[2]-a[2]))nc=cc;});g.beginPath();g.moveTo(cx+nc[1]*s,cy+nc[2]*s);g.lineTo(cx+a[1]*s,cy+a[2]*s);g.stroke();}});
+  if(cs.length===2&&m.indexOf('乙烯')>-1){g.beginPath();g.moveTo(cx+cs[0][1]*s,cy-4);g.lineTo(cx+cs[1][1]*s,cy-4);g.moveTo(cx+cs[0][1]*s,cy+4);g.lineTo(cx+cs[1][1]*s,cy+4);g.stroke();}else if(cs.length===2){g.beginPath();g.moveTo(cx+cs[0][1]*s,cy);g.lineTo(cx+cs[1][1]*s,cy);g.stroke();}
+  at.forEach(a=>{g.fillStyle=a[0]==='C'?'#444':C.b;g.beginPath();g.arc(cx+a[1]*s,cy+a[2]*s,a[0]==='C'?14:9,0,7);g.fill();g.fillStyle=a[0]==='C'?'#fff':'#16241c';g.font=a[0]==='C'?'13px sans-serif':'10px sans-serif';g.fillText(a[0],cx+a[1]*s-4,cy+a[2]*s+4);});
+  ro.innerHTML='<b style="color:'+C.y+'">'+m+'</b>　碳原子有 <b>4 個</b>鍵，可與其他碳或氫鍵結成鏈狀/環狀骨架，是有機物種類繁多的原因'+(m.indexOf('乙烯')>-1?'（含 C=C 雙鍵）':'');
+  requestAnimationFrame(loop);})();};
+
+// 生物分類（二分檢索）
+S.classify=function(host){const g=cv(host,420,200);const c=ctrl(host);let path=[];
+ const tree={q:'體內有脊椎骨嗎？',y:{q:'體表覆有羽毛/毛髮？',y:{r:'哺乳類或鳥類(恆溫脊椎動物)'},n:{q:'生活在水中用鰓？',y:{r:'魚類'},n:{r:'兩生類/爬蟲類'}}},n:{q:'身體分節、有外骨骼？',y:{r:'節肢動物(昆蟲/蝦蟹)'},n:{r:'其他無脊椎(軟體/腔腸…)'}}};
+ let node=tree;const ro=readout(host);
+ function render(){c.querySelectorAll('button').forEach&&Array.prototype.forEach.call(c.querySelectorAll('button'),b=>b.remove());
+  if(node.r){const rb=el('<button style="cursor:pointer;background:'+C.b+';color:#16241c;border:none;border-radius:8px;padding:5px 12px;font-weight:700">重新開始</button>');rb.onclick=function(){node=tree;path=[];render();};c.appendChild(rb);}
+  else{['是','否'].forEach(ans=>{const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">'+ans+'</button>');b.onclick=function(){path.push(node.q+' → '+ans);node=ans==='是'?node.y:node.n;render();};c.appendChild(b);});}
+  draw();}
+ function draw(){g.clearRect(0,0,420,200);g.fillStyle=C.chalk;g.font='14px sans-serif';if(node.r){g.fillStyle=C.g;g.fillText('✔ 分類結果：'+node.r,20,40);}else{g.fillText('問題：'+node.q,20,40);}g.font='12px sans-serif';g.fillStyle='rgba(244,241,232,.7)';path.forEach((p,i)=>g.fillText(p,20,80+i*22));
+  ro.innerHTML='<b style="color:'+C.y+'">二分檢索表</b>：依「是/否」特徵逐步分岔，將生物逐層歸類（分類階層：界→門→綱→目→科→屬→種）';}
+ render();};
+
+// 天平測質量
+S.massbalance=function(host){const obj=70;let load=0;const g=cv(host,420,200);const c=ctrl(host);
+ [10,50,100].forEach(wv=>{const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 12px;font-weight:700">+'+wv+'g</button>');b.onclick=function(){load+=wv;};c.appendChild(b);});
+ const br=el('<button style="cursor:pointer;background:none;color:'+C.b+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">歸零</button>');br.onclick=function(){load=0;};c.appendChild(br);
+ const ro=readout(host);let ang=0;
+ (function loop(){const target=Math.max(-0.14,Math.min(0.14,(load-obj)*0.004));ang+=(target-ang)*0.1;g.clearRect(0,0,420,200);
+  const px=210,py=60;g.strokeStyle=C.chalk;g.lineWidth=3;g.beginPath();g.moveTo(px,py);g.lineTo(px,170);g.stroke();
+  g.save();g.translate(px,py);g.rotate(ang);g.beginPath();g.moveTo(-120,0);g.lineTo(120,0);g.stroke();
+  g.fillStyle='rgba(168,208,160,.5)';g.fillRect(-135,0,40,26);g.fillStyle='rgba(159,200,216,.4)';g.fillRect(95,0,40,26);
+  g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('物體',-128,18);g.fillText('砝碼',102,18);g.restore();
+  ro.innerHTML=load===obj?'<b style="color:'+C.g+'">天平平衡</b>！砝碼共 '+load+' g = 物體質量 <b style="color:'+C.y+'">'+obj+' g</b>':'目前砝碼 '+load+' g　'+(load<obj?'太輕，繼續加':'太重，請減少')+'（天平兩側力矩相等才平衡）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
