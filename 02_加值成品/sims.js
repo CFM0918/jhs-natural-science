@@ -384,6 +384,66 @@ S.watercycle=function(host){const g=cv(host,460,240);const c=ctrl(host);const ro
   ro.innerHTML='<b style="color:'+C.y+'">水循環</b>：海水受熱<b>蒸發</b>→水氣上升<b>凝結</b>成雲→<b>降水</b>回到地面→逕流入海（能量來自太陽）';
   requestAnimationFrame(loop);})();};
 
+// 熱量與比熱 Q=mcΔT
+S.heatcap=function(host){const mat={'水':1.0,'沙':0.2,'鐵':0.11};let m='水',Q=200;const g=cv(host,360,220);const c=ctrl(host);
+ const w=el('<label style="font-size:13px;color:'+C.b+'">物質(相同質量)：<select style="font-size:14px"><option>水</option><option>沙</option><option>鐵</option></select></label>');w.querySelector('select').onchange=e=>m=e.target.value;c.appendChild(w);
+ slider(c,'加熱量 Q(卡)',50,400,Q,50,v=>Q=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,360,220);const dT=Q/(100*mat[m]);const lvl=Math.min(160,dT*8);
+  g.strokeStyle=C.chalk;g.lineWidth=2;g.strokeRect(150,30,26,170);g.beginPath();g.arc(163,205,16,0,7);g.stroke();
+  g.fillStyle=C.r;g.beginPath();g.arc(163,205,13,0,7);g.fill();g.fillRect(157,200-lvl,12,lvl+5);
+  g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText(m+'（比熱 '+mat[m]+'）',60,25);
+  ro.innerHTML='ΔT = Q ÷ (m×c)　→ 升溫 <b style="color:'+C.y+'">'+dT.toFixed(1)+' ℃</b>　（比熱越大越難升溫，如水）';
+  requestAnimationFrame(loop);})();};
+
+// 萬有引力與重力
+S.gravity=function(host){let r=5;const g=cv(host,440,180);const c=ctrl(host);
+ slider(c,'距離 r(相對)',2,10,r,1,v=>r=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,440,180);const cy=90,x1=70,x2=70+r*34;
+  g.fillStyle=C.b;g.beginPath();g.arc(x1,cy,26,0,7);g.fill();g.fillStyle=C.g;g.beginPath();g.arc(x2,cy,14,0,7);g.fill();
+  const F=100/(r*r);const L=F*3;g.strokeStyle=C.r;g.lineWidth=3;g.beginPath();g.moveTo(x2-14,cy);g.lineTo(x2-14-L,cy);g.stroke();g.beginPath();g.moveTo(x1+26,cy);g.lineTo(x1+26+L,cy);g.stroke();
+  g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('引力 ∝ 1/r²',150,30);
+  ro.innerHTML='萬有引力 F ∝ (m₁×m₂)÷r²　目前相對引力 <b style="color:'+C.y+'">'+F.toFixed(1)+'</b>　（距離變2倍→引力變 1/4）';
+  requestAnimationFrame(loop);})();};
+
+// 地震波（P波/S波）
+S.seismic=function(host){const g=cv(host,440,220);const c=ctrl(host);const ro=readout(host);let t=0;
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">發生地震</button>');b.onclick=function(){t=0.001;};c.appendChild(b);
+ (function loop(){g.clearRect(0,0,440,220);g.fillStyle='rgba(120,90,60,.4)';g.fillRect(0,120,440,100);
+  const ex=140,ey=120;g.fillStyle=C.r;g.beginPath();g.arc(ex,ey,6,0,7);g.fill();g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('震源',ex-14,ey-10);g.fillText('觀測站 🏠',330,112);
+  if(t>0){t+=0.02;const p=t*120,s=t*72;g.strokeStyle=C.b;g.lineWidth=2;g.beginPath();g.arc(ex,ey,p,0,Math.PI,true);g.stroke();g.strokeStyle=C.r;g.beginPath();g.arc(ex,ey,s,0,Math.PI,true);g.stroke();if(p>300)t=0;}
+  g.fillStyle=C.b;g.fillText('P波(快·先到)',20,30);g.fillStyle=C.r;g.fillText('S波(慢·後到)',20,48);
+  ro.innerHTML='地震波：<b style="color:'+C.b+'">P波快</b>先抵達、<b style="color:'+C.r+'">S波慢</b>後到，兩者<b style="color:'+C.y+'">到時差</b>越大代表震央越遠';
+  requestAnimationFrame(loop);})();};
+
+// 太陽系（行星公轉）
+S.solar=function(host){const g=cv(host,320,320);const c=ctrl(host);const ro=readout(host);let t=0;
+ const P=[[40,0.9,C.b,'水'],[70,0.62,C.g,'金'],[100,0.45,'#6cf','地'],[135,0.32,C.r,'火']];
+ (function loop(){t+=0.01;g.clearRect(0,0,320,320);const cx=160,cy=160;
+  g.strokeStyle='rgba(244,241,232,.15)';P.forEach(p=>{g.beginPath();g.arc(cx,cy,p[0],0,7);g.stroke();});
+  g.fillStyle=C.y;g.beginPath();g.arc(cx,cy,16,0,7);g.fill();
+  P.forEach(p=>{const a=t*p[1];const x=cx+Math.cos(a)*p[0],y=cy+Math.sin(a)*p[0];g.fillStyle=p[2];g.beginPath();g.arc(x,y,6,0,7);g.fill();});
+  ro.innerHTML='行星繞太陽公轉：<b style="color:'+C.y+'">越靠內側公轉越快</b>（克卜勒定律），軌道近圓形';
+  requestAnimationFrame(loop);})();};
+
+// 生態系能量金字塔（10% 法則）
+S.energyflow=function(host){const g=cv(host,420,240);const c=ctrl(host);const ro=readout(host);
+ const lv=[['生產者',1000,C.g],['初級消費者',100,C.b],['次級消費者',10,C.y],['高級消費者',1,C.r]];
+ (function loop(){g.clearRect(0,0,420,240);g.font='13px sans-serif';
+  lv.forEach((L,i)=>{const w=40+Math.log10(L[1]+1)*90;const y=40+i*48;g.fillStyle=L[2];g.fillRect(210-w/2,y,w,38);g.fillStyle='#16241c';g.fillText(L[0]+'  '+L[1]+' 單位',210-w/2+6,y+23);});
+  ro.innerHTML='能量沿食物鏈流動，每層約只有 <b style="color:'+C.y+'">10%</b> 傳到上一層 → 營養階層越高能量越少、層數有限';
+  requestAnimationFrame(loop);})();};
+
+// 酵素活性（溫度）
+S.enzyme=function(host){let T=37;const g=cv(host,420,200);const c=ctrl(host);
+ slider(c,'溫度(℃)',0,80,T,5,v=>T=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,420,200);g.strokeStyle='rgba(244,241,232,.25)';g.beginPath();g.moveTo(40,170);g.lineTo(410,170);g.moveTo(40,170);g.lineTo(40,20);g.stroke();
+  g.strokeStyle=C.g;g.lineWidth=2;g.beginPath();for(let x=0;x<=360;x+=4){const tt=x/360*80;const act=Math.exp(-Math.pow((tt-37)/16,2));g.lineTo(40+x,170-act*130);}g.stroke();
+  const act=Math.exp(-Math.pow((T-37)/16,2));const mx=40+T/80*360;g.fillStyle=C.r;g.beginPath();g.arc(mx,170-act*130,6,0,7);g.fill();
+  g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('活性',12,30);g.fillText('溫度→',360,188);
+  let st=T<30?'偏低：分子運動慢，活性低':(T<=42?'接近最適溫(約37℃)，活性最高':'過高：酵素變性失去活性');
+  ro.innerHTML='酵素活性 <b style="color:'+C.y+'">'+(act*100).toFixed(0)+'%</b>　'+st+'（且具受質專一性）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
