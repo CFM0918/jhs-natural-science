@@ -37,6 +37,10 @@ SIMMAP = {
  '八下6-2':'friction','八下6-3':'pressure',
  '八下2-2':'activity','八下2-3':'activity',
  '九上2-3':'newton','九上3-2':'energy',
+ '八下1-2':'conserve','八下6-1':'force',
+ '九上2-1':'inertia','九上3-1':'work','九上3-3':'energy',
+ '九上4-1':'static','九上6-1':'plate','九上5-1':'watercycle',
+ '生物8-1':'predprey',
 }
 SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和模擬','rate':'反應速率碰撞模擬',
  'motion':'運動 v-t 模擬','fma':'F=ma 模擬','ohm':'歐姆定律電路模擬','magnet':'電磁鐵模擬',
@@ -44,6 +48,8 @@ SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和�
  'photosyn':'光合作用速率模擬','circuit':'電路通路模擬','concentration':'溶液濃度模擬',
  'heat':'熱傳播模擬','heatcurve':'加熱曲線模擬','echo':'回聲測距模擬','friction':'摩擦力模擬',
  'pressure':'壓力模擬','activity':'金屬活性置換模擬','newton':'作用反作用模擬','energy':'力學能守恆模擬',
+ 'conserve':'質量守恆天平模擬','force':'合力向量模擬','inertia':'慣性(牛頓第一)模擬','work':'功與功率模擬',
+ 'static':'靜電相吸相斥模擬','plate':'板塊運動模擬','watercycle':'水循環模擬','predprey':'掠食者-獵物模擬',
  'match':'概念互動配對'}
 
 HUB_CSS = """
@@ -173,7 +179,7 @@ def build(L, runcode):
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
-<script src="../sims.js?v=3"></script>
+<script src="../sims.js?v=4"></script>
 <script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
 </body></html>'''
     return doc

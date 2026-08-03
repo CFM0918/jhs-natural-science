@@ -297,6 +297,93 @@ S.energy=function(host){let h0=1;const g=cv(host,480,240);const c=ctrl(host);
   ro.innerHTML='不計摩擦：位能+動能=<b style="color:'+C.g+'">定值(守恆)</b>　高處位能大、低處動能大（互相轉換）';
   requestAnimationFrame(loop);})();};
 
+// 質量守恆定律（天平）
+S.conserve=function(host){let closed=true;const g=cv(host,420,220);const c=ctrl(host);
+ [['密閉系統',true],['開放系統',false]].forEach(([lab,v])=>{const b=el('<button style="cursor:pointer;background:'+(v===closed?C.y:'none')+';color:'+(v===closed?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 14px;font-weight:700">'+lab+'</button>');b.onclick=function(){closed=v;Array.prototype.forEach.call(c.querySelectorAll('button'),function(x){x.style.background='none';x.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,420,220);const reacted=(t%4)>2;const tilt=(reacted&&!closed)?-0.13:0;
+  const px=210,py=70;g.strokeStyle=C.chalk;g.lineWidth=3;g.beginPath();g.moveTo(px,py);g.lineTo(px,180);g.stroke();
+  g.save();g.translate(px,py);g.rotate(tilt);g.beginPath();g.moveTo(-110,0);g.lineTo(110,0);g.stroke();
+  g.fillStyle='rgba(159,200,216,.3)';g.fillRect(-130,-2,40,30);g.fillRect(90,-2,40,30);
+  g.fillStyle=reacted?C.r:C.b;g.font='20px sans-serif';g.fillText('⚗',-118,20);g.fillStyle=C.chalk;g.font='16px sans-serif';g.fillText('◼',100,20);g.restore();
+  g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('反應瓶',150,205);g.fillText('砝碼',300,205);
+  ro.innerHTML=closed?'<b style="color:'+C.g+'">密閉：質量守恆</b>　反應前後總質量相等，天平維持平衡':(reacted?'<b style="color:'+C.r+'">開放：氣體逸出→變輕</b>　質量並未消失，只是跑到空氣中':'反應進行中…');
+  requestAnimationFrame(loop);})();};
+
+// 牛頓第一定律（慣性）
+S.inertia=function(host){let fric=false,v=0,x=40;const g=cv(host,440,150);const c=ctrl(host);
+ const bf=el('<button style="cursor:pointer;background:none;color:'+C.b+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 14px;font-weight:700">切換：無摩擦</button>');bf.onclick=function(){fric=!fric;bf.textContent='切換：'+(fric?'有摩擦':'無摩擦');};c.appendChild(bf);
+ const bp=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">推一下</button>');bp.onclick=function(){v=3.2;};c.appendChild(bp);
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,440,150);g.strokeStyle='rgba(244,241,232,.3)';g.beginPath();g.moveTo(0,110);g.lineTo(440,110);g.stroke();
+  if(fric)v*=0.985;x+=v;if(x>380){x=380;v=0;}g.fillStyle=C.g;g.fillRect(x,80,44,30);
+  if(v>0.05){g.strokeStyle=C.b;g.lineWidth=3;g.beginPath();g.moveTo(x+44,95);g.lineTo(x+44+v*8,95);g.stroke();}
+  ro.innerHTML=v>0.05?(fric?'<b style="color:'+C.r+'">有摩擦</b>：受外力(摩擦)漸慢最終停止':'<b style="color:'+C.g+'">無摩擦</b>：不受外力→等速直線前進（慣性）'):'靜者恆靜——按「推一下」給初速觀察慣性';
+  requestAnimationFrame(loop);})();};
+
+// 功與功率
+S.work=function(host){let F=30,s=6,t=4;const g=cv(host,440,140);const c=ctrl(host);
+ slider(c,'施力 F(N)',10,60,F,5,v=>F=v);slider(c,'距離 s(m)',1,10,s,1,v=>s=v);slider(c,'時間 t(s)',1,10,t,1,v=>t=v);
+ const ro=readout(host);let px=0;
+ (function loop(){px+=0.008;if(px>1)px=0;g.clearRect(0,0,440,140);g.strokeStyle='rgba(244,241,232,.3)';g.beginPath();g.moveTo(0,100);g.lineTo(440,100);g.stroke();
+  const x=40+px*(s/10)*320;g.fillStyle=C.g;g.fillRect(x,70,40,30);g.strokeStyle=C.b;g.lineWidth=3;g.beginPath();g.moveTo(x+40,85);g.lineTo(x+40+F*0.7,85);g.stroke();g.fillStyle=C.b;g.font='12px sans-serif';g.fillText('F',x+44+F*0.7,82);
+  const W=F*s,P=(W/t);ro.innerHTML='功 W = F×s = '+F+'×'+s+' = <b style="color:'+C.y+'">'+W+' J</b>　｜　功率 P = W÷t = <b style="color:'+C.g+'">'+P.toFixed(1)+' W</b>';
+  requestAnimationFrame(loop);})();};
+
+// 合力（同向/反向）
+S.force=function(host){let F1=6,F2=4,same=true;const g=cv(host,440,170);const c=ctrl(host);
+ slider(c,'力 F1(N)',1,10,F1,1,v=>F1=v);slider(c,'力 F2(N)',1,10,F2,1,v=>F2=v);
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">同向</button>');b.onclick=function(){same=!same;b.textContent=same?'同向':'反向';};c.appendChild(b);
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,440,170);const cx=220,cy=60;g.fillStyle=C.g;g.fillRect(cx-15,cy-12,30,24);
+  g.strokeStyle=C.b;g.lineWidth=4;g.beginPath();g.moveTo(cx+15,cy);g.lineTo(cx+15+F1*14,cy);g.stroke();g.fillStyle=C.b;g.fillText('F1',cx+18+F1*14,cy-4);
+  const dir=same?1:-1;g.strokeStyle=C.r;g.beginPath();if(same){g.moveTo(cx+15+F1*14,cy);g.lineTo(cx+15+F1*14+F2*14,cy);}else{g.moveTo(cx-15,cy);g.lineTo(cx-15-F2*14,cy);}g.stroke();g.fillStyle=C.r;g.fillText('F2',same?cx+18+(F1+F2)*14:cx-30-F2*14,cy-4);
+  const R=same?F1+F2:Math.abs(F1-F2);g.strokeStyle=C.y;g.lineWidth=5;g.beginPath();g.moveTo(cx,120);const rd=same?1:(F1>=F2?1:-1);g.lineTo(cx+R*14*rd,120);g.stroke();g.fillStyle=C.y;g.fillText('合力',cx+R*14*rd+ (rd>0?4:-40),116);
+  ro.innerHTML='合力 = '+(same?F1+'+'+F2:'|'+F1+'−'+F2+'|')+' = <b style="color:'+C.y+'">'+R+' N</b>　'+(same?'（同向相加）':'（反向相減，方向偏向較大者）');
+  requestAnimationFrame(loop);})();};
+
+// 靜電（同性相斥/異性相吸）
+S.static=function(host){let q1=1,q2=-1;const g=cv(host,440,170);const c=ctrl(host);
+ const b1=el('<button style="cursor:pointer;background:'+C.r+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">左：＋</button>');b1.onclick=function(){q1=-q1;b1.textContent='左：'+(q1>0?'＋':'－');b1.style.background=q1>0?C.r:C.b;};c.appendChild(b1);
+ const b2=el('<button style="cursor:pointer;background:'+C.b+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">右：－</button>');b2.onclick=function(){q2=-q2;b2.textContent='右：'+(q2>0?'＋':'－');b2.style.background=q2>0?C.r:C.b;};c.appendChild(b2);
+ const ro=readout(host);let d=0;
+ (function loop(){const attract=q1*q2<0;d+=(attract?-0.6:0.6);if(d>60)d=60;if(d<-40)d=-40;g.clearRect(0,0,440,170);
+  const lx=180-d,rx=260+d,cy=85;g.fillStyle=q1>0?C.r:C.b;g.beginPath();g.arc(lx,cy,22,0,7);g.fill();g.fillStyle=q2>0?C.r:C.b;g.beginPath();g.arc(rx,cy,22,0,7);g.fill();
+  g.fillStyle='#16241c';g.font='20px sans-serif';g.fillText(q1>0?'＋':'－',lx-8,cy+7);g.fillText(q2>0?'＋':'－',rx-8,cy+7);
+  ro.innerHTML=attract?'<b style="color:'+C.g+'">異性電相吸</b>：一正一負，互相靠近':'<b style="color:'+C.r+'">同性電相斥</b>：同號電荷，互相遠離';
+  requestAnimationFrame(loop);})();};
+
+// 板塊運動
+S.plate=function(host){let mode='張裂';const g=cv(host,440,200);const c=ctrl(host);
+ ['張裂','聚合','錯動'].forEach(m=>{const b=el('<button style="cursor:pointer;background:'+(m==='張裂'?C.y:'none')+';color:'+(m==='張裂'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 14px;font-weight:700">'+m+'</button>');b.onclick=function(){mode=m;Array.prototype.forEach.call(c.querySelectorAll('button'),function(x){x.style.background='none';x.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,440,200);const o=Math.sin(t)*14+14;g.font='13px sans-serif';
+  if(mode==='張裂'){g.fillStyle='#8a6d3b';g.fillRect(30,90,160-o,70);g.fillRect(250+o,90,160,70);g.fillStyle=C.r;g.fillRect(190-o,110,120+2*o,50);g.fillStyle=C.chalk;g.fillText('板塊張裂→岩漿湧升成中洋脊/裂谷',70,80);}
+  else if(mode==='聚合'){g.fillStyle='#8a6d3b';g.fillRect(30,90,180+o,70);g.fillRect(230-o,90,180,70);g.fillStyle='#a98';g.beginPath();g.moveTo(190,90);g.lineTo(220,50-o);g.lineTo(250,90);g.fill();g.fillStyle=C.chalk;g.fillText('板塊聚合→擠壓隆起成山脈/海溝、地震',70,40);}
+  else{g.fillStyle='#8a6d3b';g.fillRect(30,80+o/2,190,45);g.fillRect(220,120-o/2,190,45);g.strokeStyle=C.r;g.lineWidth=3;g.beginPath();g.moveTo(220,60);g.lineTo(220,180);g.stroke();g.fillStyle=C.chalk;g.fillText('板塊錯動→沿斷層水平滑動，易引發地震',70,45);}
+  ro.innerHTML='板塊邊界：<b style="color:'+C.y+'">'+mode+'</b>　（張裂=分開｜聚合=相撞｜錯動=擦身）';
+  requestAnimationFrame(loop);})();};
+
+// 掠食者與獵物數量波動
+S.predprey=function(host){const g=cv(host,460,200);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=0.015;g.clearRect(0,0,460,200);g.strokeStyle='rgba(244,241,232,.25)';g.beginPath();g.moveTo(40,180);g.lineTo(450,180);g.moveTo(40,10);g.lineTo(40,180);g.stroke();
+  g.strokeStyle=C.g;g.lineWidth=2;g.beginPath();for(let x=0;x<=410;x+=3){g.lineTo(40+x,100-Math.sin((x/60)+t)*60);}g.stroke();
+  g.strokeStyle=C.r;g.beginPath();for(let x=0;x<=410;x+=3){g.lineTo(40+x,100-Math.sin((x/60)+t-0.9)*45);}g.stroke();
+  g.font='12px sans-serif';g.fillStyle=C.g;g.fillText('獵物(兔)',350,30);g.fillStyle=C.r;g.fillText('掠食者(狐)',350,48);
+  ro.innerHTML='獵物增多→掠食者跟著增多→獵物被吃變少→掠食者也減少　<b style="color:'+C.y+'">週期性波動、彼此制衡</b>';
+  requestAnimationFrame(loop);})();};
+
+// 水循環
+S.watercycle=function(host){const g=cv(host,460,240);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=0.02;g.clearRect(0,0,460,240);
+  g.fillStyle='rgba(100,150,220,.4)';g.fillRect(0,190,460,50);g.fillStyle=C.y;g.beginPath();g.arc(70,45,20,0,7);g.fill();
+  g.fillStyle='rgba(220,220,230,.5)';g.beginPath();g.arc(300,55,26,0,7);g.arc(330,55,22,0,7);g.arc(270,58,20,0,7);g.fill();
+  g.strokeStyle=C.b;g.lineWidth=2;for(let k=0;k<3;k++){const yy=(t*30+k*30)%110;g.globalAlpha=1-yy/110;g.beginPath();g.moveTo(150+k*15,185-yy);g.lineTo(153+k*15,178-yy);g.lineTo(147+k*15,178-yy);g.fill?g.fillStyle=C.b:0;g.stroke();}g.globalAlpha=1;
+  g.fillStyle=C.b;for(let k=0;k<4;k++){const yy=(t*40+k*22)%110;g.beginPath();g.arc(300+ (k-1.5)*12,90+yy,3,0,7);g.fill();}
+  g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('☀ 太陽',40,80);g.fillText('蒸發↑',120,140);g.fillText('☁ 凝結成雲',255,30);g.fillText('降水↓',285,150);g.fillText('海洋/河川',180,225);
+  ro.innerHTML='<b style="color:'+C.y+'">水循環</b>：海水受熱<b>蒸發</b>→水氣上升<b>凝結</b>成雲→<b>降水</b>回到地面→逕流入海（能量來自太陽）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
