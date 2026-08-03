@@ -579,6 +579,74 @@ S.selection=function(host){let env='淺色';let light=8,dark=8;const g=cv(host,3
   ro.innerHTML='環境：<b style="color:'+C.y+'">'+env+'樹幹</b>　淺色蛾 '+light+' ｜ 深色蛾 '+dark+'　→ 與環境相近者不易被捕食、存活繁殖多，族群比例改變（<b>天擇</b>）';
   requestAnimationFrame(loop);})();};
 
+// 混合物的分離
+S.separate=function(host){let m='過濾';const g=cv(host,320,240);const c=ctrl(host);
+ ['過濾','蒸發結晶'].forEach(x=>{const b=el('<button style="cursor:pointer;background:'+(x==='過濾'?C.y:'none')+';color:'+(x==='過濾'?'#16241c':C.b)+';border:1px solid rgba(159,200,216,.4);border-radius:8px;padding:5px 12px;font-weight:700">'+x+'</button>');b.onclick=function(){m=x;Array.prototype.forEach.call(c.querySelectorAll('button'),function(z){z.style.background='none';z.style.color=C.b;});b.style.background=C.y;b.style.color='#16241c';};c.appendChild(b);});
+ const ro=readout(host);let t=0;
+ (function loop(){t+=1;g.clearRect(0,0,320,240);g.font='12px sans-serif';
+  if(m==='過濾'){g.strokeStyle=C.chalk;g.lineWidth=2;g.beginPath();g.moveTo(110,60);g.lineTo(160,120);g.lineTo(210,60);g.stroke();
+   g.fillStyle='#8a6d3b';for(let k=0;k<6;k++)g.fillRect(130+k*8,80,5,5);
+   const dy=(t*2)%80;g.fillStyle=C.b;g.beginPath();g.arc(160,120+dy,3,0,7);g.fill();
+   g.strokeStyle=C.chalk;g.strokeRect(130,190,60,40);g.fillStyle='rgba(100,150,220,.4)';g.fillRect(131,205,58,24);
+   g.fillStyle=C.chalk;g.fillText('不溶固體留濾紙',70,55);g.fillText('濾液',195,215);}
+  else{g.strokeStyle=C.chalk;g.strokeRect(120,90,80,90);const lvl=Math.max(10,60-(t/6)%60);g.fillStyle='rgba(100,150,220,.4)';g.fillRect(121,180-lvl,78,lvl);
+   g.fillStyle=C.y;for(let k=0;k<Math.floor((60-lvl)/6);k++){g.fillRect(126+k*9,172,6,6);}g.fillStyle=C.r;g.font='20px sans-serif';g.fillText('🔥',150,205);
+   g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('加熱→水蒸發，溶質結晶析出',60,80);}
+  ro.innerHTML=m==='過濾'?'<b style="color:'+C.y+'">過濾</b>：分離「不溶固體＋液體」，固體留濾紙、液體成濾液':'<b style="color:'+C.y+'">蒸發結晶</b>：分離「可溶溶質＋溶劑」，加熱使溶劑蒸發、留下結晶';
+  requestAnimationFrame(loop);})();};
+
+// 岩石循環
+S.rockcycle=function(host){const g=cv(host,340,260);const c=ctrl(host);const ro=readout(host);let t=0,idx=0;
+ const nd=[[170,50,'火成岩',C.r],[270,190,'沉積岩',C.y],[70,190,'變質岩',C.b]];const proc=['冷卻凝固→火成岩','風化侵蝕搬運沉積→沉積岩','高溫高壓變質→變質岩'];
+ (function loop(){t+=0.01;if(t>1){t=0;idx=(idx+1)%3;}g.clearRect(0,0,340,260);
+  g.strokeStyle='rgba(244,241,232,.3)';g.lineWidth=2;for(let i=0;i<3;i++){const a=nd[i],b=nd[(i+1)%3];g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.stroke();}
+  nd.forEach((n,i)=>{g.fillStyle=i===idx?n[3]:'rgba(120,120,120,.5)';g.beginPath();g.arc(n[0],n[1],30,0,7);g.fill();g.fillStyle='#16241c';g.font='13px sans-serif';g.fillText(n[2],n[0]-24,n[1]+5);});
+  const a=nd[idx],b=nd[(idx+1)%3];g.fillStyle=C.chalk;g.beginPath();g.arc(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,6,0,7);g.fill();
+  ro.innerHTML='岩石循環進行中：<b style="color:'+C.y+'">'+proc[idx]+'</b>　（三大類岩石可互相轉變，能量來自地熱與太陽）';
+  requestAnimationFrame(loop);})();};
+
+// 溫室效應
+S.greenhouse=function(host){let gas=5;const g=cv(host,380,220);const c=ctrl(host);
+ slider(c,'溫室氣體濃度',1,10,gas,1,v=>gas=v);const ro=readout(host);let t=0;
+ (function loop(){t+=2;g.clearRect(0,0,380,220);g.fillStyle='rgba(120,90,60,.5)';g.fillRect(0,180,380,40);
+  g.fillStyle=C.y;g.beginPath();g.arc(40,40,18,0,7);g.fill();
+  g.strokeStyle='rgba(240,216,120,.4)';g.setLineDash([4,4]);g.beginPath();g.moveTo(0,110);g.lineTo(380,110);g.stroke();g.setLineDash([]);g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('溫室氣體層',150,105);
+  g.strokeStyle=C.y;g.lineWidth=2;const iy=(t)%140;g.beginPath();g.moveTo(60,iy);g.lineTo(66,iy+8);g.lineTo(72,iy);g.stroke();
+  for(let k=0;k<3;k++){const ry=(t+k*40)%140;const back=k<gas/3.5;g.strokeStyle=C.r;g.beginPath();if(back&&180-ry<110){g.moveTo(250,110+ry%70);g.lineTo(250,110);}else{g.moveTo(250,180-ry);g.lineTo(256,180-ry+6);g.lineTo(262,180-ry);}g.stroke();}
+  const temp=14+gas*1.8;ro.innerHTML='地表放出紅外線，部分被溫室氣體<b style="color:'+C.r+'">反射回地面</b>→增溫。濃度越高，均溫越高 ≈ <b style="color:'+C.y+'">'+temp.toFixed(1)+'℃</b>';
+  requestAnimationFrame(loop);})();};
+
+// 反射弧（縮手反射）
+S.reflex=function(host){let fire=-1;const g=cv(host,420,200);const c=ctrl(host);
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">刺激(觸碰熱源)</button>');b.onclick=function(){fire=0;};c.appendChild(b);
+ const wp=[[40,150,'受器(皮膚)'],[130,150,'感覺神經'],[210,90,'脊髓(中樞)'],[290,150,'運動神經'],[380,150,'動作器(肌肉)']];const ro=readout(host);
+ (function loop(){g.clearRect(0,0,420,200);g.strokeStyle='rgba(244,241,232,.3)';g.lineWidth=2;g.beginPath();for(let i=0;i<wp.length;i++){i===0?g.moveTo(wp[i][0],wp[i][1]):g.lineTo(wp[i][0],wp[i][1]);}g.stroke();
+  wp.forEach(p=>{g.fillStyle=C.b;g.beginPath();g.arc(p[0],p[1],6,0,7);g.fill();g.fillStyle=C.chalk;g.font='11px sans-serif';g.fillText(p[2],p[0]-24,p[1]+22);});
+  let stage='按「刺激」觀察反射路徑（不經大腦，反應快）';
+  if(fire>=0){fire+=0.012;const seg=Math.min(3,Math.floor(fire*4));const lp=(fire*4)%1;const a=wp[seg],bb=wp[seg+1];g.fillStyle=C.r;g.beginPath();g.arc(a[0]+(bb[0]-a[0])*lp,a[1]+(bb[1]-a[1])*lp,7,0,7);g.fill();stage='訊息傳遞：受器→感覺神經→脊髓→運動神經→肌肉收縮縮手';if(fire>=1){fire=-1;}}
+  ro.innerHTML='<b style="color:'+C.y+'">反射弧</b>：'+stage+'　（脊髓為中樞，不需大腦判斷，故反應迅速保護身體）';
+  requestAnimationFrame(loop);})();};
+
+// 消化與吸收
+S.digest=function(host){const g=cv(host,440,180);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=0.008;if(t>1)t=0;g.clearRect(0,0,440,180);
+  g.strokeStyle=C.chalk;g.lineWidth=2;g.beginPath();g.moveTo(30,60);g.lineTo(410,60);g.lineTo(410,110);g.lineTo(30,110);g.stroke();
+  g.fillStyle=C.chalk;g.font='11px sans-serif';g.fillText('口',40,50);g.fillText('胃',180,50);g.fillText('小腸',320,50);
+  const x=30+t*360;if(t<0.5){g.fillStyle=C.r;g.beginPath();g.arc(x,85,12,0,7);g.fill();g.fillStyle='#16241c';g.fillText('大分子',x-16,88);}
+  else{for(let k=0;k<5;k++){const ox=x+(k-2)*10;g.fillStyle=C.g;g.beginPath();g.arc(ox,85,4,0,7);g.fill();g.strokeStyle=C.g;g.beginPath();g.moveTo(ox,110);g.lineTo(ox,130);g.stroke();}}
+  ro.innerHTML=t<0.5?'食物中的<b style="color:'+C.r+'">大分子</b>經消化酵素分解…':'分解成<b style="color:'+C.g+'">小分子</b>→在<b>小腸</b>被吸收進入血液（消化＝把大分子變成能吸收的小分子）';
+  requestAnimationFrame(loop);})();};
+
+// 高低氣壓與風
+S.aircurrent=function(host){const g=cv(host,420,220);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=2;g.clearRect(0,0,420,220);g.fillStyle='rgba(120,90,60,.4)';g.fillRect(0,180,420,40);
+  g.fillStyle=C.chalk;g.font='13px sans-serif';g.fillText('高氣壓 H',70,30);g.fillText('低氣壓 L',300,30);
+  const d1=(t)%120;g.strokeStyle=C.b;g.lineWidth=2;g.beginPath();g.moveTo(90,40+d1);g.lineTo(86,34+d1);g.lineTo(94,34+d1);g.fill?g.fillStyle=C.b:0;g.stroke();
+  const d2=(t)%120;g.strokeStyle=C.r;g.beginPath();g.moveTo(330,180-d2);g.lineTo(326,186-d2);g.lineTo(334,186-d2);g.stroke();
+  const wx=(t*1.5)%200;g.strokeStyle=C.y;g.lineWidth=3;g.beginPath();g.moveTo(120+wx,170);g.lineTo(140+wx,170);g.stroke();g.beginPath();g.moveTo(140+wx,170);g.lineTo(134+wx,166);g.lineTo(134+wx,174);g.fill();
+  ro.innerHTML='<b style="color:'+C.b+'">高壓</b>氣流下沉、天氣晴；<b style="color:'+C.r+'">低壓</b>氣流上升、易成雲雨。地面風由<b style="color:'+C.y+'">高壓吹向低壓</b>';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;
