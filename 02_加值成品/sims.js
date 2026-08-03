@@ -444,6 +444,78 @@ S.enzyme=function(host){let T=37;const g=cv(host,420,200);const c=ctrl(host);
   ro.innerHTML='酵素活性 <b style="color:'+C.y+'">'+(act*100).toFixed(0)+'%</b>　'+st+'（且具受質專一性）';
   requestAnimationFrame(loop);})();};
 
+// 光的反射（入射角=反射角）
+S.reflect=function(host){let ang=45;const g=cv(host,360,240);const c=ctrl(host);
+ slider(c,'入射角(°)',0,80,ang,5,v=>ang=v);const ro=readout(host);
+ (function loop(){g.clearRect(0,0,360,240);const mx=180,my=190,len=150,rad=ang*Math.PI/180;
+  g.strokeStyle='#aaa';g.lineWidth=4;g.beginPath();g.moveTo(30,my);g.lineTo(330,my);g.stroke();
+  g.strokeStyle='rgba(244,241,232,.5)';g.lineWidth=1;g.setLineDash([5,5]);g.beginPath();g.moveTo(mx,my);g.lineTo(mx,40);g.stroke();g.setLineDash([]);
+  g.strokeStyle=C.b;g.lineWidth=3;g.beginPath();g.moveTo(mx-Math.sin(rad)*len,my-Math.cos(rad)*len);g.lineTo(mx,my);g.stroke();
+  g.strokeStyle=C.y;g.beginPath();g.moveTo(mx,my);g.lineTo(mx+Math.sin(rad)*len,my-Math.cos(rad)*len);g.stroke();
+  g.fillStyle=C.b;g.font='12px sans-serif';g.fillText('入射光',mx-Math.sin(rad)*len-10,my-Math.cos(rad)*len-6);g.fillStyle=C.y;g.fillText('反射光',mx+Math.sin(rad)*len-10,my-Math.cos(rad)*len-6);g.fillStyle=C.chalk;g.fillText('法線',mx+4,55);
+  ro.innerHTML='反射定律：<b style="color:'+C.y+'">入射角 = 反射角 = '+ang+'°</b>（皆從法線量起，且入射線、反射線、法線共平面）';
+  requestAnimationFrame(loop);})();};
+
+// 色光的混合（加法混色）
+S.color=function(host){const on={R:true,G:true,B:true};const g=cv(host,300,240);const c=ctrl(host);
+ [['R','紅',C.r],['G','綠',C.g],['B','藍',C.b]].forEach(([k,lab,col])=>{const b=el('<button style="cursor:pointer;background:'+col+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">'+lab+'光 ✓</button>');b.onclick=function(){on[k]=!on[k];b.style.opacity=on[k]?'1':'0.35';b.textContent=lab+'光 '+(on[k]?'✓':'✕');};c.appendChild(b);});
+ const ro=readout(host);
+ (function loop(){g.clearRect(0,0,300,240);g.save();g.globalCompositeOperation='lighter';
+  if(on.R){g.fillStyle='rgb(230,40,40)';g.beginPath();g.arc(150,95,60,0,7);g.fill();}
+  if(on.G){g.fillStyle='rgb(40,200,40)';g.beginPath();g.arc(120,150,60,0,7);g.fill();}
+  if(on.B){g.fillStyle='rgb(40,80,230)';g.beginPath();g.arc(180,150,60,0,7);g.fill();}
+  g.restore();
+  const s=(on.R?'R':'')+(on.G?'G':'')+(on.B?'B':'');const nm={'RGB':'白光','RG':'黃','RB':'洋紅','GB':'青','R':'紅','G':'綠','B':'藍','':'黑(無光)'}[s];
+  ro.innerHTML='光的三原色相加：目前 = <b style="color:'+C.y+'">'+nm+'</b>　（紅+綠=黃、紅+藍=洋紅、綠+藍=青、三色齊=白）';
+  requestAnimationFrame(loop);})();};
+
+// 電解質與導電性
+S.electrolyte=function(host){const kind={'強電解質(食鹽水)':12,'弱電解質(醋酸)':4,'非電解質(糖水)':0};let k='強電解質(食鹽水)';const g=cv(host,360,220);const c=ctrl(host);
+ const w=el('<label style="font-size:13px;color:'+C.b+'">溶液：<select style="font-size:14px"><option>強電解質(食鹽水)</option><option>弱電解質(醋酸)</option><option>非電解質(糖水)</option></select></label>');w.querySelector('select').onchange=e=>k=e.target.value;c.appendChild(w);
+ const ro=readout(host);const ions=[];for(let i=0;i<12;i++)ions.push({x:120+Math.random()*160,y:110+Math.random()*90,vx:(Math.random()-.5)*2,vy:(Math.random()-.5)*2,pos:i%2===0});
+ (function loop(){g.clearRect(0,0,360,220);const n=kind[k];
+  g.fillStyle='rgba(100,150,220,.2)';g.fillRect(110,90,180,110);g.strokeStyle=C.chalk;g.strokeRect(110,90,180,110);
+  g.fillStyle='#888';g.fillRect(120,60,14,40);g.fillRect(266,60,14,40);
+  const bright=n/12;g.fillStyle='rgba(240,216,120,'+(0.15+bright*0.85)+')';g.beginPath();g.arc(200,45,18,0,7);g.fill();g.strokeStyle=C.chalk;g.stroke();
+  for(let i=0;i<n;i++){const p=ions[i];p.x+=p.vx;p.y+=p.vy;if(p.x<118||p.x>282)p.vx*=-1;if(p.y<98||p.y>192)p.vy*=-1;g.fillStyle=p.pos?C.r:C.b;g.beginPath();g.arc(p.x,p.y,5,0,7);g.fill();}
+  ro.innerHTML=n>0?'<b style="color:'+C.y+'">會導電</b>：溶液中有自由移動的<b>離子</b>('+(k[0]==='強'?'完全解離、離子多、燈亮':'部分解離、離子少、燈暗')+')':'<b style="color:'+C.r+'">不導電</b>：糖水以分子存在，無離子，燈不亮';
+  requestAnimationFrame(loop);})();};
+
+// 可逆反應與化學平衡
+S.equilibrium=function(host){let t=0;const g=cv(host,440,200);const c=ctrl(host);
+ const b=el('<button style="cursor:pointer;background:'+C.y+';color:#16241c;border:none;border-radius:8px;padding:5px 14px;font-weight:700">重新開始</button>');b.onclick=function(){t=0;};c.appendChild(b);
+ const ro=readout(host);
+ (function loop(){t+=0.015;const e=1-Math.exp(-t*1.2);g.clearRect(0,0,440,200);
+  g.strokeStyle='rgba(244,241,232,.25)';g.beginPath();g.moveTo(40,170);g.lineTo(430,170);g.moveTo(40,170);g.lineTo(40,15);g.stroke();
+  const A=1-0.6*e,B=0.6*e;g.strokeStyle=C.b;g.lineWidth=2;g.beginPath();for(let x=0;x<=380;x+=3){const ee=1-Math.exp(-(t*x/380)*1.2);g.lineTo(40+x,170-(1-0.6*ee)*140);}g.stroke();
+  g.strokeStyle=C.g;g.beginPath();for(let x=0;x<=380;x+=3){const ee=1-Math.exp(-(t*x/380)*1.2);g.lineTo(40+x,170-(0.6*ee)*140);}g.stroke();
+  g.font='12px sans-serif';g.fillStyle=C.b;g.fillText('反應物',350,170-A*140-4);g.fillStyle=C.g;g.fillText('生成物',350,170-B*140-4);
+  ro.innerHTML=e>0.9?'<b style="color:'+C.y+'">達動態平衡</b>：正反應速率 = 逆反應速率，濃度不再改變(反應仍持續)':'反應進行中：正反應變慢、逆反應變快，逐漸趨向平衡…';
+  requestAnimationFrame(loop);})();};
+
+// 血液循環（體循環/肺循環）
+S.circulation=function(host){const g=cv(host,360,260);const c=ctrl(host);const ro=readout(host);
+ const wp=[[180,130],[180,55],[180,130],[180,215]];let seg=0,p=0;
+ (function loop(){p+=0.03;if(p>=1){p=0;seg=(seg+1)%4;}g.clearRect(0,0,360,260);
+  g.fillStyle=C.r;g.fillRect(160,110,40,44);g.fillStyle=C.chalk;g.font='12px sans-serif';g.fillText('心臟',165,136);
+  g.fillStyle='rgba(159,200,216,.3)';g.beginPath();g.arc(180,45,26,0,7);g.fill();g.fillStyle=C.chalk;g.fillText('肺',172,49);
+  g.fillStyle='rgba(168,208,160,.3)';g.fillRect(120,205,120,30);g.fillStyle=C.chalk;g.fillText('全身組織',150,224);
+  const a=wp[seg],bb=wp[(seg+1)%4];const x=a[0]+(bb[0]-a[0])*p,y=a[1]+(bb[1]-a[1])*p;const oxy=(seg===0||seg===3);g.fillStyle=oxy?C.r:C.b;g.beginPath();g.arc(x,y,7,0,7);g.fill();
+  const txt=['心臟→肺(肺循環)','肺→心臟：含氧血(鮮紅)','心臟→全身(體循環)','全身→心臟：缺氧血(暗紅)'][seg];
+  ro.innerHTML='<b style="color:'+C.y+'">'+txt+'</b>　肺循環換氣、體循環送養分；<b style="color:'+C.r+'">紅=含氧血</b>、<b style="color:'+C.b+'">藍=缺氧血</b>';
+  requestAnimationFrame(loop);})();};
+
+// 細胞分裂
+S.mitosis=function(host){const g=cv(host,360,220);const c=ctrl(host);const ro=readout(host);let t=0;
+ (function loop(){t+=0.006;if(t>1)t=0;g.clearRect(0,0,360,220);const cx=180,cy=110;
+  function chrom(x,y,col){g.strokeStyle=col;g.lineWidth=4;g.beginPath();g.moveTo(x-6,y-10);g.lineTo(x+6,y+10);g.moveTo(x+6,y-10);g.lineTo(x-6,y+10);g.stroke();}
+  let ph;if(t<0.25){ph='間期：染色體複製(DNA加倍)';g.strokeStyle=C.chalk;g.beginPath();g.arc(cx,cy,50,0,7);g.stroke();chrom(cx-15,cy,C.r);chrom(cx+15,cy,C.b);}
+  else if(t<0.5){ph='前中期：染色體排列到中央';g.strokeStyle=C.chalk;g.beginPath();g.arc(cx,cy,50,0,7);g.stroke();chrom(cx-18,cy,C.r);chrom(cx-2,cy,C.r);chrom(cx+14,cy,C.b);chrom(cx+30,cy,C.b);}
+  else if(t<0.75){ph='後期：姊妹染色分體被拉向兩極';const d=(t-0.5)/0.25*40;g.strokeStyle=C.chalk;g.beginPath();g.ellipse(cx,cy,60,48,0,0,7);g.stroke();chrom(cx-d-10,cy,C.r);chrom(cx-d+6,cy,C.b);chrom(cx+d-6,cy,C.r);chrom(cx+d+10,cy,C.b);}
+  else{ph='末期：分裂成兩個子細胞(染色體數相同)';g.strokeStyle=C.chalk;g.beginPath();g.arc(cx-55,cy,42,0,7);g.arc(cx+55,cy,42,0,7);g.stroke();chrom(cx-62,cy,C.r);chrom(cx-48,cy,C.b);chrom(cx+48,cy,C.r);chrom(cx+62,cy,C.b);}
+  ro.innerHTML='<b style="color:'+C.y+'">'+ph+'</b>　（體細胞有絲分裂：1 個母細胞→2 個染色體數相同的子細胞）';
+  requestAnimationFrame(loop);})();};
+
 // 通用互動配對（點左再點右配對）
 S.match=function(host,pairs){pairs=pairs||[];const c=el('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto"></div>');host.appendChild(c);
  const ro=readout(host);let sel=null,done=0;

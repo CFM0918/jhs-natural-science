@@ -43,6 +43,8 @@ SIMMAP = {
  '生物8-1':'predprey',
  '八上5-2':'heatcap','九上2-4':'gravity','九上6-2':'seismic',
  '九上7-3':'solar','生物8-2':'energyflow','生物2-1':'enzyme',
+ '八上4-1':'reflect','八上4-3':'color','八下3-1':'electrolyte',
+ '八下4-3':'equilibrium','生物3-2':'circulation','生物5-1':'mitosis',
 }
 SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和模擬','rate':'反應速率碰撞模擬',
  'motion':'運動 v-t 模擬','fma':'F=ma 模擬','ohm':'歐姆定律電路模擬','magnet':'電磁鐵模擬',
@@ -54,6 +56,8 @@ SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和�
  'static':'靜電相吸相斥模擬','plate':'板塊運動模擬','watercycle':'水循環模擬','predprey':'掠食者-獵物模擬',
  'heatcap':'熱量與比熱模擬','gravity':'萬有引力模擬','seismic':'地震波模擬','solar':'太陽系公轉模擬',
  'energyflow':'能量金字塔模擬','enzyme':'酵素活性模擬',
+ 'reflect':'光反射定律模擬','color':'色光混合模擬','electrolyte':'電解質導電模擬','equilibrium':'化學平衡模擬',
+ 'circulation':'血液循環模擬','mitosis':'細胞分裂模擬',
  'match':'概念互動配對'}
 
 HUB_CSS = """
@@ -183,7 +187,7 @@ def build(L, runcode):
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script>window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
-<script src="../sims.js?v=5"></script>
+<script src="../sims.js?v=6"></script>
 <script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
 </body></html>'''
     return doc
