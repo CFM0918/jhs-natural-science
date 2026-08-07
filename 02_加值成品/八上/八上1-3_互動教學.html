@@ -97,7 +97,7 @@ body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system
     <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">正確操作天平。</span></div>
     <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">情境判斷與誤差。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">買菜秤重</b>　<span style="font-size:15px;">市場電子秤讀公斤/公克</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">寄包裹</b>　<span style="font-size:15px;">郵局依質量計費</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">健康管理</b>　<span style="font-size:15px;">體重計量身體質量</span></div></div></div></div>
 <div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>質量和重量是同一件事</div><div class="bk"><span class="tag">正確 ✓</span>質量是物質多寡，重量是重力，不同</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>到月球質量會變小</div><div class="bk"><span class="tag">正確 ✓</span>質量不變，只有重量變小</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>質量單位是牛頓</div><div class="bk"><span class="tag">正確 ✓</span>牛頓是重量(力)的單位，質量是kg</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>用手直接拿砝碼</div><div class="bk"><span class="tag">正確 ✓</span>應用鑷子，避免油污改變質量</div></div></div></div></div>
-<div class="pane" id="simpane"><div class="hint">🔬 天平測質量模擬　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"></div></div>
+<div class="pane" id="simpane"><div class="hint">🔬 天平測質量模擬　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"><p style="text-align:center;color:rgba(244,241,232,.5);padding:30px 0">載入模擬中…</p></div></div>
 <div class="pane" id="game"><div class="hint">四選一單選，選好即知對錯！　｜　<a href="八上1-3_線上測驗.html" target="_blank" style="color:#f0d878">📝 完整線上測驗</a>　·　<a href="八上1-3_三種難度測驗卷.xlsx" style="color:#9fc8d8">⬇️ 下載 XLSX</a>　·　<a href="../../錯題本.html" style="color:#9fc8d8">📕 我的錯題本</a></div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script src="../progress.js?v=1"></script>
@@ -107,7 +107,20 @@ window.__QUIZ__=[{"q": "質量的SI單位是？", "opts": ["歸零鍵", "鑷子"
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+  if(t.dataset.s==='simpane') loadSimIfNeeded();});
+// sims.js 懶載入：只在使用者點開「互動模擬」分頁時才下載/初始化，加快首次進頁速度
+var __simsReady=false, __simInited=false;
+function loadSimIfNeeded(){
+  if(__simInited) return;
+  if(__simsReady){ __simInited=true; doInitSim(); return; }
+  var s=document.createElement('script');
+  s.src='../sims.js?v=13';
+  s.onload=function(){ __simsReady=true; __simInited=true; doInitSim(); };
+  s.onerror=function(){ document.getElementById('simhost').innerHTML='<p style="color:#e8a0a0;text-align:center">模擬載入失敗，請檢查網路連線後重新整理</p>'; };
+  document.head.appendChild(s);
+}
+window.loadSimIfNeeded=loadSimIfNeeded;
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
 // 簡報翻頁
 let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
@@ -138,6 +151,6 @@ function next(){idx++;grender();}
 window.start=start;window.choose=choose;window.next=next;
 showSlide(0);start('基礎卷');
 </script>
-<script src="../sims.js?v=12"></script>
-<script>window.addEventListener('DOMContentLoaded',function(){try{initSim('massbalance',document.getElementById('simhost'),null);}catch(e){document.getElementById('simhost').innerHTML='<p style=\'color:#e8a0a0;text-align:center\'>模擬載入失敗</p>';}});</script>
+<script>function doInitSim(){try{initSim('massbalance',document.getElementById('simhost'),null);}catch(e){document.getElementById('simhost').innerHTML='<p style=\'color:#e8a0a0;text-align:center\'>模擬載入失敗</p>';}}</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../../sw.js').catch(function(){});});}</script>
 </body></html>

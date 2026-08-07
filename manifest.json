@@ -1,0 +1,15 @@
+{
+  "name": "國中自然科加值教材",
+  "short_name": "國中自然",
+  "description": "108課綱國中自然科(生物+理化+地科)會考總複習：互動教學、Canvas模擬、線上測驗、歷屆試題",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d1410",
+  "theme_color": "#1a2e1a",
+  "lang": "zh-TW",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

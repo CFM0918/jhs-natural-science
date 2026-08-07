@@ -80,6 +80,7 @@ def main():
 <div class="foot">錯題資料儲存在瀏覽器 localStorage，換裝置或清除快取會重新開始　🤖 Claude Code 協助生成</div>
 <script src="02_加值成品/progress.js?v=1"></script>
 <script>{JS}</script>
+<script>if('serviceWorker' in navigator){{window.addEventListener('load',function(){{navigator.serviceWorker.register('sw.js').catch(function(){{}});}});}}</script>
 </body></html>'''
     open(os.path.join(ROOT,'錯題本.html'),'w',encoding='utf-8').write(doc)
     print('OK: 錯題本.html 已產出')

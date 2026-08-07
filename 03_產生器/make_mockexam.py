@@ -117,6 +117,7 @@ def main():
 <div class="foot">跨節混合模擬考・自動批改・答錯自動存入錯題本　🤖 Claude Code 協助生成</div>
 <script src="02_加值成品/progress.js?v=1"></script>
 <script>{JS}</script>
+<script>if('serviceWorker' in navigator){{window.addEventListener('load',function(){{navigator.serviceWorker.register('sw.js').catch(function(){{}});}});}}</script>
 </body></html>'''
     open(os.path.join(ROOT,'模擬考.html'),'w',encoding='utf-8').write(doc)
     print('OK: 模擬考.html 已產出')
