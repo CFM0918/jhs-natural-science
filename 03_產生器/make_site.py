@@ -126,14 +126,30 @@ function paintProgress(){
 }
 doSearch(); paintProgress();
 """
+SITE_URL = "https://cfm0918.github.io/jhs-natural-science/"
+SEO_DESC = "108課綱國中自然科(生物+理化+地科)會考總複習教材：103節互動教學、67種Canvas模擬、線上四選一測驗、錯題本、跨節模擬考，近10年會考歷屆試題524題。南一、康軒、翰林三版共同核心。"
 doc = f'''<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>國中自然科 加值教材｜生物·理化·地科</title>
+<title>國中自然科 加值教材｜生物·理化·地科·會考總複習</title>
+<meta name="description" content="{SEO_DESC}">
+<meta name="keywords" content="國中自然,國中理化,國中生物,國中地科,會考自然,會考總複習,歷屆試題,互動模擬,南一,康軒,翰林">
+<link rel="canonical" href="{SITE_URL}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="國中自然科 加值教材｜生物·理化·地科">
+<meta property="og:description" content="{SEO_DESC}">
+<meta property="og:url" content="{SITE_URL}">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="國中自然科 加值教材｜生物·理化·地科">
+<meta name="twitter:description" content="{SEO_DESC}">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a2e1a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body>{"".join(body)}
 <script src="02_加值成品/progress.js?v=1"></script>
 <script>{JS}</script>
+<script>if('serviceWorker' in navigator){{window.addEventListener('load',function(){{navigator.serviceWorker.register('sw.js').catch(function(){{}});}});}}</script>
 </body></html>'''
 open(os.path.join(ROOT, "index.html"), 'w', encoding='utf-8').write(doc)
 open(os.path.join(ROOT, ".nojekyll"), 'w').write('')   # 讓 Pages 原樣服務(含中文路徑)

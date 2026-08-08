@@ -179,7 +179,20 @@ JS = """
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+  if(t.dataset.s==='simpane') loadSimIfNeeded();});
+// sims.js 懶載入：只在使用者點開「互動模擬」分頁時才下載/初始化，加快首次進頁速度
+var __simsReady=false, __simInited=false;
+function loadSimIfNeeded(){
+  if(__simInited) return;
+  if(__simsReady){ __simInited=true; doInitSim(); return; }
+  var s=document.createElement('script');
+  s.src='../sims.js?v=13';
+  s.onload=function(){ __simsReady=true; __simInited=true; doInitSim(); };
+  s.onerror=function(){ document.getElementById('simhost').innerHTML='<p style="color:#e8a0a0;text-align:center">模擬載入失敗，請檢查網路連線後重新整理</p>'; };
+  document.head.appendChild(s);
+}
+window.loadSimIfNeeded=loadSimIfNeeded;
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
 // 簡報翻頁
 let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
@@ -240,15 +253,15 @@ def build(L, runcode):
 <div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox">{slides}</div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
 <div class="pane" id="info"><div class="hint">4 張資訊圖表（圖文並茂）</div>{infos}</div>
 <div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid">{flips}</div></div>
-<div class="pane" id="simpane"><div class="hint">🔬 {SIMNAME.get(simtype,"互動模擬")}　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"></div></div>
+<div class="pane" id="simpane"><div class="hint">🔬 {SIMNAME.get(simtype,"互動模擬")}　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"><p style="text-align:center;color:rgba(244,241,232,.5);padding:30px 0">載入模擬中…</p></div></div>
 <div class="pane" id="game"><div class="hint">四選一單選，選好即知對錯！　｜　<a href="{esc(L["code"])}_線上測驗.html" target="_blank" style="color:#f0d878">📝 完整線上測驗</a>　·　<a href="{esc(L["code"])}_三種難度測驗卷.xlsx" style="color:#9fc8d8">⬇️ 下載 XLSX</a>　·　<a href="../../錯題本.html" style="color:#9fc8d8">📕 我的錯題本</a></div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script src="../progress.js?v=1"></script>
 <script>window.__CODE__={json.dumps(L["code"], ensure_ascii=False)};window.__TITLE__={json.dumps(L["title"], ensure_ascii=False)};
 window.__QUIZ__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
-<script src="../sims.js?v=12"></script>
-<script>window.addEventListener('DOMContentLoaded',function(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}});</script>
+<script>function doInitSim(){{try{{initSim('{simtype}',document.getElementById('simhost'),{simparams});}}catch(e){{document.getElementById('simhost').innerHTML='<p style=\\'color:#e8a0a0;text-align:center\\'>模擬載入失敗</p>';}}}}</script>
+<script>if('serviceWorker' in navigator){{window.addEventListener('load',function(){{navigator.serviceWorker.register('../../sw.js').catch(function(){{}});}});}}</script>
 </body></html>'''
     return doc
 

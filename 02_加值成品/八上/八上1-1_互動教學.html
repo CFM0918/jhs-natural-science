@@ -119,7 +119,7 @@ body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system
  <div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:22px;display:flex;align-items:center;gap:18px;"><div style="font-size:28px;">🔁</div><div><div style="font-size:18px;font-weight:700;">重複測量取平均</div><div style="font-size:15px;color:rgba(244,241,232,0.8);">單次不可靠，多次平均可降低隨機誤差</div></div></div>
  </div></div></div>
 <div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>科學方法一定照固定順序走完</div><div class="bk"><span class="tag">正確 ✓</span>實際研究常反覆修正、來回檢驗，不是死板直線</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>假設被推翻代表實驗失敗</div><div class="bk"><span class="tag">正確 ✓</span>否證假設同樣是有價值的科學結果</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>測量值小數位愈多愈準確</div><div class="bk"><span class="tag">正確 ✓</span>超過儀器最小刻度的位數沒有意義</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>估計值是隨便猜一個</div><div class="bk"><span class="tag">正確 ✓</span>估計值須依最小刻度合理估到下一位</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>12cm 和 12.0cm 意義相同</div><div class="bk"><span class="tag">正確 ✓</span>12.0cm 精密到 0.1，有效數字不同</div></div></div></div></div>
-<div class="pane" id="simpane"><div class="hint">🔬 科學方法流程模擬　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"></div></div>
+<div class="pane" id="simpane"><div class="hint">🔬 科學方法流程模擬　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"><p style="text-align:center;color:rgba(244,241,232,.5);padding:30px 0">載入模擬中…</p></div></div>
 <div class="pane" id="game"><div class="hint">四選一單選，選好即知對錯！　｜　<a href="八上1-1_線上測驗.html" target="_blank" style="color:#f0d878">📝 完整線上測驗</a>　·　<a href="八上1-1_三種難度測驗卷.xlsx" style="color:#9fc8d8">⬇️ 下載 XLSX</a>　·　<a href="../../錯題本.html" style="color:#9fc8d8">📕 我的錯題本</a></div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script src="../progress.js?v=1"></script>
@@ -129,7 +129,20 @@ window.__QUIZ__=[{"q": "科學方法通常從哪一步開始？", "opts": ["不�
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+  if(t.dataset.s==='simpane') loadSimIfNeeded();});
+// sims.js 懶載入：只在使用者點開「互動模擬」分頁時才下載/初始化，加快首次進頁速度
+var __simsReady=false, __simInited=false;
+function loadSimIfNeeded(){
+  if(__simInited) return;
+  if(__simsReady){ __simInited=true; doInitSim(); return; }
+  var s=document.createElement('script');
+  s.src='../sims.js?v=13';
+  s.onload=function(){ __simsReady=true; __simInited=true; doInitSim(); };
+  s.onerror=function(){ document.getElementById('simhost').innerHTML='<p style="color:#e8a0a0;text-align:center">模擬載入失敗，請檢查網路連線後重新整理</p>'; };
+  document.head.appendChild(s);
+}
+window.loadSimIfNeeded=loadSimIfNeeded;
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
 // 簡報翻頁
 let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
@@ -160,6 +173,6 @@ function next(){idx++;grender();}
 window.start=start;window.choose=choose;window.next=next;
 showSlide(0);start('基礎卷');
 </script>
-<script src="../sims.js?v=12"></script>
-<script>window.addEventListener('DOMContentLoaded',function(){try{initSim('scimethod',document.getElementById('simhost'),null);}catch(e){document.getElementById('simhost').innerHTML='<p style=\'color:#e8a0a0;text-align:center\'>模擬載入失敗</p>';}});</script>
+<script>function doInitSim(){try{initSim('scimethod',document.getElementById('simhost'),null);}catch(e){document.getElementById('simhost').innerHTML='<p style=\'color:#e8a0a0;text-align:center\'>模擬載入失敗</p>';}}</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../../sw.js').catch(function(){});});}</script>
 </body></html>

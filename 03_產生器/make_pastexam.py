@@ -112,6 +112,7 @@ def build_year_page(year, items):
 <script>window.__YEARCODE__={json.dumps(str(year)+'年會考')};window.__YEARTITLE__={json.dumps(str(year)+'年國中教育會考自然科')};
 window.__ITEMS__={json.dumps(qjs, ensure_ascii=False)};</script>
 <script>{JS}</script>
+<script>if('serviceWorker' in navigator){{window.addEventListener('load',function(){{navigator.serviceWorker.register('../../sw.js').catch(function(){{}});}});}}</script>
 </body></html>'''
     return doc
 
@@ -141,6 +142,7 @@ body{{margin:0;background:#0f1a0f;color:#f4f1e8;font-family:'Noto Sans TC',sans-
 <div class="top"><h1>📚 歷屆試題總覽</h1><p>國中教育會考自然科・近10年（{years_all[0]}～{years_all[-1]}年）・官方題目與正解</p></div>
 <div class="wrap"><div class="nav2"><a href="index.html">← 回教材總覽</a></div>{rows}</div>
 <div class="foot">資料來源：國立臺灣師範大學心理與教育測驗研究發展中心(心測中心)　🤖 Claude Code 協助生成</div>
+<script>if('serviceWorker' in navigator){{window.addEventListener('load',function(){{navigator.serviceWorker.register('sw.js').catch(function(){{}});}});}}</script>
 </body></html>'''
     return doc
 

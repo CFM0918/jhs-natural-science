@@ -68,4 +68,5 @@ function clearAll(){if(confirm('確定要清空全部錯題紀錄？')){JHS.clea
 window.markDone=markDone;window.clearAll=clearAll;
 render();
 </script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body></html>

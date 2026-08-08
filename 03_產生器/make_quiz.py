@@ -138,6 +138,7 @@ def build(L, runcode):
 <script>window.__CODE__={json.dumps(L["code"], ensure_ascii=False)};window.__TITLE__={json.dumps(L["title"], ensure_ascii=False)};
 window.__QUIZ__={json.dumps(M, ensure_ascii=False)};window.__LVS__={json.dumps(lvs, ensure_ascii=False)};</script>
 <script>{JS}</script>
+<script>if('serviceWorker' in navigator){{window.addEventListener('load',function(){{navigator.serviceWorker.register('../../sw.js').catch(function(){{}});}});}}</script>
 </body></html>'''
     return doc
 

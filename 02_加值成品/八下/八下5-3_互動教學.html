@@ -97,7 +97,7 @@ body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system
     <div style="background:rgba(159,200,216,0.12);border:1px solid rgba(159,200,216,0.35);border-radius:10px;padding:18px;"><b style="color:var(--blue);">B 標準精熟</b>　<span style="font-size:15px;">判斷應用。</span></div>
     <div style="background:rgba(232,160,160,0.12);border:1px solid rgba(232,160,160,0.35);border-radius:10px;padding:18px;"><b style="color:var(--red);">C 挑戰延伸</b>　<span style="font-size:15px;">綜合分析。</span></div></div></div><div class="info"><div class="ititle">素養 · 生活連結</div><div class="isub">學以致用</div><div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div style="background:rgba(159,200,216,0.1);border:1px solid rgba(159,200,216,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(159,200,216);">寶特瓶回收</b>　<span style="font-size:15px;">塑膠分類</span></div><div style="background:rgba(240,216,120,0.1);border:1px solid rgba(240,216,120,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(240,216,120);">洗碗精去油</b>　<span style="font-size:15px;">清潔劑</span></div><div style="background:rgba(168,208,160,0.1);border:1px solid rgba(168,208,160,0.3);border-radius:10px;padding:16px;"><b style="color:rgb(168,208,160);">環保購物袋</b>　<span style="font-size:15px;">減塑</span></div></div></div></div>
 <div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid"><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>塑膠都能自然分解</div><div class="bk"><span class="tag">正確 ✓</span>多數塑膠難自然分解</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>清潔劑靠溶解油污</div><div class="bk"><span class="tag">正確 ✓</span>靠親油端包住油污帶走</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>所有塑膠都能回收</div><div class="bk"><span class="tag">正確 ✓</span>需依標示分類回收</div></div></div><div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>天然纖維才是聚合物</div><div class="bk"><span class="tag">正確 ✓</span>合成纖維也是聚合物</div></div></div></div></div>
-<div class="pane" id="simpane"><div class="hint">🔬 有機物碳骨架模擬　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"></div></div>
+<div class="pane" id="simpane"><div class="hint">🔬 有機物碳骨架模擬　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"><p style="text-align:center;color:rgba(244,241,232,.5);padding:30px 0">載入模擬中…</p></div></div>
 <div class="pane" id="game"><div class="hint">四選一單選，選好即知對錯！　｜　<a href="八下5-3_線上測驗.html" target="_blank" style="color:#f0d878">📝 完整線上測驗</a>　·　<a href="八下5-3_三種難度測驗卷.xlsx" style="color:#9fc8d8">⬇️ 下載 XLSX</a>　·　<a href="../../錯題本.html" style="color:#9fc8d8">📕 我的錯題本</a></div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script src="../progress.js?v=1"></script>
@@ -107,7 +107,20 @@ window.__QUIZ__=[{"q": "質輕耐用但難分解的聚合物？", "opts": ["塑�
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');});
+  t.classList.add('on');document.getElementById(t.dataset.s).classList.add('on');
+  if(t.dataset.s==='simpane') loadSimIfNeeded();});
+// sims.js 懶載入：只在使用者點開「互動模擬」分頁時才下載/初始化，加快首次進頁速度
+var __simsReady=false, __simInited=false;
+function loadSimIfNeeded(){
+  if(__simInited) return;
+  if(__simsReady){ __simInited=true; doInitSim(); return; }
+  var s=document.createElement('script');
+  s.src='../sims.js?v=13';
+  s.onload=function(){ __simsReady=true; __simInited=true; doInitSim(); };
+  s.onerror=function(){ document.getElementById('simhost').innerHTML='<p style="color:#e8a0a0;text-align:center">模擬載入失敗，請檢查網路連線後重新整理</p>'; };
+  document.head.appendChild(s);
+}
+window.loadSimIfNeeded=loadSimIfNeeded;
 document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
 // 簡報翻頁
 let si=0; const SL=document.querySelectorAll('.slidebox .slide-inner');
@@ -138,6 +151,6 @@ function next(){idx++;grender();}
 window.start=start;window.choose=choose;window.next=next;
 showSlide(0);start('基礎卷');
 </script>
-<script src="../sims.js?v=12"></script>
-<script>window.addEventListener('DOMContentLoaded',function(){try{initSim('organic',document.getElementById('simhost'),null);}catch(e){document.getElementById('simhost').innerHTML='<p style=\'color:#e8a0a0;text-align:center\'>模擬載入失敗</p>';}});</script>
+<script>function doInitSim(){try{initSim('organic',document.getElementById('simhost'),null);}catch(e){document.getElementById('simhost').innerHTML='<p style=\'color:#e8a0a0;text-align:center\'>模擬載入失敗</p>';}}</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../../sw.js').catch(function(){});});}</script>
 </body></html>
