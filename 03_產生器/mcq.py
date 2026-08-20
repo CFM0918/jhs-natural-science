@@ -35,6 +35,9 @@ def _distractors(corr, pool, seed):
     """從 pool 選 3 個誘答，優先形狀/單位相近。"""
     corr = str(corr)
     uniq = [x for x in dict.fromkeys(map(str, pool)) if x != corr]
+    # 排除與正解有文字包含關係的候選，避免暗示正解或造成雙解疑慮
+    # （例如正解「混合物」不可配上誘答「空氣是混合物」）
+    uniq = [x for x in uniq if x and corr and x not in corr and corr not in x]
     shp = _shape(corr)
     same = [x for x in uniq if _shape(x) == shp]
     if shp == 'num':
@@ -42,7 +45,12 @@ def _distractors(corr, pool, seed):
         su = [x for x in same if _unit(x) == u]
         if len(su) >= 3:
             same = su
-    base = same if len(same) >= 3 else uniq
+    if len(same) >= 3:
+        base = same
+    else:
+        # 樣本不足時退而求其次，但仍依長度與正解的接近程度排序，
+        # 避免一眼就能靠選項長短猜出答案
+        base = sorted(uniq, key=lambda x: abs(len(x) - len(corr)))[:8]
     picked = _shuffle(base, seed)[:3]
     # 不足補通用選項
     gi = 0
