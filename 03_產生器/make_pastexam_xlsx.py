@@ -62,7 +62,7 @@ def gen_xlsx(year, items):
 
 def main():
     n=0
-    for y in range(105,115):
+    for y in range(105,116):
         items=load_exam(y)
         if items is None: continue
         gen_xlsx(y, items); n+=1
