@@ -12,6 +12,7 @@ def q(path):
 def main():
     urls = ['', 'index.html', '歷屆試題總覽.html', '模擬考.html', '錯題本.html',
             '00_教材總目錄.html', '00_內容審閱.html', '00_教學內容審閱.html']
+    urls += [f'{bk}.html' for bk in BOOKS]
     for bk in BOOKS:
         d = os.path.join(ROOT, '02_加值成品', bk)
         if not os.path.isdir(d): continue
