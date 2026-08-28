@@ -120,7 +120,7 @@ def build_overview(years_done, years_all):
     rows = ''
     for y in years_all:
         if y in years_done:
-            rows += f'<div class="yr"><span class="y">{y}年</span><a class="btn" href="歷屆試題/{y}年會考自然科.html">📝 線上作答</a><a class="btn" href="歷屆試題/{y}年會考自然科.xlsx">⬇️ XLSX</a></div>'
+            rows += f'<div class="yr"><span class="y">{y}年</span><a class="btn" href="02_加值成品/歷屆試題/{y}年會考自然科.html">📝 線上作答</a><a class="btn" href="02_加值成品/歷屆試題/{y}年會考自然科.xlsx">⬇️ XLSX</a></div>'
         else:
             rows += f'<div class="yr off"><span class="y">{y}年</span><span class="soon">製作中…</span></div>'
     doc = f'''<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
