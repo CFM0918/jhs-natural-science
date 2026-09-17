@@ -146,19 +146,40 @@ body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system
 .info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
 .info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
 /* 延伸資源 */
-.phetbox{background:var(--board);border:1px solid rgba(240,216,120,.2);border-radius:12px;padding:16px;margin:0 0 20px}
-.phetbox h3{margin:0 0 8px;font-size:16px;color:var(--yellow)}
-.phetbox p{font-size:13.5px;color:rgba(244,241,232,.75);margin:0 0 12px}
-.phetbox iframe{width:100%;height:460px;border:0;border-radius:8px;background:#fff}
-.phetattr{font-size:11px;color:rgba(244,241,232,.4);margin-top:8px}
+.resintro{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,rgba(240,216,120,.1),rgba(159,200,216,.06));border:1px solid rgba(240,216,120,.25);border-radius:14px;padding:16px 18px;margin-bottom:22px}
+.resintro .ric{font-size:24px;line-height:1}
+.resintro .rit{flex:1}
+.resintro .rit b{color:var(--yellow);font-size:14.5px}
+.resintro .rit p{margin:4px 0 0;font-size:12.5px;color:rgba(244,241,232,.65);line-height:1.6}
+.reshead{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:15.5px;color:var(--chalk);font-weight:900}
+.reshead .n{background:rgba(240,216,120,.15);color:var(--yellow);font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px}
+.phetcard{background:linear-gradient(160deg,#1c2f20,#141f18);border:1px solid rgba(240,216,120,.28);border-radius:16px;overflow:hidden;margin-bottom:26px;box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.phetcard .phead{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid rgba(240,216,120,.15)}
+.phetcard .phead .picon{width:34px;height:34px;border-radius:9px;background:rgba(240,216,120,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.phetcard .phead .ptxt{flex:1;min-width:0}
+.phetcard .phead .ptitle{font-size:15.5px;font-weight:800;color:var(--chalk)}
+.phetcard .phead .psub{font-size:11.5px;color:var(--yellow);margin-top:1px}
+.phetcard .pbody{padding:14px 18px 6px}
+.phetcard .pbody p{font-size:13.5px;color:rgba(244,241,232,.72);margin:0 0 14px}
+.phetframe-wrap{position:relative;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#0b120d}
+.phetframe-wrap iframe{width:100%;height:440px;border:0;display:block;background:#fff}
+.pfoot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 18px 16px}
+.pfoot .plink{font-size:12.5px;font-weight:700;color:#16241c;background:var(--yellow);padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap}
+.pfoot .plink:hover{filter:brightness(1.08)}
+.phetattr{font-size:10.5px;color:rgba(244,241,232,.4);line-height:1.6}
 .phetattr a{color:#9fc8d8}
-.vidlist{display:flex;flex-direction:column;gap:10px}
-.vidcard{display:flex;align-items:center;gap:12px;background:var(--board);border:1px solid rgba(159,200,216,.2);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--chalk)}
-.vidcard:hover{border-color:rgba(159,200,216,.5)}
-.vidcard .vt{flex:1}
-.vidcard .vtitle{font-size:14.5px;font-weight:700}
-.vidcard .vsrc{font-size:12px;color:var(--blue);margin-top:2px}
-.vidcard .arrow{color:var(--yellow);font-size:18px}
+.vidgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:560px){.vidgrid{grid-template-columns:1fr}}
+.vidtile{display:block;text-decoration:none;color:var(--chalk);background:var(--board);border:1px solid rgba(159,200,216,.18);border-radius:12px;overflow:hidden;transition:transform .15s,border-color .15s}
+.vidtile:hover{transform:translateY(-2px);border-color:rgba(159,200,216,.5)}
+.vidtile .thumb{position:relative;width:100%;aspect-ratio:16/9;background:#0b120d center/cover no-repeat;overflow:hidden}
+.vidtile .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.vidtile .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.35))}
+.vidtile .play span{width:44px;height:44px;border-radius:50%;background:rgba(20,20,16,.55);border:1.5px solid rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;backdrop-filter:blur(2px)}
+.vidtile .vt{padding:11px 13px}
+.vidtile .vtitle{font-size:13.5px;font-weight:700;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vidtile .vsrc{margin-top:7px;display:inline-block;font-size:10.5px;font-weight:700;color:#16241c;background:var(--blue);padding:2px 8px;border-radius:999px}
+.vidtile .vsrc.lis{background:var(--purple)}
 /* 迷思翻牌 */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
 .flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
@@ -271,17 +292,29 @@ def build(L, runcode):
         phet_html=''
         if phet:
             src=f"https://phet.colorado.edu/sims/html/{phet['slug']}/latest/{phet['slug']}_all.html?locale={phet.get('locale','zh_TW')}"
-            phet_html=(f'<div class="phetbox"><h3>🧪 {esc(phet["title"])}（PhET互動模擬）</h3>'
-                       f'<p>{esc(phet["note"])}</p>'
-                       f'<iframe src="{src}" loading="lazy" allowfullscreen></iframe>'
-                       f'<div class="phetattr">Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under '
-                       f'<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>　·　'
-                       f'<a href="https://phet.colorado.edu" target="_blank">phet.colorado.edu</a></div></div>')
+            about=f"https://phet.colorado.edu/{phet.get('locale','zh_TW')}/simulations/{phet['slug']}"
+            phet_html=(f'<div class="phetcard">'
+                       f'<div class="phead"><div class="picon">🧪</div><div class="ptxt"><div class="ptitle">{esc(phet["title"])}</div><div class="psub">PhET INTERACTIVE SIMULATION · 科羅拉多大學波德分校</div></div></div>'
+                       f'<div class="pbody"><p>{esc(phet["note"])}</p>'
+                       f'<div class="phetframe-wrap"><iframe src="{src}" loading="lazy" allowfullscreen></iframe></div></div>'
+                       f'<div class="pfoot"><div class="phetattr">Simulation by PhET Interactive Simulations, University of Colorado Boulder<br>'
+                       f'licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></div>'
+                       f'<a class="plink" href="{about}" target="_blank" rel="noopener">↗ 開新分頁全螢幕操作</a></div></div>')
         vids=extras.get('videos',[])
-        vids_html=''.join(f'<a class="vidcard" href="{esc(v["url"])}" target="_blank" rel="noopener"><div class="vt"><div class="vtitle">{esc(v["title"])}</div><div class="vsrc">▶ {esc(v["source"])}</div></div><div class="arrow">›</div></a>' for v in vids)
-        vids_block=f'<h3 style="margin:20px 0 10px;font-size:16px;color:var(--yellow)">📺 精選教學影片</h3><div class="vidlist">{vids_html}</div>' if vids else ''
+        tiles=[]
+        for v in vids:
+            vid=v['url'].rstrip('/').split('/')[-1]
+            thumb=f'https://img.youtube.com/vi/{vid}/hqdefault.jpg'
+            is_lis='LIS' in v['source']
+            tiles.append(f'<a class="vidtile" href="{esc(v["url"])}" target="_blank" rel="noopener">'
+                         f'<div class="thumb"><img src="{thumb}" loading="lazy" alt="{esc(v["title"])}"><div class="play"><span>▶</span></div></div>'
+                         f'<div class="vt"><div class="vtitle">{esc(v["title"])}</div><span class="vsrc{" lis" if is_lis else ""}">{esc(v["source"])}</span></div></a>')
+        vids_block=(f'<div class="reshead">📺 精選教學影片 <span class="n">{len(vids)}部</span></div><div class="vidgrid">{"".join(tiles)}</div>') if vids else ''
         extra_tab='<button class="tab" data-s="extra">🔗 延伸資源</button>'
-        extra_pane=f'<div class="pane" id="extra"><div class="hint">精選校外免費資源，補充動畫與模擬，非本站原創內容</div>{phet_html}{vids_block}</div>'
+        extra_pane=(f'<div class="pane" id="extra">'
+                    f'<div class="resintro"><div class="ric">🌐</div><div class="rit"><b>精選校外免費資源</b>'
+                    f'<p>以下模擬與影片並非本站原創，來自 PhET Interactive Simulations（美國科羅拉多大學波德分校）與均一教育平台／LIS情境科學教材（台灣非營利機構），皆依授權條件免費提供教育使用，特別收錄以補充動畫與模擬效果。</p></div></div>'
+                    f'{phet_html}{vids_block}</div>')
     simtype=SIMMAP.get(L['code'],'match')
     # match 用主題名↔核心重點 當配對題（不足補生活連結）
     pairs=[[t['name'], t['points'][0]] for t in L['themes']]
