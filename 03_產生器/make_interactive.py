@@ -91,6 +91,39 @@ SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和�
 # 延伸資源：精選外部免費資源（PhET互動模擬 + 均一/LIS教學影片）。
 # 只列已人工確認連結有效、授權允許非商業教育使用的項目，逐節慢慢擴充。
 EXTRAS = {
+ '八上1-4': {
+  'phet': {'slug':'density','locale':'zh_TW','title':'密度',
+   'note':'拖曳不同材質、大小的方塊到水槽中，直接比較質量、體積、密度與是否浮沉的關係，還能自訂方塊密度做實驗。'}},
+ '八上2-4': {
+  'phet': {'slug':'concentration','locale':'zh_TW','title':'濃度',
+   'note':'選擇不同溶質加入水中，拖曳滑桿調整溶質量或加水量，即時看到濃度數值與顏色深淺的變化，還能用蒸發模式看濃度上升。'}},
+ '八上3-1': {
+  'phet': {'slug':'wave-on-a-string','locale':'zh_TW','title':'繩波',
+   'note':'調整振源頻率與振幅，觀察繩波的波長、週期如何隨之改變，也能手動甩動繩子感受波的傳遞。'}},
+ '八上3-2': {
+  'phet': {'slug':'sound-waves','locale':'zh_TW','title':'聲波',
+   'note':'調整聲源頻率與振幅，看見空氣分子疏密振動的樣子，並可比較不同介質、有無空氣（真空）時聲音傳播的差異。'}},
+ '八上4-1': {
+  'phet': {'slug':'geometric-optics-basics','locale':'zh_TW','title':'幾何光學：基礎',
+   'note':'切換「面鏡」模式，拖曳物體改變位置，即時看見反射成像的位置、正立倒立與虛實像變化。'}},
+ '八上4-2': {
+  'phet': {'slug':'geometric-optics','locale':'zh_TW','title':'幾何光學',
+   'note':'拖曳物體改變與凸透鏡的距離，即時看見成像位置、大小、正倒立隨物距變化，可對照焦距內外的不同成像規則。'}},
+ '八上4-3': {
+  'phet': {'slug':'color-vision','locale':'zh_TW','title':'彩色視覺',
+   'note':'切換不同色光照射物體，觀察眼睛實際接收到的色光組合，理解物體顏色其實來自反射光而非物體本身。'}},
+ '八上5-2': {
+  'phet': {'slug':'energy-forms-and-changes','locale':'zh_TW','title':'能量形式與轉化',
+   'note':'用相同熱源加熱不同材質的方塊，直接比較升溫快慢，體會比熱大小如何影響溫度變化的速度。'}},
+ '八上5-4': {
+  'phet': {'slug':'states-of-matter-basics','locale':'zh_TW','title':'物質三態：基礎',
+   'note':'調整溫度觀察分子模型在固態、液態、氣態間的排列與運動變化，親眼看見加熱曲線背後分子在做什麼。'}},
+ '八上6-1': {
+  'phet': {'slug':'build-an-atom','locale':'zh_TW','title':'建立一個原子',
+   'note':'親手加入質子、中子、電子組成原子，即時看到原子序、質量數、電荷數如何變化，並可查詢是哪個元素。'}},
+ '八上6-4': {
+  'phet': {'slug':'build-a-molecule','locale':'zh_TW','title':'建立一個分子',
+   'note':'拖曳原子組合成水、二氧化碳等常見分子，直接驗證化學式中的原子數與種類。'}},
  '九上4-3': {
   'phet': {'slug':'circuit-construction-kit-dc','locale':'zh_TW','title':'電路組裝套件：直流電',
    'note':'拖曳電池、燈泡、電阻、電流錶、電壓錶自由組裝電路，即時看見電流方向與數值變化，親手驗證 V=IR。'},
