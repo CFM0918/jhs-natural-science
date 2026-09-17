@@ -4,7 +4,14 @@
   🎯 學習目標 · 📽 簡報翻頁器(嵌入該節簡報,含SVG圖解) · 📊 資訊圖表(嵌入)
   · ⚠️ 迷思破解(翻牌) · 🎮 闖關自測(翻卡計分,分三難度)
 簡報/資訊圖直接沿用成品內容 → 圖文並茂。"""
-import os, glob, importlib.util, json, html
+import os, glob, importlib.util, json, html, urllib.parse
+
+def yt_id(url):
+    """從均一(路徑結尾)或YouTube watch?v=(query string)網址取出影片ID，供縮圖使用。"""
+    u = urllib.parse.urlparse(url)
+    qs = urllib.parse.parse_qs(u.query)
+    if 'v' in qs: return qs['v'][0]
+    return url.rstrip('/').split('/')[-1]
 
 GEN = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(GEN)
 def load(n):
@@ -91,9 +98,16 @@ SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和�
 # 延伸資源：精選外部免費資源（PhET互動模擬 + 均一/LIS教學影片）。
 # 只列已人工確認連結有效、授權允許非商業教育使用的項目，逐節慢慢擴充。
 EXTRAS = {
+ '八上1-1': {
+  'videos': [
+   {'title':'國二上1-1進入實驗室-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=JlsvyZdsOeY'},
+  ]},
  '八上1-4': {
   'phet': {'slug':'density','locale':'zh_TW','title':'密度',
-   'note':'拖曳不同材質、大小的方塊到水槽中，直接比較質量、體積、密度與是否浮沉的關係，還能自訂方塊密度做實驗。'}},
+   'note':'拖曳不同材質、大小的方塊到水槽中，直接比較質量、體積、密度與是否浮沉的關係，還能自訂方塊密度做實驗。'},
+  'videos': [
+   {'title':'國二上1-4密度-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=sPczbBdtQdI'},
+  ]},
  '八上2-4': {
   'phet': {'slug':'concentration','locale':'zh_TW','title':'濃度',
    'note':'選擇不同溶質加入水中，拖曳滑桿調整溶質量或加水量，即時看到濃度數值與顏色深淺的變化，還能用蒸發模式看濃度上升。'}},
@@ -336,7 +350,7 @@ def build(L, runcode):
         vids=extras.get('videos',[])
         tiles=[]
         for v in vids:
-            vid=v['url'].rstrip('/').split('/')[-1]
+            vid=yt_id(v['url'])
             thumb=f'https://img.youtube.com/vi/{vid}/hqdefault.jpg'
             is_lis='LIS' in v['source']
             tiles.append(f'<a class="vidtile" href="{esc(v["url"])}" target="_blank" rel="noopener">'
