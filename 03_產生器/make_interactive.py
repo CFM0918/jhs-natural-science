@@ -88,6 +88,19 @@ SIMNAME = {'wave':'波形模擬器','density':'浮沉模擬','ph':'酸鹼中和�
  'mutation':'基因突變模擬','biodiversity':'生物多樣性模擬',
  'match':'概念互動配對'}
 
+# 延伸資源：精選外部免費資源（PhET互動模擬 + 均一/LIS教學影片）。
+# 只列已人工確認連結有效、授權允許非商業教育使用的項目，逐節慢慢擴充。
+EXTRAS = {
+ '九上4-3': {
+  'phet': {'slug':'circuit-construction-kit-dc','locale':'zh_TW','title':'電路組裝套件：直流電',
+   'note':'拖曳電池、燈泡、電阻、電流錶、電壓錶自由組裝電路，即時看見電流方向與數值變化，親手驗證 V=IR。'},
+  'videos': [
+   {'title':'【觀念】歐姆定律','source':'均一教育平台','url':'https://www.junyiacademy.org/junyi-science/middle-school-physics-chemistry/s4zdl-/v/6rO7UyYVuHw'},
+   {'title':'【觀念】電阻與歐姆定律〈素養動畫〉','source':'均一教育平台','url':'https://www.junyiacademy.org/junyi-science/science-juni/middle-school-physics-chemistry/s4zdl-/v/3PZJBgUGJxs'},
+   {'title':'令人討厭的歐姆的一生〈LIS科學史〉','source':'均一教育平台（LIS情境科學教材製作）','url':'https://www.junyiacademy.org/junyi-science/science-juni/middle-school-physics-chemistry/s4zdl-/v/UUBnXXMLnqg'},
+  ]},
+}
+
 HUB_CSS = """
 :root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
 *{box-sizing:border-box}
@@ -132,6 +145,20 @@ body{margin:0;background:#0d1410;color:#f4f1e8;font-family:'Noto Sans TC',system
 .info{background:var(--board);border:1px solid rgba(240,216,120,.15);border-radius:12px;aspect-ratio:16/9;padding:30px 36px;margin:14px 0;display:flex;flex-direction:column;color:var(--chalk);overflow:hidden}
 .info .ititle{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;margin-bottom:4px}
 .info .isub{font-size:14px;color:var(--blue);margin-bottom:18px}
+/* 延伸資源 */
+.phetbox{background:var(--board);border:1px solid rgba(240,216,120,.2);border-radius:12px;padding:16px;margin:0 0 20px}
+.phetbox h3{margin:0 0 8px;font-size:16px;color:var(--yellow)}
+.phetbox p{font-size:13.5px;color:rgba(244,241,232,.75);margin:0 0 12px}
+.phetbox iframe{width:100%;height:460px;border:0;border-radius:8px;background:#fff}
+.phetattr{font-size:11px;color:rgba(244,241,232,.4);margin-top:8px}
+.phetattr a{color:#9fc8d8}
+.vidlist{display:flex;flex-direction:column;gap:10px}
+.vidcard{display:flex;align-items:center;gap:12px;background:var(--board);border:1px solid rgba(159,200,216,.2);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--chalk)}
+.vidcard:hover{border-color:rgba(159,200,216,.5)}
+.vidcard .vt{flex:1}
+.vidcard .vtitle{font-size:14.5px;font-weight:700}
+.vidcard .vsrc{font-size:12px;color:var(--blue);margin-top:2px}
+.vidcard .arrow{color:var(--yellow);font-size:18px}
 /* 迷思翻牌 */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
 .flip{height:130px;perspective:900px;cursor:pointer}.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
@@ -237,6 +264,24 @@ def build(L, runcode):
     slides=''.join(f'<div class="slide-inner" style="display:none">{s["html"]}</div>' for s in L['slides'])
     infos=''.join(f'<div class="info"><div class="ititle">{esc(c["title"])}</div><div class="isub">{esc(c["sub"])}</div>{c["body"]}</div>' for c in L.get('infographics',[]))
     flips=''.join(f'<div class="flip"><div class="in"><div class="fr"><span class="tag">迷思 ✗</span>{esc(m[0])}</div><div class="bk"><span class="tag">正確 ✓</span>{esc(m[1])}</div></div></div>' for m in L.get('misconceptions',[]))
+    extras=EXTRAS.get(L['code'])
+    extra_tab=''; extra_pane=''
+    if extras:
+        phet=extras.get('phet')
+        phet_html=''
+        if phet:
+            src=f"https://phet.colorado.edu/sims/html/{phet['slug']}/latest/{phet['slug']}_all.html?locale={phet.get('locale','zh_TW')}"
+            phet_html=(f'<div class="phetbox"><h3>🧪 {esc(phet["title"])}（PhET互動模擬）</h3>'
+                       f'<p>{esc(phet["note"])}</p>'
+                       f'<iframe src="{src}" loading="lazy" allowfullscreen></iframe>'
+                       f'<div class="phetattr">Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under '
+                       f'<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>　·　'
+                       f'<a href="https://phet.colorado.edu" target="_blank">phet.colorado.edu</a></div></div>')
+        vids=extras.get('videos',[])
+        vids_html=''.join(f'<a class="vidcard" href="{esc(v["url"])}" target="_blank" rel="noopener"><div class="vt"><div class="vtitle">{esc(v["title"])}</div><div class="vsrc">▶ {esc(v["source"])}</div></div><div class="arrow">›</div></a>' for v in vids)
+        vids_block=f'<h3 style="margin:20px 0 10px;font-size:16px;color:var(--yellow)">📺 精選教學影片</h3><div class="vidlist">{vids_html}</div>' if vids else ''
+        extra_tab='<button class="tab" data-s="extra">🔗 延伸資源</button>'
+        extra_pane=f'<div class="pane" id="extra"><div class="hint">精選校外免費資源，補充動畫與模擬，非本站原創內容</div>{phet_html}{vids_block}</div>'
     simtype=SIMMAP.get(L['code'],'match')
     # match 用主題名↔核心重點 當配對題（不足補生活連結）
     pairs=[[t['name'], t['points'][0]] for t in L['themes']]
@@ -247,7 +292,7 @@ def build(L, runcode):
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
 <style>{HUB_CSS}</style></head><body>
 <div class="top"><h1>{esc(L["code"])}　{esc(L["title"])}</h1><div class="g">{esc(GRADE[bk])}　互動教學</div>
-<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="simpane">🔬 互動模擬</button><button class="tab" data-s="game">🎮 闖關自測</button></div></div>
+<div class="tabs"><button class="tab on" data-s="goals">🎯 學習目標</button><button class="tab" data-s="slides">📽 授課簡報</button><button class="tab" data-s="info">📊 資訊圖表</button><button class="tab" data-s="misc">⚠️ 迷思破解</button><button class="tab" data-s="simpane">🔬 互動模擬</button><button class="tab" data-s="game">🎮 闖關自測</button>{extra_tab}</div></div>
 <div class="wrap">
 <div class="pane on" id="goals"><div class="leadbox">{esc(L["summary"])}</div><div class="goals">{goals}</div></div>
 <div class="pane" id="slides"><div class="hint">← → 翻頁，或用下方按鈕</div><div class="deck"><div class="slidebox">{slides}</div><div class="nav"><button id="pv" onclick="showSlide(si-1)">‹ 上一頁</button><span class="pg" id="pg"></span><button id="nx" onclick="showSlide(si+1)">下一頁 ›</button></div></div></div>
@@ -255,6 +300,7 @@ def build(L, runcode):
 <div class="pane" id="misc"><div class="hint">點卡片翻面看正確觀念 🔄</div><div class="grid">{flips}</div></div>
 <div class="pane" id="simpane"><div class="hint">🔬 {SIMNAME.get(simtype,"互動模擬")}　·　拖曳滑桿/按鈕操作，即時觀察變化</div><div id="simhost"><p style="text-align:center;color:rgba(244,241,232,.5);padding:30px 0">載入模擬中…</p></div></div>
 <div class="pane" id="game"><div class="hint">四選一單選，選好即知對錯！　｜　<a href="{esc(L["code"])}_線上測驗.html" target="_blank" style="color:#f0d878">📝 完整線上測驗</a>　·　<a href="{esc(L["code"])}_三種難度測驗卷.xlsx" style="color:#9fc8d8">⬇️ 下載 XLSX</a>　·　<a href="../../錯題本.html" style="color:#9fc8d8">📕 我的錯題本</a></div><div class="lv"><button data-l="基礎卷" class="on" onclick="start('基礎卷')">★☆☆ 基礎</button><button data-l="進階卷" onclick="start('進階卷')">★★☆ 進階</button><button data-l="挑戰卷" onclick="start('挑戰卷')">★★★ 挑戰</button></div><div id="gamebox"></div></div>
+{extra_pane}
 <div class="foot">互動教學 · 108課綱國中自然科　·　🤖 Claude Code</div></div>
 <script src="../progress.js?v=1"></script>
 <script>window.__CODE__={json.dumps(L["code"], ensure_ascii=False)};window.__TITLE__={json.dumps(L["title"], ensure_ascii=False)};
