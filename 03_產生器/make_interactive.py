@@ -102,15 +102,30 @@ EXTRAS = {
   'videos': [
    {'title':'國二上1-1進入實驗室-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=JlsvyZdsOeY'},
   ]},
+ '八上1-2': {
+  'videos': [
+   {'title':'國二上1-2測量','source':'國中理化自學','url':'https://www.youtube.com/watch?v=DbgC15x17Rw'},
+  ]},
+ '八上1-3': {
+  'videos': [
+   {'title':'國二上1-3質量的測量-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=QREBDD3Y01s'},
+  ]},
  '八上1-4': {
   'phet': {'slug':'density','locale':'zh_TW','title':'密度',
    'note':'拖曳不同材質、大小的方塊到水槽中，直接比較質量、體積、密度與是否浮沉的關係，還能自訂方塊密度做實驗。'},
   'videos': [
    {'title':'國二上1-4密度-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=sPczbBdtQdI'},
   ]},
+ '八上2-1': {
+  'videos': [
+   {'title':'國二上2-2物質-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=N4GbJfgj4fY'},
+  ]},
  '八上2-4': {
   'phet': {'slug':'concentration','locale':'zh_TW','title':'濃度',
-   'note':'選擇不同溶質加入水中，拖曳滑桿調整溶質量或加水量，即時看到濃度數值與顏色深淺的變化，還能用蒸發模式看濃度上升。'}},
+   'note':'選擇不同溶質加入水中，拖曳滑桿調整溶質量或加水量，即時看到濃度數值與顏色深淺的變化，還能用蒸發模式看濃度上升。'},
+  'videos': [
+   {'title':'國二上2-1溶液-濃度','source':'國中理化自學','url':'https://www.youtube.com/watch?v=1UrQpp6BokQ'},
+  ]},
  '八上3-1': {
   'phet': {'slug':'wave-on-a-string','locale':'zh_TW','title':'繩波',
    'note':'調整振源頻率與振幅，觀察繩波的波長、週期如何隨之改變，也能手動甩動繩子感受波的傳遞。'}},
@@ -138,6 +153,66 @@ EXTRAS = {
  '八上6-4': {
   'phet': {'slug':'build-a-molecule','locale':'zh_TW','title':'建立一個分子',
    'note':'拖曳原子組合成水、二氧化碳等常見分子，直接驗證化學式中的原子數與種類。'}},
+ '八下1-1': {
+  'videos': [
+   {'title':'國二下1-2化學反應式-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=J_UYbRE22eo'},
+  ]},
+ '八下1-2': {
+  'videos': [
+   {'title':'國二下1-1質量守恆定律-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=85KT5iGKDJM'},
+  ]},
+ '八下1-3': {
+  'videos': [
+   {'title':'國二下1-3原子量和分子量','source':'國中理化自學','url':'https://www.youtube.com/watch?v=7hUDchCUH6s'},
+  ]},
+ '八下2-1': {
+  'videos': [
+   {'title':'國二下2-1氧化還原-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=WDZ2ukAYKkc'},
+  ]},
+ '九上1-1': {
+  'videos': [
+   {'title':'國三上1-2位置與位移','source':'國中理化自學','url':'https://www.youtube.com/watch?v=iweUMGXCLDc'},
+  ]},
+ '九上1-2': {
+  'videos': [
+   {'title':'國三上1-3速度與速率-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=HEC2VZKQQYA'},
+  ]},
+ '九上1-3': {
+  'videos': [
+   {'title':'國三上1-4加速度-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=M0VrxO9tnss'},
+  ]},
+ '九上2-1': {
+  'videos': [
+   {'title':'國三上2-1慣性定律','source':'國中理化自學','url':'https://www.youtube.com/watch?v=UizBvaCqfeA'},
+  ]},
+ '九上2-2': {
+  'videos': [
+   {'title':'國三上2-2牛頓第二運動定律-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=04k3uiebXBE'},
+  ]},
+ '九上2-3': {
+  'videos': [
+   {'title':'國三上2-3牛頓第三運動定律-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=WTC387xlhxM'},
+  ]},
+ '九下1-1': {
+  'videos': [
+   {'title':'國三下2-2電解-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=uGt2vIkJVdE'},
+  ]},
+ '九下1-2': {
+  'videos': [
+   {'title':'國三下1-1電功率-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=W7yhYJeHNuo'},
+  ]},
+ '九下1-3': {
+  'videos': [
+   {'title':'國三下1-2用電安全','source':'國中理化自學','url':'https://www.youtube.com/watch?v=Wf7h_yIfvDk'},
+  ]},
+ '九下2-1': {
+  'videos': [
+   {'title':'國三下3-1磁鐵與磁場-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=TT4C6YtSwV0'},
+  ]},
+ '九下2-2': {
+  'videos': [
+   {'title':'國三下3-2電生磁(電流的磁效應)-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=V0abGDMHRCU'},
+  ]},
  '九上4-3': {
   'phet': {'slug':'circuit-construction-kit-dc','locale':'zh_TW','title':'電路組裝套件：直流電',
    'note':'拖曳電池、燈泡、電阻、電流錶、電壓錶自由組裝電路，即時看見電流方向與數值變化，親手驗證 V=IR。'},
