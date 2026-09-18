@@ -7,7 +7,10 @@
 以 md5 決定洗牌 → 跨次重產結果穩定。"""
 import hashlib
 
-GENERIC = ['以上皆非', '以上皆是', '無法判斷', '不一定']
+GENERIC = ['無法判斷', '不一定', '以上皆非', '以上皆是']
+# 「以上皆是」與「以上皆非」互斥，不可同時出現在同一題的選項中
+# （兩者並列會讓學生誤以為其中一個必為答案，也讓題目讀起來很怪）
+EXCLUSIVE = {'以上皆非': '以上皆是', '以上皆是': '以上皆非'}
 
 def _rng(*parts):
     h = hashlib.md5('｜'.join(map(str, parts)).encode('utf-8')).hexdigest()
@@ -52,10 +55,19 @@ def _distractors(corr, pool, seed):
         # 避免一眼就能靠選項長短猜出答案
         base = sorted(uniq, key=lambda x: abs(len(x) - len(corr)))[:8]
     picked = _shuffle(base, seed)[:3]
-    # 不足補通用選項
-    gi = 0
-    while len(picked) < 3:
-        g = GENERIC[gi % len(GENERIC)]; gi += 1
+    # 不足補通用選項（依序取，跳過與正解相同、已取過、或與已取選項互斥者）
+    for g in GENERIC:
+        if len(picked) >= 3:
+            break
+        if g == corr or g in picked:
+            continue
+        if EXCLUSIVE.get(g) in picked:
+            continue
+        picked.append(g)
+    # 保底：極端情況(題庫過小且正解本身就是通用選項)仍要湊滿3個且不重複
+    for g in ('答案不只一個', '選項均不正確', '無法從題目判斷'):
+        if len(picked) >= 3:
+            break
         if g != corr and g not in picked:
             picked.append(g)
     return picked[:3]

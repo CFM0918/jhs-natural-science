@@ -112,7 +112,7 @@ EXTRAS = {
   ]},
  '八上1-4': {
   'phet': {'slug':'density','locale':'zh_TW','title':'密度',
-   'note':'拖曳不同材質、大小的方塊到水槽中，直接比較質量、體積、密度與是否浮沉的關係，還能自訂方塊密度做實驗。'},
+   'note':'「介紹」畫面可換木頭、鋁、磚塊等材質，或選「自訂」自己調質量與體積，看方塊浮起來還是沉下去；「比較」畫面能一次擺出相同質量、相同體積或相同密度的方塊組，直接看出密度是怎麼決定浮沉的。'},
   'videos': [
    {'title':'國二上1-4密度-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=sPczbBdtQdI'},
   ]},
@@ -122,37 +122,37 @@ EXTRAS = {
   ]},
  '八上2-4': {
   'phet': {'slug':'concentration','locale':'zh_TW','title':'濃度',
-   'note':'選擇不同溶質加入水中，拖曳滑桿調整溶質量或加水量，即時看到濃度數值與顏色深淺的變化，還能用蒸發模式看濃度上升。'},
+   'note':'選好溶質（飲料粉、硫酸銅等）後搖罐子把它加進水裡，再用水龍頭加水、用排水口放水，或拉「蒸發」滑桿把水蒸乾，濃度計會即時顯示濃度，杯子的顏色也跟著變深或變淡。'},
   'videos': [
    {'title':'國二上2-1溶液-濃度','source':'國中理化自學','url':'https://www.youtube.com/watch?v=1UrQpp6BokQ'},
   ]},
  '八上3-1': {
   'phet': {'slug':'wave-on-a-string','locale':'zh_TW','title':'繩波',
-   'note':'調整振源頻率與振幅，觀察繩波的波長、週期如何隨之改變，也能手動甩動繩子感受波的傳遞。'}},
+   'note':'選「Oscillate」讓振源持續上下振動，調整「振幅」與「頻率」滑桿，再用畫面上的尺去量波長、用碼錶量週期；也可以改選「Manual」自己甩動扳手，親手感覺一個波是怎麼往前傳出去的。'}},
  '八上3-2': {
   'phet': {'slug':'sound-waves','locale':'zh_TW','title':'聲波',
-   'note':'調整聲源頻率與振幅，看見空氣分子疏密振動的樣子，並可比較不同介質、有無空氣（真空）時聲音傳播的差異。'}},
+   'note':'「介紹」畫面調整頻率與振幅，可以看見聲音就是空氣一疏一密地振動傳出去；切到「空氣壓力」畫面，把「盒裡的空氣密度」調到最小（接近真空），就會看到聲音傳不出去——證明聲音需要介質。'}},
  '八上4-1': {
   'phet': {'slug':'geometric-optics-basics','locale':'zh_TW','title':'幾何光學：基礎',
-   'note':'切換「面鏡」模式，拖曳物體改變位置，即時看見反射成像的位置、正立倒立與虛實像變化。'}},
+   'note':'上方可切換「透鏡」與「鏡面」兩個畫面。選「鏡面」後拖曳鉛筆改變它到鏡子的距離，畫面會即時畫出反射光線與成像位置，並標示出是實像還是虛像、是正立還是倒立。'}},
  '八上4-2': {
   'phet': {'slug':'geometric-optics','locale':'zh_TW','title':'幾何光學',
-   'note':'拖曳物體改變與凸透鏡的距離，即時看見成像位置、大小、正倒立隨物距變化，可對照焦距內外的不同成像規則。'}},
+   'note':'在「透鏡」畫面可選凸透鏡或凹透鏡，勾選「焦點」「兩倍焦距點」把 F 與 2F 標出來，再拖曳物體改變物距，就能一次看清楚：物體在 2F 外、2F 與 F 之間、F 以內時，成像的位置、大小、正倒立與虛實像各有什麼不同。'}},
  '八上4-3': {
   'phet': {'slug':'color-vision','locale':'zh_TW','title':'彩色視覺',
-   'note':'切換不同色光照射物體，觀察眼睛實際接收到的色光組合，理解物體顏色其實來自反射光而非物體本身。'}},
+   'note':'「紅綠藍光源」畫面可以分別調整紅、綠、藍三道光的強度，照到同一個地方，親眼看見三原色相加會變成黃、青、洋紅與白光；「單色光源」畫面則可加上彩色濾鏡，看看哪些色光被擋下來、眼睛最後看到什麼顏色。'}},
  '八上5-2': {
   'phet': {'slug':'energy-forms-and-changes','locale':'zh_TW','title':'能量形式與轉化',
-   'note':'用相同熱源加熱不同材質的方塊，直接比較升溫快慢，體會比熱大小如何影響溫度變化的速度。'}},
+   'note':'「簡介」畫面把鐵塊、磚塊、水或橄欖油放到兩個加熱器上一起加熱或降溫，溫度計會同時顯示各自的溫度。用同樣的熱加同樣的時間，比熱小的鐵升得快、比熱大的水升得慢，一眼就看得出差別。'}},
  '八上5-4': {
   'phet': {'slug':'states-of-matter-basics','locale':'zh_TW','title':'物質三態：基礎',
-   'note':'調整溫度觀察分子模型在固態、液態、氣態間的排列與運動變化，親眼看見加熱曲線背後分子在做什麼。'}},
+   'note':'選水（或氖、氬、氧），按「固態」「液態」「氣態」看分子排列的差別，再用底下的「熱／涼」控制器慢慢加熱或冷卻，就能親眼看見加熱曲線背後分子是怎麼從整齊排列變成到處亂飛的。'}},
  '八上6-1': {
   'phet': {'slug':'build-an-atom','locale':'zh_TW','title':'建立一個原子',
-   'note':'親手加入質子、中子、電子組成原子，即時看到原子序、質量數、電荷數如何變化，並可查詢是哪個元素。'}},
+   'note':'從三個桶子裡把質子、中子、電子一顆顆拖進原子裡，右邊的週期表會立刻標出你做出的是哪個元素，同時顯示質量數與電荷；改變電子數會變成正離子或負離子，改變中子數則元素不變——原子序（質子數）才是元素的身分證。'}},
  '八上6-4': {
   'phet': {'slug':'build-a-molecule','locale':'zh_TW','title':'建立一個分子',
-   'note':'拖曳原子組合成水、二氧化碳等常見分子，直接驗證化學式中的原子數與種類。'}},
+   'note':'拖曳氫、氧、碳、氮等原子把它們接在一起，做出水、二氧化碳、甲烷、氨等常見分子；做對了會顯示中文名稱與化學式，還能按「立體」看分子的實際形狀，直接驗證化學式裡每種原子各有幾個。'}},
  '八下1-1': {
   'videos': [
    {'title':'國二下1-2化學反應式-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=J_UYbRE22eo'},
@@ -191,7 +191,7 @@ EXTRAS = {
   ]},
  '九上2-3': {
   'videos': [
-   {'title':'國三上2-3牛頓第三運動定律-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=WTC387xlhxM'},
+   {'title':'國三上2-3 牛頓第三運動定律-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=WTC387xlhxM'},
   ]},
  '九下1-1': {
   'videos': [
@@ -215,11 +215,11 @@ EXTRAS = {
   ]},
  '九上4-3': {
   'phet': {'slug':'circuit-construction-kit-dc','locale':'zh_TW','title':'電路組裝套件：直流電',
-   'note':'拖曳電池、燈泡、電阻、電流錶、電壓錶自由組裝電路，即時看見電流方向與數值變化，親手驗證 V=IR。'},
+   'note':'從工具箱拖出電池、燈泡、電阻器、電線與開關接成一個電路，點任一元件就能調電壓或電阻；再拿電表量電流、電壓計量電壓，改一個值、量一次，親手驗證 V＝IR。'},
   'videos': [
    {'title':'【觀念】歐姆定律','source':'均一教育平台','url':'https://www.junyiacademy.org/junyi-science/middle-school-physics-chemistry/s4zdl-/v/6rO7UyYVuHw'},
-   {'title':'【觀念】電阻與歐姆定律〈素養動畫〉','source':'均一教育平台','url':'https://www.junyiacademy.org/junyi-science/science-juni/middle-school-physics-chemistry/s4zdl-/v/3PZJBgUGJxs'},
-   {'title':'令人討厭的歐姆的一生〈LIS科學史〉','source':'均一教育平台（LIS情境科學教材製作）','url':'https://www.junyiacademy.org/junyi-science/science-juni/middle-school-physics-chemistry/s4zdl-/v/UUBnXXMLnqg'},
+   {'title':'【觀念】電阻與歐姆定律＜素養動畫＞','source':'均一教育平台','url':'https://www.junyiacademy.org/junyi-science/science-juni/middle-school-physics-chemistry/s4zdl-/v/3PZJBgUGJxs'},
+   {'title':'【暖身】令人討厭的歐姆的一生＜LIS科學史＞','source':'均一教育平台（LIS情境科學教材製作）','url':'https://www.junyiacademy.org/junyi-science/science-juni/middle-school-physics-chemistry/s4zdl-/v/UUBnXXMLnqg'},
   ]},
 }
 
