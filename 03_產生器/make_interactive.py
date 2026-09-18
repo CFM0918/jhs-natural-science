@@ -116,10 +116,6 @@ EXTRAS = {
   'videos': [
    {'title':'國二上1-4密度-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=sPczbBdtQdI'},
   ]},
- '八上2-1': {
-  'videos': [
-   {'title':'國二上2-2物質-1','source':'國中理化自學','url':'https://www.youtube.com/watch?v=N4GbJfgj4fY'},
-  ]},
  '八上2-4': {
   'phet': {'slug':'concentration','locale':'zh_TW','title':'濃度',
    'note':'選好溶質（飲料粉、硫酸銅等）後搖罐子把它加進水裡，再用水龍頭加水、用排水口放水，或拉「蒸發」滑桿把水蒸乾，濃度計會即時顯示濃度，杯子的顏色也跟著變深或變淡。'},
@@ -222,6 +218,15 @@ EXTRAS = {
    {'title':'【暖身】令人討厭的歐姆的一生＜LIS科學史＞','source':'均一教育平台（LIS情境科學教材製作）','url':'https://www.junyiacademy.org/junyi-science/science-juni/middle-school-physics-chemistry/s4zdl-/v/UUBnXXMLnqg'},
   ]},
 }
+
+# 合併補充資源（extras_more.py：影片標題/頻道由 oembed 自動取得；PhET 說明依官方介面字串撰寫）
+from extras_more import MORE_VIDEOS, MORE_PHET
+for _c, _vs in MORE_VIDEOS.items():
+    _e = EXTRAS.setdefault(_c, {})
+    _have = {v['url'] for v in _e.get('videos', [])}
+    _e['videos'] = _e.get('videos', []) + [v for v in _vs if v['url'] not in _have]
+for _c, _p in MORE_PHET.items():
+    EXTRAS.setdefault(_c, {}).setdefault('phet', dict(_p, locale='zh_TW'))
 
 HUB_CSS = """
 :root{--board:#1a2e1a;--chalk:#f4f1e8;--yellow:#f0d878;--blue:#9fc8d8;--red:#e8a0a0;--green:#a8d0a0;--purple:#c4a8d8;}
