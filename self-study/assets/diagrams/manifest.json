@@ -1,0 +1,685 @@
+{
+  "renderer": "SVG.js 3.2.5 + D3 7.9.0",
+  "count": 97,
+  "figures": [
+    {
+      "page": "index.html",
+      "id": "measurement",
+      "title": "量筒讀數：視線對準凹液面",
+      "file": "assets/diagrams/index--measurement.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "index.html",
+      "id": "volume",
+      "title": "排水法：追蹤液面增加量",
+      "file": "assets/diagrams/index--volume.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "index.html",
+      "id": "density",
+      "title": "同體積比較質量，理解密度",
+      "file": "assets/diagrams/index--density.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "index.html",
+      "id": "calculation",
+      "title": "密度計算：先辨認已知量",
+      "file": "assets/diagrams/index--calculation.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "index.html",
+      "id": "graph",
+      "title": "質量—體積圖：斜率代表密度",
+      "file": "assets/diagrams/index--graph.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "index.html",
+      "id": "floating",
+      "title": "浮起、懸浮與下沉：比較密度",
+      "file": "assets/diagrams/index--floating.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "index.html",
+      "id": "experiment",
+      "title": "實驗誤差：從量測量追到計算值",
+      "file": "assets/diagrams/index--experiment.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter2.html",
+      "id": "properties",
+      "title": "辨認物理性質與化學性質",
+      "file": "assets/diagrams/chapter2--properties.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter2.html",
+      "id": "states",
+      "title": "三態粒子模型：排列與運動",
+      "file": "assets/diagrams/chapter2--states.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter2.html",
+      "id": "pure",
+      "title": "從粒子辨認元素、化合物、混合物",
+      "file": "assets/diagrams/chapter2--pure.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter2.html",
+      "id": "mixtures",
+      "title": "沸點資料：固定條件下比較曲線",
+      "file": "assets/diagrams/chapter2--mixtures.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter2.html",
+      "id": "separation",
+      "title": "過濾與蒸餾：收集目標不同",
+      "file": "assets/diagrams/chapter2--separation.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter2.html",
+      "id": "concentration",
+      "title": "重量百分濃度：找對分母",
+      "file": "assets/diagrams/chapter2--concentration.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter2.html",
+      "id": "ppm",
+      "title": "ppm：把微量濃度放大成好讀的單位",
+      "file": "assets/diagrams/chapter2--ppm.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter3.html",
+      "id": "wave-basics",
+      "title": "波形的讀法：振幅與波長",
+      "file": "assets/diagrams/chapter3--wave-basics.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter3.html",
+      "id": "wave-types",
+      "title": "橫波與縱波：比較兩種方向",
+      "file": "assets/diagrams/chapter3--wave-types.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter3.html",
+      "id": "sound-source",
+      "title": "聲音如何傳到耳朵",
+      "file": "assets/diagrams/chapter3--sound-source.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter3.html",
+      "id": "echo",
+      "title": "回聲：聲音走了兩趟",
+      "file": "assets/diagrams/chapter3--echo.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter3.html",
+      "id": "sound-qualities",
+      "title": "同一時間軸比較響度與音調",
+      "file": "assets/diagrams/chapter3--sound-qualities.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter3.html",
+      "id": "instruments",
+      "title": "樂器音調的控制條件",
+      "file": "assets/diagrams/chapter3--instruments.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter3.html",
+      "id": "applications",
+      "title": "聲納測深：依時間推回距離",
+      "file": "assets/diagrams/chapter3--applications.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter4.html",
+      "id": "straight-light",
+      "title": "針孔成像：追蹤光路的上下對調",
+      "file": "assets/diagrams/chapter4--straight-light.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter4.html",
+      "id": "reflection",
+      "title": "反射定律：兩角都相對法線",
+      "file": "assets/diagrams/chapter4--reflection.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter4.html",
+      "id": "mirrors",
+      "title": "三種鏡面：像與用途的關係",
+      "file": "assets/diagrams/chapter4--mirrors.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter4.html",
+      "id": "refraction",
+      "title": "折射：看介質、法線與方向",
+      "file": "assets/diagrams/chapter4--refraction.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter4.html",
+      "id": "lenses",
+      "title": "凸透鏡成像：由主光線找到像",
+      "file": "assets/diagrams/chapter4--lenses.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter4.html",
+      "id": "color",
+      "title": "色散：各色光的偏折不同",
+      "file": "assets/diagrams/chapter4--color.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter4.html",
+      "id": "vision",
+      "title": "正常眼、近視與遠視的焦點位置",
+      "file": "assets/diagrams/chapter4--vision.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter5.html",
+      "id": "temperature",
+      "title": "熱傳方向與熱平衡",
+      "file": "assets/diagrams/chapter5--temperature.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter5.html",
+      "id": "thermometer",
+      "title": "液體溫度計：液柱與刻度",
+      "file": "assets/diagrams/chapter5--thermometer.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter5.html",
+      "id": "expansion",
+      "title": "熱脹冷縮：從粒子到工程",
+      "file": "assets/diagrams/chapter5--expansion.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter5.html",
+      "id": "heat-capacity",
+      "title": "相同熱量下，比熱越大溫升越小",
+      "file": "assets/diagrams/chapter5--heat-capacity.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter5.html",
+      "id": "transfer",
+      "title": "傳導、對流與輻射的差別",
+      "file": "assets/diagrams/chapter5--transfer.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter5.html",
+      "id": "phase-change",
+      "title": "物態變化：粒子排列改變",
+      "file": "assets/diagrams/chapter5--phase-change.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "chapter5.html",
+      "id": "heating-curve",
+      "title": "加熱曲線：升溫段與平台段",
+      "file": "assets/diagrams/chapter5--heating-curve.svg",
+      "kind": "chart"
+    },
+    {
+      "page": "g8a-6.html",
+      "id": "atom-model",
+      "title": "原子結構示意",
+      "file": "assets/diagrams/g8a-6--atom-model.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8a-6.html",
+      "id": "periodic-table",
+      "title": "由週期與族找關係",
+      "file": "assets/diagrams/g8a-6--periodic-table.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8a-6.html",
+      "id": "element-diversity",
+      "title": "三種組成的判斷",
+      "file": "assets/diagrams/g8a-6--element-diversity.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8a-6.html",
+      "id": "compound-formation",
+      "title": "化學式與原子計數：一份與多份",
+      "file": "assets/diagrams/g8a-6--compound-formation.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-1.html",
+      "id": "reaction-formula",
+      "title": "水生成反應的原子收支",
+      "file": "assets/diagrams/g8b-1--reaction-formula.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-1.html",
+      "id": "mass-conservation",
+      "title": "相同產氣反應，不同秤量結果",
+      "file": "assets/diagrams/g8b-1--mass-conservation.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-1.html",
+      "id": "mole-mass",
+      "title": "質量、莫耳與粒子數的換算",
+      "file": "assets/diagrams/g8b-1--mole-mass.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-1.html",
+      "id": "reaction-energy",
+      "title": "無外部加熱的保溫杯觀察",
+      "file": "assets/diagrams/g8b-1--reaction-energy.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-2.html",
+      "id": "oxidation",
+      "title": "鐵釘鏽蝕的對照設計",
+      "file": "assets/diagrams/g8b-2--oxidation.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-2.html",
+      "id": "reduction",
+      "title": "氧化銅把氧交給碳",
+      "file": "assets/diagrams/g8b-2--reduction.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-2.html",
+      "id": "redox-life",
+      "title": "防鏽方式的條件",
+      "file": "assets/diagrams/g8b-2--redox-life.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-3.html",
+      "id": "electrolytes",
+      "title": "固態鹽與鹽水中的離子",
+      "file": "assets/diagrams/g8b-3--electrolytes.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-3.html",
+      "id": "acids-bases",
+      "title": "25°C下的酸鹼判讀",
+      "file": "assets/diagrams/g8b-3--acids-bases.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-3.html",
+      "id": "neutralization-salts",
+      "title": "HCl與NaOH中和的判斷",
+      "file": "assets/diagrams/g8b-3--neutralization-salts.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-4.html",
+      "id": "reaction-rate",
+      "title": "氣體累積量與時間",
+      "file": "assets/diagrams/g8b-4--reaction-rate.svg",
+      "kind": "chart"
+    },
+    {
+      "page": "g8b-4.html",
+      "id": "rate-factors",
+      "title": "四組速率實驗的控制變因",
+      "file": "assets/diagrams/g8b-4--rate-factors.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-4.html",
+      "id": "equilibrium",
+      "title": "從開始到動態平衡",
+      "file": "assets/diagrams/g8b-4--equilibrium.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-5.html",
+      "id": "organic-basics",
+      "title": "以丁烷為例：碳形成四個鍵",
+      "file": "assets/diagrams/g8b-5--organic-basics.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-5.html",
+      "id": "common-organics",
+      "title": "常見有機物的組成與用途",
+      "file": "assets/diagrams/g8b-5--common-organics.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-5.html",
+      "id": "organics-life",
+      "title": "材料生命週期的提問",
+      "file": "assets/diagrams/g8b-5--organics-life.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-6.html",
+      "id": "force-description",
+      "title": "木箱受到相反方向的水平力",
+      "file": "assets/diagrams/g8b-6--force-description.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-6.html",
+      "id": "common-forces",
+      "title": "同一彈簧在彈性範圍內的校正資料",
+      "file": "assets/diagrams/g8b-6--common-forces.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-6.html",
+      "id": "pressure-area",
+      "title": "同一塊磚以不同面放置",
+      "file": "assets/diagrams/g8b-6--pressure-area.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g8b-6.html",
+      "id": "liquids-buoyancy",
+      "title": "同一金屬塊逐漸浸入水中，物重 5 N",
+      "file": "assets/diagrams/g8b-6--liquids-buoyancy.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-1.html",
+      "id": "position-displacement",
+      "title": "向東後向西的路程與位移",
+      "file": "assets/diagrams/g9a-1--position-displacement.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-1.html",
+      "id": "speed-velocity",
+      "title": "小車每隔 2 秒的位置紀錄",
+      "file": "assets/diagrams/g9a-1--speed-velocity.svg",
+      "kind": "chart"
+    },
+    {
+      "page": "g9a-1.html",
+      "id": "acceleration",
+      "title": "從靜止開始的等加速度小車",
+      "file": "assets/diagrams/g9a-1--acceleration.svg",
+      "kind": "chart"
+    },
+    {
+      "page": "g9a-2.html",
+      "id": "inertia",
+      "title": "合力為零的兩種情形",
+      "file": "assets/diagrams/g9a-2--inertia.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-2.html",
+      "id": "second-law",
+      "title": "先求合力，再求加速度",
+      "file": "assets/diagrams/g9a-2--second-law.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-2.html",
+      "id": "third-law",
+      "title": "書、桌與地球的交互作用",
+      "file": "assets/diagrams/g9a-2--third-law.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-2.html",
+      "id": "gravity",
+      "title": "同一個 5 kg 物體搬到不同環境",
+      "file": "assets/diagrams/g9a-2--gravity.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-3.html",
+      "id": "work-power",
+      "title": "同一重力在不同位移下的功",
+      "file": "assets/diagrams/g9a-3--work-power.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-3.html",
+      "id": "mechanical-energy",
+      "title": "同一個 2 kg 物體的動能",
+      "file": "assets/diagrams/g9a-3--mechanical-energy.svg",
+      "kind": "chart"
+    },
+    {
+      "page": "g9a-3.html",
+      "id": "energy-conservation",
+      "title": "無摩擦滑道中的能量轉換",
+      "file": "assets/diagrams/g9a-3--energy-conservation.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-3.html",
+      "id": "simple-machines",
+      "title": "理想滑輪提升 100 N 重物 1 m",
+      "file": "assets/diagrams/g9a-3--simple-machines.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-3.html",
+      "id": "energy-technology",
+      "title": "兩部裝置輸入相同能量時的用途分配",
+      "file": "assets/diagrams/g9a-3--energy-technology.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-4.html",
+      "id": "electrostatics",
+      "title": "靜電證據能判斷到哪裡",
+      "file": "assets/diagrams/g9a-4--electrostatics.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-4.html",
+      "id": "current-circuit",
+      "title": "穩定電流 0.2 A 通過同一截面",
+      "file": "assets/diagrams/g9a-4--current-circuit.svg",
+      "kind": "chart"
+    },
+    {
+      "page": "g9a-4.html",
+      "id": "voltage-resistance",
+      "title": "固定溫度電阻的量測",
+      "file": "assets/diagrams/g9a-4--voltage-resistance.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-4.html",
+      "id": "series-parallel",
+      "title": "兩電阻並聯在同一對節點",
+      "file": "assets/diagrams/g9a-4--series-parallel.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-1.html",
+      "id": "chemical-effect",
+      "title": "電解槽中的離子與電子路徑",
+      "file": "assets/diagrams/g9b-1--chemical-effect.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-1.html",
+      "id": "heating-effect",
+      "title": "常見電器用電估算",
+      "file": "assets/diagrams/g9b-1--heating-effect.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-1.html",
+      "id": "household-safety",
+      "title": "家用保護裝置的工作",
+      "file": "assets/diagrams/g9b-1--household-safety.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-5.html",
+      "id": "earth-water",
+      "title": "水循環：能量與移動路徑",
+      "file": "assets/diagrams/g9a-5--earth-water.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-5.html",
+      "id": "crust-materials",
+      "title": "三種岩石由形成過程分類",
+      "file": "assets/diagrams/g9a-5--crust-materials.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-5.html",
+      "id": "surface-change",
+      "title": "流水模型的模擬觀察",
+      "file": "assets/diagrams/g9a-5--surface-change.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-6.html",
+      "id": "earth-interior",
+      "title": "聚合邊界：海洋板塊隱沒示意",
+      "file": "assets/diagrams/g9a-6--earth-interior.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-6.html",
+      "id": "earthquake-volcano",
+      "title": "同一地震的教學模擬記錄",
+      "file": "assets/diagrams/g9a-6--earthquake-volcano.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-6.html",
+      "id": "geologic-history",
+      "title": "地層事件：先沉積，再斷裂，後覆蓋",
+      "file": "assets/diagrams/g9a-6--geologic-history.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-7.html",
+      "id": "earth-motion",
+      "title": "地軸傾斜如何造成四季",
+      "file": "assets/diagrams/g9a-7--earth-motion.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-7.html",
+      "id": "moon-tides",
+      "title": "日地月俯視幾何與四種月相",
+      "file": "assets/diagrams/g9a-7--moon-tides.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9a-7.html",
+      "id": "solar-system",
+      "title": "幾種天文名詞的不同角色",
+      "file": "assets/diagrams/g9a-7--solar-system.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-2.html",
+      "id": "magnetic-field",
+      "title": "條形磁鐵外部的磁場方向",
+      "file": "assets/diagrams/g9b-2--magnetic-field.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-2.html",
+      "id": "current-field",
+      "title": "電磁鐵模擬對照：其他條件固定",
+      "file": "assets/diagrams/g9b-2--current-field.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-2.html",
+      "id": "magnetic-force",
+      "title": "以固定基準追蹤受力",
+      "file": "assets/diagrams/g9b-2--magnetic-force.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-2.html",
+      "id": "induction",
+      "title": "磁鐵、線圈與感應電流",
+      "file": "assets/diagrams/g9b-2--induction.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-3.html",
+      "id": "atmosphere",
+      "title": "北半球近地面低壓：旋轉並輻合",
+      "file": "assets/diagrams/g9b-3--atmosphere.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-3.html",
+      "id": "atmospheric-water",
+      "title": "實際水氣量與飽和容量",
+      "file": "assets/diagrams/g9b-3--atmospheric-water.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-3.html",
+      "id": "taiwan-weather",
+      "title": "暖濕氣流遇山形成地形雨",
+      "file": "assets/diagrams/g9b-3--taiwan-weather.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-4.html",
+      "id": "climate-change",
+      "title": "地球能量收支與增強溫室效應",
+      "file": "assets/diagrams/g9b-4--climate-change.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-4.html",
+      "id": "ocean-motion",
+      "title": "海岸附近三種海水運動",
+      "file": "assets/diagrams/g9b-4--ocean-motion.svg",
+      "kind": "diagram"
+    },
+    {
+      "page": "g9b-4.html",
+      "id": "sustainability",
+      "title": "永續方案的證據循環",
+      "file": "assets/diagrams/g9b-4--sustainability.svg",
+      "kind": "diagram"
+    }
+  ]
+}
