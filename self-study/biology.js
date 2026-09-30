@@ -86,6 +86,7 @@
   const figureDialog = document.getElementById('bioFigureDialog');
   const figureCanvas = document.getElementById('bioFigureDialogCanvas');
   const figureTitle = document.getElementById('bioFigureDialogTitle');
+  const figureGuide = document.querySelector('#bioFigureDialogGuide p');
   const figureCaption = document.getElementById('bioFigureDialogCaption');
   document.querySelectorAll('[data-bio-expand]').forEach(button => button.addEventListener('click', () => {
     const figure = button.closest('.bio-diagram');
@@ -93,6 +94,7 @@
     if (!figureDialog || !figureCanvas || !svg) return;
     figureCanvas.replaceChildren(svg.cloneNode(true));
     figureTitle.textContent = figure.querySelector('h3')?.textContent || '查看完整圖面';
+    if (figureGuide) figureGuide.textContent = figure.querySelector('.bio-diagram-reading p')?.textContent || '';
     figureCaption.textContent = figure.querySelector('figcaption')?.textContent || '';
     if (typeof figureDialog.showModal === 'function') figureDialog.showModal();
     else figureDialog.setAttribute('open', '');

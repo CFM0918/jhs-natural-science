@@ -39,4 +39,16 @@
 @media(prefers-reduced-motion:reduce){.bio-diagram-expand{transition:none}.bio-diagram-expand:hover{transform:none}}
 @media print{.bio-diagram-grid{grid-template-columns:minmax(0,1fr)}.bio-diagram{width:100%;box-shadow:none}.bio-diagram-expand,.bio-diagram-hint,.bio-figure-dialog{display:none!important}.bio-svg-wrap{justify-content:center}.bio-svg-wrap svg{width:min(100%,760px);min-width:0}}
 @media(max-width:720px){.bio-svg-wrap{overflow:hidden}.bio-svg-wrap svg{width:100%;min-width:0}.bio-figure-dialog{flex-direction:column;width:100vw;height:100dvh;max-width:none;max-height:100dvh;margin:0;padding:14px;border-radius:0}.bio-figure-dialog:open{display:flex}.bio-figure-dialog-canvas{flex:1;min-height:0;max-height:none}.bio-figure-dialog-canvas svg{width:760px;min-width:760px}}
+.bio-svg-wrap>svg *{stroke-linecap:round;stroke-linejoin:round}
+.bio-diagram-reading{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:start;gap:11px;margin:13px 0 0;padding:13px 15px;border:1px solid #eadcae;border-left:4px solid #bd8b22;border-radius:12px;background:#fff9e4;color:#344336}
+.bio-diagram-reading-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#f1e2b2;color:#69541f}
+.bio-diagram-reading-mark svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bio-diagram-reading strong{display:block;margin:0 0 3px;color:#684e11;font-size:13px;letter-spacing:.04em}
+.bio-diagram-reading p{margin:0;color:#344336;font-size:15px;line-height:1.7}
+.bio-diagram figcaption{margin-top:11px}
+@media(max-width:720px){.bio-diagram-reading{grid-template-columns:34px minmax(0,1fr);gap:9px;padding:11px 12px}.bio-diagram-reading-mark{width:32px;height:32px}.bio-diagram-reading-mark svg{width:18px;height:18px}.bio-diagram-reading p{font-size:14px;line-height:1.65}}
+.bio-figure-dialog-guide{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;align-items:start;margin:0 0 12px;padding:10px 13px;border-left:4px solid #bd8b22;border-radius:9px;background:#fff9e4;color:#344336}
+.bio-figure-dialog-guide strong{color:#684e11;font-size:13px;white-space:nowrap}
+.bio-figure-dialog-guide p{margin:0;font-size:14px;line-height:1.6}
+@media(max-width:720px){.bio-figure-dialog-guide{grid-template-columns:1fr;gap:2px;padding:9px 11px}.bio-figure-dialog-guide p{font-size:13px;line-height:1.5}}
 
