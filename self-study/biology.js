@@ -82,5 +82,21 @@
     });
     game.querySelector('.bio-game-score').textContent = '目前答對 0 題';
   }));
+
+  const figureDialog = document.getElementById('bioFigureDialog');
+  const figureCanvas = document.getElementById('bioFigureDialogCanvas');
+  const figureTitle = document.getElementById('bioFigureDialogTitle');
+  const figureCaption = document.getElementById('bioFigureDialogCaption');
+  document.querySelectorAll('[data-bio-expand]').forEach(button => button.addEventListener('click', () => {
+    const figure = button.closest('.bio-diagram');
+    const svg = figure?.querySelector('.bio-svg-wrap > svg');
+    if (!figureDialog || !figureCanvas || !svg) return;
+    figureCanvas.replaceChildren(svg.cloneNode(true));
+    figureTitle.textContent = figure.querySelector('h3')?.textContent || '查看完整圖面';
+    figureCaption.textContent = figure.querySelector('figcaption')?.textContent || '';
+    if (typeof figureDialog.showModal === 'function') figureDialog.showModal();
+    else figureDialog.setAttribute('open', '');
+    figureCanvas.focus({preventScroll: true});
+  }));
 })();
 

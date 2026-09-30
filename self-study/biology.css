@@ -6,3 +6,37 @@
 @media print{.biology-page .sidebar,.biology-page .topbar,.bio-jump,.bio-options,.bio-game-reset{display:none!important}.biology-page .bio-layout{display:block}.bio-diagram-grid{grid-template-columns:1fr 1fr}.bio-chapter-hero{background:white;color:#0f172a;box-shadow:none}.bio-chapter-hero *{color:#0f172a!important}.bio-svg-wrap{overflow:visible}.bio-svg-wrap svg{min-width:0}}
 .bio-complete-btn{display:inline-flex;align-items:center;min-height:44px;margin-top:12px;padding:8px 13px;border:1px solid #398054;border-radius:9px;background:#fff;color:#25613c;font:inherit;font-weight:750;cursor:pointer}.bio-complete-btn[aria-pressed=true]{background:#e0f2e5}
 
+/* Figure system: give each original diagram enough room, then offer a keyboard-accessible viewer on narrow screens. */
+.bio-diagram-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+.bio-diagram{width:min(100%,1040px);margin-inline:auto;padding:clamp(16px,2.5vw,24px);border-color:#cbdad0;background:#fff;box-shadow:0 10px 26px #173b2a0b}
+.bio-diagram-title{justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
+.bio-diagram-heading{display:grid;grid-template-columns:auto auto;align-items:center;gap:7px 9px;min-width:0}
+.bio-diagram-number,.bio-diagram-type{display:inline-flex;align-items:center;min-height:25px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:850;letter-spacing:.035em}
+.bio-diagram-number{background:#173f39;color:#fff}
+.bio-diagram-type{background:#e7f3eb;color:#1d6245}
+.bio-diagram-title h3{grid-column:1/-1;margin:2px 0 0;color:#183e35;font-size:clamp(20px,2.4vw,25px);line-height:1.4}
+.bio-diagram-expand{display:inline-flex;flex:none;align-items:center;justify-content:center;gap:7px;min-width:44px;min-height:44px;padding:8px 12px;border:1px solid #8fb09a;border-radius:11px;background:#fff;color:#174b37;font:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,transform .18s ease}
+.bio-diagram-expand:hover{border-color:#357a55;background:#edf8f0;transform:translateY(-1px)}
+.bio-diagram-expand:focus-visible,.bio-figure-dialog-close:focus-visible{outline:3px solid #b45309;outline-offset:3px}
+.bio-diagram-expand svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bio-svg-wrap{display:flex;justify-content:center;border:1px solid #e1e9e3;background:#fff;scrollbar-color:#61866c #edf3ee}
+.bio-svg-wrap:focus-visible,.bio-figure-dialog-canvas:focus-visible{outline:3px solid #b45309;outline-offset:2px}
+.bio-svg-wrap svg{width:min(100%,760px);min-width:590px;margin-inline:auto;background:#fff}
+.bio-svg-wrap svg text{font-family:"Noto Sans TC","Microsoft JhengHei","Noto Sans CJK TC",sans-serif;text-rendering:geometricPrecision}
+.bio-diagram-hint{display:none}
+.bio-diagram figcaption{margin-top:14px;padding-top:12px;border-top:1px solid #e4ebe5;color:#34483b;font-size:15px;line-height:1.75}
+.bio-figure-dialog{width:min(1040px,calc(100vw - 28px));max-width:none;max-height:calc(100dvh - 28px);padding:18px;border:1px solid #cddbd0;border-radius:18px;background:#f7faf7;color:#25364a;box-shadow:0 24px 80px #061c1690;overflow:hidden}
+.bio-figure-dialog::backdrop{background:#081b18c9;backdrop-filter:blur(3px)}
+.bio-figure-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:13px}
+.bio-figure-dialog-head p{margin:0;color:#337351;font-size:13px;font-weight:850;letter-spacing:.06em}
+.bio-figure-dialog-head h2{margin:3px 0 0;color:#173c33;font-size:clamp(20px,3vw,26px);line-height:1.4}
+.bio-figure-dialog-head form{margin:0}
+.bio-figure-dialog-close{min-width:70px;min-height:44px;padding:8px 12px;border:1px solid #8ba897;border-radius:10px;background:#fff;color:#214a36;font:inherit;font-weight:800;cursor:pointer}
+.bio-figure-dialog-canvas{max-height:calc(100dvh - 158px);overflow:auto;border:1px solid #d6e1d8;border-radius:12px;background:#fff;overscroll-behavior:contain;scrollbar-color:#61866c #edf3ee}
+.bio-figure-dialog-canvas svg{display:block;width:760px;min-width:760px;max-width:none;height:auto;margin:auto}
+.bio-figure-dialog-caption{margin:11px 2px 0;color:#34483b;font-size:14px;line-height:1.7}
+@media(max-width:720px){.bio-diagram{padding:13px}.bio-diagram-title{align-items:flex-start;gap:8px}.bio-diagram-heading{gap:6px}.bio-diagram-number,.bio-diagram-type{min-height:24px;padding:3px 8px;font-size:11px}.bio-diagram-title h3{font-size:18px}.bio-diagram-expand{min-width:44px;min-height:44px;padding:8px;color:#174b37}.bio-diagram-expand span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.bio-svg-wrap{justify-content:flex-start;border-radius:11px}.bio-svg-wrap svg{width:760px;min-width:590px;margin-inline:0}.bio-diagram-hint{display:flex;align-items:center;gap:8px;margin:9px 2px 0;color:#245b3e;font-size:13px;font-weight:750}.bio-diagram figcaption{font-size:14px}.bio-figure-dialog{width:calc(100vw - 12px);max-height:calc(100dvh - 12px);padding:12px;border-radius:15px}.bio-figure-dialog-canvas{max-height:calc(100dvh - 142px)}.bio-figure-dialog-canvas svg{margin:0}}
+@media(prefers-reduced-motion:reduce){.bio-diagram-expand{transition:none}.bio-diagram-expand:hover{transform:none}}
+@media print{.bio-diagram-grid{grid-template-columns:minmax(0,1fr)}.bio-diagram{width:100%;box-shadow:none}.bio-diagram-expand,.bio-diagram-hint,.bio-figure-dialog{display:none!important}.bio-svg-wrap{justify-content:center}.bio-svg-wrap svg{width:min(100%,760px);min-width:0}}
+@media(max-width:720px){.bio-svg-wrap{overflow:hidden}.bio-svg-wrap svg{width:100%;min-width:0}.bio-figure-dialog{flex-direction:column;width:100vw;height:100dvh;max-width:none;max-height:100dvh;margin:0;padding:14px;border-radius:0}.bio-figure-dialog:open{display:flex}.bio-figure-dialog-canvas{flex:1;min-height:0;max-height:none}.bio-figure-dialog-canvas svg{width:760px;min-width:760px}}
+
